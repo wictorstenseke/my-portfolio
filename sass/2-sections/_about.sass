@@ -1,10 +1,12 @@
 .avatar
+  width: 200px
   border-radius: 100%
   padding: 30px
-  margin: 0 auto
+  margin: 65px auto 10px auto
   display: block
 
 .biography
+  color: $lighter-text-primary
   padding-left: 10px
   padding-right: 10px
   max-width: 600px
@@ -13,13 +15,20 @@
 
 .social-icons
   text-align: center
-  .linkedin-icon
+  margin: 5px 0
+a
+  text-decoration: none
+  .social-icon
     height: 50px
     width: auto
+    margin: 20px 15px 5px 15px
     .linkedin-icon-color
       fill: #0077B7
-      /* &:hover
-        fill: darken(#0077b7, 6%) */
+    .github-icon-color
+      fill: #0E2635
   .linkedin-icon:hover
     .linkedin-icon-color
-      fill: darken(#0077b7, 6%)
+      fill: darken(#0077b7, 8%)
+  .github-icon:hover
+    .github-icon-color
+      fill: lighten(#0E2635, 15%)
