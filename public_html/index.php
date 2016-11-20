@@ -13,17 +13,19 @@
 <body>
 
   <section class="header">
-    <div class="hero-image">
-      <div class="logo">
-        <p>Wictor</p>
-        <p>Stenseke</p>
-      </div>
-      <div class="pure-g">
-        <div class="pure-u-md-1-2 pure-u-1">
-          <h1>UX Design | Service Design</h1>
+    <div class="header-wrapper">
+      <div class="hero-image">
+        <div class="logo">
+          <p>Wictor</p>
+          <p>Stenseke</p>
         </div>
+        <div class="pure-g">
+          <div class="pure-u-md-1 pure-u-1">
+            <h1>UX Design | Service Design</h1>
+          </div>
+        </div>
+        <i class="fa fa-angle-down fa-3x" aria-hidden="true"></i>
       </div>
-      <i class="fa fa-angle-down fa-3x" aria-hidden="true"></i>
     </div>
   </section>
 
@@ -110,10 +112,9 @@
           <i class="fa fa-github fa-3x" aria-hidden="true"></i>
         </a>
       </div>
+      <div class="hr"></div>
     </div>
   </section>
-
-  <div class="hr"></div>
 
 </body>
 </html>

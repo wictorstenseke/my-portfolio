@@ -1192,6 +1192,9 @@ body {
   font-family: "Lato", Arial, sans-serif;
   font-size: 20px; }
 
+.pure-g > div {
+  box-sizing: border-box; }
+
 h1, h2, h3 {
   color: #757575;
   font-weight: 300;
@@ -1211,31 +1214,32 @@ img {
   margin: 0 auto; }
 
 .hr {
-  margin: 25px auto;
+  margin: 35px auto;
   height: 2px;
-  width: 250px;
+  width: 300px;
   background-color: #ed7932; }
 
-.header {
-  position: relative; }
-  .header .hero-image {
-    background: -webkit-linear-gradient(top, rgba(44, 61, 105, 0.6) 0%, rgba(0, 0, 0, 0.6) 100%), url("../img/forest-drone-photo.jpg");
-    background: linear-gradient(-180deg, rgba(44, 61, 105, 0.6) 0%, rgba(0, 0, 0, 0.6) 100%), url("../img/forest-drone-photo.jpg");
+.header-wrapper {
+  max-width: 2560px;
+  margin: 0 auto; }
+  .header-wrapper .hero-image {
+    position: relative;
+    background-image: -webkit-linear-gradient(top, rgba(44, 61, 105, 0.7) 0%, rgba(0, 0, 0, 0.7) 100%), url("../img/forest-drone-photo.jpg");
+    background-image: linear-gradient(-180deg, rgba(44, 61, 105, 0.7) 0%, rgba(0, 0, 0, 0.7) 100%), url("../img/forest-drone-photo.jpg");
     background-size: cover;
     background-position: center center;
     height: 100vh; }
-    .header .hero-image .logo {
+    .header-wrapper .hero-image .logo {
       padding-top: 25px;
       padding-left: 35px; }
-    .header .hero-image p {
+    .header-wrapper .hero-image p {
       color: #ffffff;
       font-size: 28px;
       font-weight: 900;
-      margin: -2px; }
-    .header .hero-image h1 {
+      margin: -2px 0; }
+    .header-wrapper .hero-image h1 {
       text-align: center;
       color: #ffffff;
-      width: 90%;
       font-size: 48px;
       font-weight: 900;
       text-transform: uppercase;
@@ -1245,23 +1249,27 @@ img {
       left: 50%;
       -webkit-transform: translate(-50%, -50%);
               transform: translate(-50%, -50%); }
-  .header i {
+  .header-wrapper i {
     position: absolute;
-    bottom: 5vh;
+    bottom: 7vh;
     left: 50%;
     -webkit-transform: translate(-50%);
             transform: translate(-50%);
     color: rgba(255, 255, 255, 0.3); }
 
+.about {
+  background-color: #f3f3f3; }
+
 .about-wrapper {
   max-width: 800px;
-  margin: 0 auto; }
+  margin: 0 auto;
+  padding-top: 80px;
+  padding-bottom: 40px; }
 
 .avatar {
   width: 200px;
-  border-radius: 100%;
-  padding: 30px;
-  margin: 65px auto 10px auto;
+  border-radius: 50%;
+  margin: 0px auto 40px auto;
   display: block; }
 
 .biography {

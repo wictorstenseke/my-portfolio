@@ -1,7 +1,9 @@
-.header
-  position: relative
+.header-wrapper
+  max-width: 2560px
+  margin: 0 auto
   .hero-image
-    background: linear-gradient(-180deg, rgba(44,61,105,0.60) 0%, rgba(0,0,0,0.60) 100%) , url("../img/forest-drone-photo.jpg")
+    position: relative
+    background-image: linear-gradient(-180deg, rgba(44,61,105,0.70) 0%, rgba(0,0,0,0.70) 100%) , url("../img/forest-drone-photo.jpg")
     background-size: cover
     background-position: center center
     height: 100vh
@@ -12,11 +14,10 @@
       color: $white
       font-size: 28px
       font-weight: 900
-      margin: -2px
+      margin: -2px 0
     h1
       text-align: center
       color: $white
-      width: 90%
       font-size: 48px
       font-weight: 900
       text-transform: uppercase
@@ -27,7 +28,7 @@
       transform: translate(-50%, -50%)
   i
     position: absolute
-    bottom: 5vh
+    bottom: 7vh
     left: 50%
     transform: translate(-50%)
     color: rgba($white, .3)
