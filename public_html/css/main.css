@@ -1202,10 +1202,9 @@ p {
   line-height: 26px;
   font-weight: 300; }
 
-img {
-  max-width: 100%;
-  height: auto; }
-
+/* img
+ * max-width: 100%
+ * height: auto */
 .section-wrapper {
   max-width: 1200px;
   margin: 0 auto; }
@@ -1253,6 +1252,10 @@ img {
             transform: translate(-50%);
     color: rgba(255, 255, 255, 0.3); }
 
+.about-wrapper {
+  max-width: 800px;
+  margin: 0 auto; }
+
 .avatar {
   width: 200px;
   border-radius: 100%;
@@ -1265,7 +1268,7 @@ img {
   padding-left: 10px;
   padding-right: 10px;
   max-width: 600px;
-  font-family: "Crimson Text", Times New Roman, serif;
+  font-family: "Crimson Text", Georgia, Times New Roman, serif;
   margin: 0 auto 12px auto; }
 
 .social-icons {
@@ -1273,11 +1276,11 @@ img {
   margin: 5px 0; }
 
 a {
-  text-decoration: none; }
+  text-decoration: none;
+  display: inline-block; }
   a .social-icon {
     height: 50px;
-    width: auto;
-    margin: 20px 15px 5px 15px; }
+    width: auto; }
     a .social-icon .linkedin-icon-color {
       fill: #0077B7; }
     a .social-icon .github-icon-color {
