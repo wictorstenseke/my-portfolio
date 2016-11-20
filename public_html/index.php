@@ -24,12 +24,12 @@
             <h1>UX Design | Service Design</h1>
           </div>
         </div>
-        <i class="fa fa-angle-down fa-3x" aria-hidden="true"></i>
+        <a href="#portfolio"><i class="fa fa-angle-down fa-3x" aria-hidden="true"></i></a>
       </div>
     </div>
   </section>
 
-  <section class="portfolio">
+  <section id="portfolio" class="portfolio">
     <div class="portfolio-wrapper">
 
       <div class="pure-g">
