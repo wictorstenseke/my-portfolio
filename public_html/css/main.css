@@ -1202,9 +1202,10 @@ p {
   line-height: 26px;
   font-weight: 300; }
 
-/* img
- * max-width: 100%
- * height: auto */
+img {
+  max-width: 100%;
+  height: auto; }
+
 .section-wrapper {
   max-width: 1200px;
   margin: 0 auto; }
@@ -1272,24 +1273,43 @@ p {
   margin: 0 auto 12px auto; }
 
 .social-icons {
+  padding: 10px;
   text-align: center;
-  margin: 5px 0; }
+  margin: 0 auto; }
 
-a {
-  text-decoration: none;
-  display: inline-block; }
-  a .social-icon {
-    height: 50px;
-    width: auto; }
-    a .social-icon .linkedin-icon-color {
-      fill: #0077B7; }
-    a .social-icon .github-icon-color {
-      fill: #0E2635; }
-  a .linkedin-icon:hover .linkedin-icon-color {
-    fill: #005c8e; }
-  a .github-icon:hover .github-icon-color {
-    fill: #1e5172; }
+.social-icon {
+  display: inline-block;
+  padding: 10px;
+  text-decoration: none; }
 
+.linkedin {
+  margin-right: 5px;
+  color: #0077B7; }
+  .linkedin:hover {
+    color: #005c8e; }
+
+.github {
+  margin-left: 5px;
+  color: #333; }
+  .github:hover {
+    color: #4078C0; }
+
+/* a
+ * text-decoration: none
+ * display: inline-block
+ * .social-icon
+ *   height: 50px
+ *   width: auto
+ *   .linkedin-icon-color
+ *     fill: #0077B7
+ *   .github-icon-color
+ *     fill: #0E2635
+ * .linkedin-icon:hover
+ *   .linkedin-icon-color
+ *     fill: darken(#0077b7, 8%)
+ * .github-icon:hover
+ *   .github-icon-color
+ *     fill: lighten(#0E2635, 15%) */
 .portfolio-wrapper {
   max-width: 1680px;
   margin: 0 auto; }
