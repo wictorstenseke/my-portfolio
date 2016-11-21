@@ -1314,7 +1314,8 @@ img {
   width: 180px;
   border-radius: 50%;
   margin: 0px auto 40px auto;
-  display: block; }
+  display: block;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3); }
 
 .biography {
   color: #757575;
@@ -1337,16 +1338,16 @@ img {
 .linkedin {
   margin-right: 5px;
   color: #0077B7;
-  -webkit-transition: all .1s ease-out;
-  transition: all .1s ease-out; }
+  -webkit-transition: all 0.1s ease-out;
+  transition: all 0.1s ease-out; }
   .linkedin:hover {
     color: #005c8e; }
 
 .github {
   margin-left: 5px;
   color: #333;
-  -webkit-transition: all .2s ease-out;
-  transition: all .2s ease-out; }
+  -webkit-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out; }
   .github:hover {
     color: #4078C0; }
 

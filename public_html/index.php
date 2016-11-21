@@ -35,8 +35,8 @@
         <div class="pure-u-md-1-2 pure-u-1 project-info">
           <div class="info-content">
             <h2 class="text-center zoom-hogelid">Bokningssystem</h2>
-            <p>En hemsida för att boka tennisbanan på Högelids Tennisklubb. Ett ideellt arbete efter önskemål från medlemmar som inte visste om banan var bokad eller inte när de kom fram.</p>
-            <p>Jag har gjort front-end och skisser på själva idéen. Implementering på servern stod jag för även om jag fått hjälp med back-end.</p>
+            <p>En hemsida för att boka tennisbanan på Högelids Tennisklubb. Ett ideellt arbete efter önskemål från medlemmar med längre resväg. Hemsidan möjliggör att medlemmar kan se bokade tider och boka lediga tider.</p>
+            <p>Jag har skissat, designat prototyper, kodat front-end och implementerat på webbserver.</p>
             <div class="skill-tags">
               <span class="skill-tag first">Sketch</span>
               <span class="skill-tag first">Invisionapp</span>
@@ -50,7 +50,7 @@
           </div>
         </div>
         <div class="pure-u-md-1-2 pure-u-1 project-image hogelid-image">
-          <img class="zoom-hogelid" src="img/hogelid3.png" alt="Bild på webbplats för bokning på Högelids Tennisklubb.">
+          <img class="zoom-hogelid" src="img/hogelid3.png" alt="Bild på webbplats för bokning av tennisbana på Högelids Tennisklubb.">
         </div>
       </div>
 
