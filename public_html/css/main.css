@@ -1248,8 +1248,8 @@ img {
   margin: 0 auto; }
   .header-wrapper .hero-image {
     position: relative;
-    background-image: -webkit-linear-gradient(top, rgba(44, 61, 105, 0.75) 0%, rgba(0, 0, 0, 0.8) 100%), url("../img/ux-research.jpeg");
-    background-image: linear-gradient(-180deg, rgba(44, 61, 105, 0.75) 0%, rgba(0, 0, 0, 0.8) 100%), url("../img/ux-research.jpeg");
+    background-image: -webkit-linear-gradient(top, rgba(44, 61, 105, 0.75) 0%, rgba(0, 0, 0, 0.95) 100%), url("../img/ux-research.jpeg");
+    background-image: linear-gradient(-180deg, rgba(44, 61, 105, 0.75) 0%, rgba(0, 0, 0, 0.95) 100%), url("../img/ux-research.jpeg");
     background-size: cover;
     background-position: center center;
     height: 100vh; }
