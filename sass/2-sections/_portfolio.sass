@@ -28,25 +28,25 @@
 .noizier-image
   background-image: radial-gradient(#7A91CB 0%, #3C4761 100%)
 
-.zoom-hogelid
+//.zoom-hogelid
   transition: all 0.2s ease-in-out
   transform: scale(1)
 
-.hogelid-info:hover .zoom-hogelid
+//.hogelid-info:hover .zoom-hogelid
   transform: scale(1.04)
 
-.zoom-noizier
+//.zoom-noizier
   transition: all 0.2s ease-in-out
   transform: scale(1)
 
-.noizier-info:hover .zoom-noizier
+//.noizier-info:hover .zoom-noizier
   transform: scale(1.04)
 
-.zoom-blueprint
+//.zoom-blueprint
   transition: all 0.2s ease-in-out
   transform: scale(1)
 
-.blueprint-info:hover .zoom-blueprint
+//.blueprint-info:hover .zoom-blueprint
   transform: scale(1.04)
 
 .skill-tag
@@ -60,3 +60,8 @@
   padding: 4px 10px
   border-radius: 3px
   display: inline-block
+
+// Media Queries
+@media only screen and (max-width: 620px)
+  .skill-tag
+    font-size: 10px

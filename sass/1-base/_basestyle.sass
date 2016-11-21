@@ -37,3 +37,26 @@ img
   height: 2px
   width: 300px
   background-color: $orange-accent
+
+.button
+  margin: 15px auto
+  background: $transparent
+  border: 2px solid white
+  border-radius: 50px
+  padding: 10px 35px
+  font-size: 15px
+  font-weight: 700
+  text-align: center
+  text-decoration: none
+  color: $white
+  transition: all 0.2s ease-in-out
+  &:hover
+    background: rgba(196,196,196,0.15)
+    color: $white
+
+// Media Queries
+@media only screen and (max-width: 620px)
+  h2
+    font-size: 30px
+  p
+    font-size: 18px

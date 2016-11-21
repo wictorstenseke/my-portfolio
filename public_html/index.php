@@ -14,12 +14,13 @@
     <div class="header-wrapper">
       <div class="hero-image">
         <div class="logo">
-          <p>Wictor</p>
-          <p>Stenseke</p>
+          <p class="logo-text">Wictor</p>
+          <p class="logo-text">Stenseke</p>
         </div>
         <div class="pure-g">
-          <div class="pure-u-md-1 pure-u-1">
-            <h1>UX Design | Service Design</h1>
+          <div class="pure-u-md-1 pure-u-1 banner">
+            <p class="intro">Hej, jag studerar UX Design på Högskolan i Skövde med förkärlek till digital design och smarta gränssnitt.</p>
+            <a href="#portfolio" class="button">Se några av mina projekt</a>
           </div>
         </div>
         <a href="#portfolio"><i class="arrow-down fa fa-angle-down fa-3x" aria-hidden="true"></i></a>
@@ -54,9 +55,6 @@
       </div>
 
       <div class="pure-g noizier-info">
-        <div class="pure-u-md-1-2 pure-u-1 project-image noizier-image">
-          <img class="zoom-noizier" src="img/noizier3.png" alt="Bild på webbplats för en ljudtekniker.">
-        </div>
         <div class="pure-u-md-1-2 pure-u-1 project-info">
           <div class="info-content">
             <h2 class="text-center zoom-noizier">Webbplats</h2>
@@ -70,6 +68,9 @@
               <span class="skill-tag first">Git</span>
             </div>
           </div>
+        </div>
+        <div class="pure-u-md-1-2 pure-u-1 project-image noizier-image">
+          <img class="zoom-noizier" src="img/noizier3.png" alt="Bild på webbplats för en ljudtekniker.">
         </div>
       </div>
 
