@@ -1413,6 +1413,11 @@ img {
   display: inline-block; }
 
 @media only screen and (max-width: 620px) {
+  .info-content {
+    padding: 20px; }
+    .info-content h2 {
+      font-size: 33px; }
+
   .skill-tag {
     font-size: 10px; } }
 .education {
