@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="description" content="Välkommen att kontakta mig via LinkedIn eller Facebook!">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Wictor Stenseke | UX &amp; Web Designer</title>
+  <title>Wictor Stenseke | UX Designer</title>
   <link rel="stylesheet" href="css/main.css">
   <script src="https://use.fontawesome.com/5cafce8111.js"></script>
 </head>
