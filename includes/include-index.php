@@ -48,7 +48,7 @@
         <div class="info-content">
           <h2 class="text-center zoom-noizier"><a href="case-noizier.php">Webbplats</a></h2>
           <p>En portfolio för en musiker som vill demonstrera sina yrkeskunskaper. En webbplats där klienten kan demonstrera material både som musiker och som producent.</p>
-          <p>Jag har utvecklat hela sidan och även ansvarat för implementering på webbserver. Jag har använt ett ramverk ifrån <a href="http://purecss.io/" class="link-inline" target="_blank">Pure CSS&nbsp&nbsp<i class="fa fa-external-link" aria-hidden="true"></i></a>&nbsp&nbspför att få till en responsiv sida som anpassar sig efter bredd på enhet.</p>
+          <p>Jag har utvecklat och designat webbsidan samt även ansvarat för implementering på webbserver. Jag har använt ett ramverk ifrån <a href="http://purecss.io/" class="link-inline" target="_blank">Pure CSS&nbsp&nbsp<i class="fa fa-external-link" aria-hidden="true"></i></a>&nbsp&nbspför att få till en responsiv sida som anpassar sig efter bredd på enhet.</p>
           <div class="skill-tags">
             <span class="skill-tag first">Sketch</span>
             <span class="skill-tag first">HTML</span>
