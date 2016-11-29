@@ -4,7 +4,7 @@
   <!-- change this to each site -->
   <title>Wictor Stenseke | UX Designer</title>
   <!-- change this to each site -->
-  <meta name="description" content="UX Designer | Min portfolio över projekt jag skapat eller deltagit inom. Välkommen att kontakta mig via LinkedIn eller Facebook!">
+  <meta name="description" content="UX Designer | Min portfolio över projekt jag skapat eller deltagit inom. Välkommen att kontakta mig via Linkedin eller Facebook!">
   <!-- include general head-tags -->
   <?php include "../includes/head.php" ?>
 </head>
