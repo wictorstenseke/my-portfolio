@@ -19,6 +19,19 @@ h1, h2, h3
   font-weight: 300
   text-transform: uppercase
 
+a
+  text-decoration: none
+  color: $lighter-text-primary
+  transition: all 0.1s ease-in-out
+  &:hover
+    color: darken($lighter-text-primary, 20%)
+
+.link-inline
+  color: $orange-accent
+  &:hover
+    color: $orange-accent
+    text-decoration: underline
+
 p
   color: $text-primary
   line-height: 26px
@@ -33,7 +46,7 @@ img
   margin: 0 auto
 
 .hr
-  margin: 20px auto
+  margin: 40px auto
   height: 2px
   width: 300px
   background-color: $orange-accent
@@ -56,7 +69,11 @@ img
 
 // Media Queries
 @media only screen and (max-width: 620px)
+  h1
+    font-size: 34px
   h2
-    font-size: 30px
+    font-size: 28px
   p
     font-size: 18px
+  .hr
+    width: 200px

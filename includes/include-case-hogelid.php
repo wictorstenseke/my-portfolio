@@ -1,0 +1,51 @@
+<section class="case-study">
+  <div class="case-wrapper hogelid-header">
+    <div class="case-header">
+      <div class="logo">
+        <a href="index.php">
+          <p class="logo-text">Wictor</p>
+          <p class="logo-text">Stenseke</p>
+        </a>
+      </div>
+      <div class="case-image">
+        <img src="img/hogelid1.png" alt="">
+      </div>
+    </div>
+  </div>
+  <div class="case-info">
+    <h1 class="text-center">Bokningssystem</h1>
+    <div class="author-date">
+      <img class="author-avatar" src="img/avatar.png" alt="Profilbild på författaren av texten">
+      <p class="author">Wictor Stenseke&nbsp</p><p class="date">| 21 November 2016</p>
+    </div>
+    <div class="hr"></div>
+    <div class="case-content">
+      <p>
+        Ett idéellt arbete åt en tennisklubb där jag är medlem. Det kom fram önskemål om möjligheten att kunna se om banan var bokad online och då även möjlighet att kunna boka tider. För närvarande har bokning av banan skett genom att skriva upp sig på en kalender som suttit uppsatt vid banan.
+      </p>
+      <p>
+        Då vissa medlemmar har lång resväg har de inte velat chansa på att banan skulle vara ledig och har då struntat i att spela. Tanken är att applikationen skall fungera som en anslagstavla för bokade tider samt att få fler medlemmar att nyttja tennisbanan.
+      </p>
+      <img class="content-image" src="img/hogelid2.png" alt="exempelbild">
+      <!-- <p class="image-caption">Exempeltext för bild texter.</p> -->
+      <p class="checklist">
+        Jag började med att skissa upp en idé med penna och papper. Eftersom det är en liten applikation började jag designa digitalt tidigt i processen. Skapade sedan en klickbar prototyp som jag kunde dela med olika medlemmar.
+      </p>
+      <p class="checklist">
+        Jag utvecklade tjänsten med fokus på smartphones. Min vision är att tjänsten skall visa god översikt över bokade tider samt att det skall kännas lätt att boka en ny tid.
+      </p>
+      <img class="content-image" src="img/hogelid3.png" alt="exempelbild">
+      <p class="checklist">
+        Säsongen 2017 är premiären för applikationen. Då skall feedback samlas in så den kan förbättras ytterligare.
+      </p>
+    </div>
+    <div class="hr"></div>
+    <div class="more-projects">
+      <h2 class="text-center">Andra projekt</h2>
+      <div class="pure-g">
+        <div class="pure-u-1-2 noizier-image"><a href="case-noizier.php"><img src="img/noizier-mockup2.png" alt="Länk som tar dig vidare till annat projekt."></a></div>
+        <div class="pure-u-1-2 servicedesign-image"><a href="case-servicedesign.php"><img src="img/servicedesign-header2.png" alt="Länk som tar dig vidare till annat projekt."></a></div>
+      </div>
+    </div>
+  </div>
+</section>

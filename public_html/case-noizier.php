@@ -2,7 +2,7 @@
 <html lang="sv">
 <head>
   <!-- change this to each site -->
-  <title>Wictor Stenseke | UX Designer</title>
+  <title>Bokningssystem | Wictor Stenseke</title>
   <!-- change this to each site -->
   <meta name="description" content="Min portfolio över projekt jag deltagit inom. Välkommen att kontakta mig via LinkedIn eller Facebook!">
   <!-- include general head-tags -->
@@ -11,7 +11,7 @@
 <body>
 
   <!-- body content goes here -->
-  <?php include "../includes/include-index.php" ?>
+  <?php include "../includes/include-case-noizier.php" ?>
 
   <!-- footer goes here -->
   <?php include "../includes/footer.php" ?>
