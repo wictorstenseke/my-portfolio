@@ -2,9 +2,9 @@
 <html lang="sv">
 <head>
   <!-- change this to each site -->
-  <title>Bokningssystem | Wictor Stenseke</title>
+  <title>Service Design | Wictor Stenseke</title>
   <!-- change this to each site -->
-  <meta name="description" content="Min portfolio över projekt jag deltagit inom. Välkommen att kontakta mig via LinkedIn eller Facebook!">
+  <meta name="description" content="Projekt med Service Design på Högskolan i Skövde | Wictor Stenseke">
   <!-- include general head-tags -->
   <?php include "../includes/head.php" ?>
 </head>

@@ -4,7 +4,7 @@
   <!-- change this to each site -->
   <title>Bokningssystem | Wictor Stenseke</title>
   <!-- change this to each site -->
-  <meta name="description" content="Min portfolio över projekt jag deltagit inom. Välkommen att kontakta mig via LinkedIn eller Facebook!">
+  <meta name="description" content="Onlinebokning för tennisbana | Wictor Stenseke">
   <!-- include general head-tags -->
   <?php include "../includes/head.php" ?>
 </head>
