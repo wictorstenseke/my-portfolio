@@ -21,15 +21,15 @@
     <div class="hr"></div>
     <div class="case-content">
       <p>
-        Ett uppdrag åt en klient som ville ha en portfolio för att demonstrera sina yrkeskunskaper. Både som musiker och producent. Sidan skall fungera som en plattform för eventuella kunder att ta del av inspelade låtar och för kundkontakt.
+        Ett uppdrag åt en klient som ville ha en portfolio för att demonstrera sina yrkeskunskaper. Både som musiker och producent. Sidan skall fungera som en plats för eventuella kunder att ta del av inspelade låtar och för kundkontakt.
       </p>
       <img class="content-image" src="img/noizier-hero-xs.png" alt="iPhone med webbplats.">
       <!-- <p class="image-caption">Exempeltext för bild texter.</p> -->
       <p class="checklist">
-        Först skapades en design som fungerade bra på smartphones. Efter det kunde jag skala upp den till större enheter som t.ex. iPad och laptops. Viktigt är att användare av sidan skall kunna få samma upplevelse oavsett vilken enhet de använder.
+        Först skapades en design som fungerade bra på smartphones. Efter det kunde designen skalas upp till större enheter som t.ex. iPad och laptops. Viktigt är att användare av sidan skall kunna få samma upplevelse oavsett vilken enhet de använder.
       </p>
       <p class="checklist">
-        Jag implementerade stöd för Soundcloud så inspelat material kan spelas upp direkt på hemsidan. Besökare behöver alltså inte lämna sidan för att lyssna på materialet.
+        För att kunden skall kunna visa upp sitt material på ett enkelt sätt implementerades stöd för Soundcloud. Med hjälp av funktionen kan besökare av webbplatsen lyssna på inspelat material. Besökare behöver alltså inte lämna sidan för att lyssna på materialet.
       </p>
       <img class="content-image" src="img/noizier-soundcloud.png" alt="Laptop med webbplats.">
     </div>

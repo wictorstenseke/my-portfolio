@@ -31,17 +31,14 @@
       <h2>Några av de modeller vi skapade</h2>
       <img class="content-image box-shadow" src="img/blueprint3.png" alt="exempelbild">
       <p>
-        Vi tog fram en Service Blueprint som kartlägger mycket utav hela verksamheten. Vilka anställda som är involverade i aktuella processer samt kopplingar med div. IT-system.
+        Vi skapade en Service Blueprint som kartlägger mycket utav hela verksamheten. Vilka anställda som är involverade i aktuella processer samt kopplingar med div. IT-system.
       </p>
       <p>
         Vi tog också fram en Customer Journey Map. En kartläggning över vilka olika touchpoints kunden har när denna är i kontakt med verksamheten. Olika exempel på touchpoints kan vara när en biljett bokas online, bekräftelsemailet efter bokning och interaktionen med anställda på teatern.
       </p>
       <img class="content-image box-shadow" src="img/blueprint4.png" alt="exempelbild">
       <p>
-        I detta arbete gjorde jag och två gruppmedlemmar många av sakerna tillsammans. Vi hade inga direkta ansvarsområden utan vi kom fram till gemensamma förslag som sedan presenterades för klienten.
-      </p>
-      <p>
-        Genom detta skolarbete så har jag fått bra förstålse över hur Service Design kan användas för att kartlägga verksamheter och hitta touchpoints som kan påverka kunden/användaren både negativt och positivt. Jag har också fått förståelse för olika faser inom Service Design som t.ex. upptäcka/analysera verksamheter, skapa nya lösningar och kunna reflektera över dessa.
+        Detta projekt har bidragit med bra förstålse över hur Service Design kan användas för att kartlägga verksamheter och hitta touchpoints som kan påverka kunden/användaren både negativt och positivt. Jag har också fått förståelse för olika faser inom Service Design som t.ex. upptäcka/analysera verksamheter, skapa nya lösningar och kunna se effekten från dessa lösningar.
       </p>
     </div>
     <div class="hr"></div>

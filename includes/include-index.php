@@ -7,7 +7,7 @@
       </div>
       <div class="pure-g">
         <div class="pure-u-md-1 pure-u-1 banner">
-          <p class="intro">Hej, jag heter Wictor Stenseke. Jag studerar UX Design sista året på Högskolan i Skövde.</p>
+          <p class="intro">Hej, jag heter Wictor Stenseke.<br>UX Designer som studerar sista året på Högskolan i Skövde.</p>
           <a href="#portfolio" class="button">Se några av mina projekt</a>
         </div>
       </div>
@@ -20,11 +20,14 @@
   <div class="portfolio-wrapper">
 
     <div class="pure-g hogelid-info">
+      <div class="pure-u-md-1-2 pure-u-1 project-image hogelid-image">
+        <a href="case-hogelid.php"><img class="zoom-hogelid" src="img/hogelid1.png" alt="Bild på webbplats för bokning av tennisbana på Högelids Tennisklubb."></a>
+      </div>
       <div class="pure-u-md-1-2 pure-u-1 project-info">
         <div class="info-content">
           <h2 class="text-center zoom-hogelid"><a href="case-hogelid.php">Bokningssystem</a></h2>
           <p>En webbtjänst för att boka tennisbanan på Högelids Tennisklubb. Ett ideellt arbete efter önskemål från medlemmar med längre resväg. Hemsidan möjliggör att medlemmar kan se bokade tider och boka lediga tider.</p>
-          <p>Jag har skissat, designat prototyper, kodat front-end och implementerat på webbserver.</p>
+          <p>Mitt ansvarsområde har varit att skissa på idéer, designat prototyper, kodat front-end och implementerat på webbserver.</p>
           <div class="skill-tags">
             <span class="skill-tag first">Sketch</span>
             <span class="skill-tag first">Prototyping</span>
@@ -38,17 +41,19 @@
           </div>
         </div>
       </div>
-      <div class="pure-u-md-1-2 pure-u-1 project-image hogelid-image">
-        <a href="case-hogelid.php"><img class="zoom-hogelid" src="img/hogelid1.png" alt="Bild på webbplats för bokning av tennisbana på Högelids Tennisklubb."></a>
-      </div>
     </div>
 
     <div class="pure-g noizier-info">
+      <div class="pure-u-md-1-2 pure-u-1 project-image noizier-image">
+        <a href="case-noizier.php"><img class="zoom-noizier" src="img/noizier-mockup2.png" alt="Bild på webbplats för en ljudtekniker."></a>
+      </div>
       <div class="pure-u-md-1-2 pure-u-1 project-info">
         <div class="info-content">
           <h2 class="text-center zoom-noizier"><a href="case-noizier.php">Webbplats</a></h2>
           <p>En portfolio för en musiker som vill demonstrera sina yrkeskunskaper. En webbplats där klienten kan demonstrera material både som musiker och som producent.</p>
-          <p>Jag har utvecklat och designat webbsidan samt även ansvarat för implementering på webbserver. Jag har använt ett ramverk ifrån <a href="http://purecss.io/" class="link-inline" target="_blank">Pure CSS&nbsp&nbsp<i class="fa fa-external-link" aria-hidden="true"></i></a>&nbsp&nbspför att få till en responsiv sida som anpassar sig efter bredd på enhet.</p>
+          <p>Ett helhetsprojekt med utveckling av webbplats samt serverhantering. Webbplatsen använder sig av ett ramverk ifrån <a href="http://purecss.io/" class="link-inline" target="_blank">Pure CSS&nbsp&nbsp
+            <i class="fa fa-external-link" aria-hidden="true"></i>
+          </a>&nbsp&nbspför att skapa en responsiv sida som anpassar sig efter den enhet som används.</p>
           <div class="skill-tags">
             <span class="skill-tag first">Sketch</span>
             <span class="skill-tag first">HTML</span>
@@ -58,12 +63,12 @@
           </div>
         </div>
       </div>
-      <div class="pure-u-md-1-2 pure-u-1 project-image noizier-image">
-        <a href="case-noizier.php"><img class="zoom-noizier" src="img/noizier-mockup2.png" alt="Bild på webbplats för en ljudtekniker."></a>
-      </div>
     </div>
 
     <div class="pure-g blueprint-info">
+      <div class="pure-u-md-1-2 pure-u-1 project-image">
+        <a href="case-servicedesign.php"><img class="zoom-blueprint" src="img/blueprint4.png" alt="Bild på en Service Blueprint som används inom Service Design."></a>
+      </div>
       <div class="pure-u-md-1-2 pure-u-1 project-info">
         <div class="info-content">
           <h2 class="text-center zoom-blueprint"><a href="case-servicedesign.php">Service Design</a></h2>
@@ -79,9 +84,6 @@
           </div>
         </div>
       </div>
-      <div class="pure-u-md-1-2 pure-u-1 project-image">
-        <a href="case-servicedesign.php"><img class="zoom-blueprint" src="img/blueprint4.png" alt="Bild på en Service Blueprint som används inom Service Design."></a>
-      </div>
     </div>
 
   </div>
@@ -90,9 +92,9 @@
 <section class="about">
   <div class="about-wrapper">
     <img class="avatar" src="img/avatar.png">
-    <p class="biography">Just nu studerar jag programmet <a href="http://www.his.se/Utbildning/Hitta-utbildning/vara-program/IT-User-Experience-Design/" class="link-inline" target="_blank">User Experience Design på Högskolan i Skövde</a>. Jag studerar sista året och skall skriva examensarbete till våren. </p>
+    <p class="biography">Just nu studerar jag programmet <a href="http://www.his.se/Utbildning/Hitta-utbildning/vara-program/IT-User-Experience-Design/" class="link-inline" target="_blank">User Experience Design på Högskolan i Skövde</a>. Inne på sista året och skall skriva examensarbete till våren. </p>
     <p class="biography">Jag är en vetgirig person som tycker om att anta utmaningar och lära mig nya saker. Det senaste året har bestått till stor del av att lära mig webbutveckling. Därför såg jag skapandet av denna hemsida som ett bra tillfälle att lära mig mera och utvidga mina kunskaper.</p>
-    <p class="biography">Som UX Designer är en stor del av arbetsprocessen att förstå användares behov och kartlägga vad som motiverar dem till att nå sina mål. Detta möjligggör att kunna designa bra lösningar med användaren och användarens mål i fokus.</p>
+    <p class="biography">Som UX Designer anser jag att en stor del av arbetsprocessen att förstå användares behov och kartlägga vad som motiverar dem till att nå sina mål. Detta möjligggör att kunna designa bra lösningar med användaren och användarens mål i fokus.</p>
     <p class="biography">Att involvera UX tidigt i en utvecklingsprocess kan spara mycket tid och pengar då det kan ge en bred förståelse för användargrupper och beteendemönster. Att inte göra rätt från början är en stor tidstjuv!</p>
     <p class="biography">Kontakta eller lägg till mig på Linkedin. Där finns mer information om utbildning och tidigare arbete.</p>
     <div class="social-icons">
