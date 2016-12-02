@@ -28,6 +28,7 @@
           <h2 class="text-center zoom-hogelid"><a href="case-hogelid.php">Bokningssystem</a></h2>
           <p>En webbtjänst för att boka tennisbanan på Högelids Tennisklubb. Ett ideellt arbete efter önskemål från medlemmar med längre resväg. Hemsidan möjliggör att medlemmar kan se bokade tider och boka lediga tider.</p>
           <p>Mitt ansvarsområde har varit att skissa på idéer, designat prototyper, kodat front-end och implementerat på webbserver.</p>
+          <a href="case-hogelid.php" class="text-center project-button button">Läs mer</a>
           <div class="skill-tags">
             <span class="skill-tag first">Sketch</span>
             <span class="skill-tag first">Prototyping</span>
@@ -54,6 +55,7 @@
           <p>Ett helhetsprojekt med utveckling av webbplats samt serverhantering. Webbplatsen använder sig av ett ramverk ifrån <a href="http://purecss.io/" class="link-inline" target="_blank">Pure CSS&nbsp
             <i class="fa fa-external-link" aria-hidden="true"></i>
           </a>&nbspför att skapa en responsiv sida som anpassar sig efter den enhet som används.</p>
+          <a href="case-noizier.php" class="text-center project-button button">Läs mer</a>
           <div class="skill-tags">
             <span class="skill-tag first">Sketch</span>
             <span class="skill-tag first">HTML</span>
@@ -74,6 +76,7 @@
           <h2 class="text-center zoom-blueprint"><a href="case-servicedesign.php">Service Design</a></h2>
           <p>Ett skolarbete som gjordes tillsammans med två klasskamrater.</p>
           <p>Vi fick i uppdrag att hjälpa Oscarsteatern att med stöd av IT skapa en mer komplett teaterupplevelse för teaterpubliken. Olika modeller över verksamheten togs fram och sedan presenterades ett förbättringsförslag som, med hjälp av IT, förhöjde upplevelsen för teaterbesökare.</p>
+          <a href="case-servicedesign.php" class="text-center project-button button">Läs mer</a>
           <div class="skill-tags">
             <span class="skill-tag first">Kundintervjuer</span>
             <span class="skill-tag">Användaranalys</span>
