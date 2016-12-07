@@ -29,7 +29,7 @@
       <img class="content-image" src="img/hogelid2.png" alt="exempelbild">
       <!-- <p class="image-caption">Exempeltext för bild texter.</p> -->
       <p class="checklist">
-        Min designprocess började med att skissa upp en idé med penna och papper. Eftersom det är en liten applikation användes digitila designverktyg tidigt i processen. Sedan skapades en klickbar prototyp som delades med olika medlemmar för att samla in feedback.
+        Designprocessen började med att skissa upp en idé med penna och papper. Eftersom det är en liten applikation användes digitala designverktyg tidigt i processen. Sedan skapades en klickbar prototyp som delades med olika medlemmar för att samla in feedback.
       </p>
       <p class="checklist">
         Webbtjänsten utvecklades med fokus på smartphones. Visionen är att tjänsten skall visa god översikt över bokade tider samt att det skall kännas lätt att boka en ny tid.

@@ -25,8 +25,7 @@
         mer komplett teaterupplevelse för teaterpubliken. Detta uppdrag var helt fiktivt.
       </p>
       <p>
-        Genom att kartlägga vilken användarkategori vi fokuserade på kunde vi därefter börja skapa olika modeller över upplevelsen. I möten med klienten kunde vi identifiera relevant information samt att utvärdera framtagna artefakter och presentera våra förslag.
-        information
+        Genom att kartlägga vilken användarkategori vi behövde fokusera på kunde vi börja skapa olika modeller över upplevelsen. I möten med klienten kunde vi identifiera relevant information samt möjlighet att utvärdera framtagna artefakter och presentera våra förslag.
       </p>
       <h2>Några av de modeller vi skapade</h2>
       <img class="content-image box-shadow" src="img/blueprint3.png" alt="exempelbild">
@@ -34,7 +33,7 @@
         Vi skapade en Service Blueprint som kartlägger mycket utav hela verksamheten. Vilka anställda som är involverade i aktuella processer samt kopplingar med div. IT-system.
       </p>
       <p>
-        Vi tog också fram en Customer Journey Map. En kartläggning över vilka olika touchpoints kunden har när denna är i kontakt med verksamheten. Olika exempel på touchpoints kan vara när en biljett bokas online, bekräftelsemailet efter bokning och interaktionen med anställda på teatern.
+        Vi tog också fram en Customer Journey Map. En kartläggning över vilka olika touchpoints kunden har när denne är i kontakt med verksamheten. Olika exempel på touchpoints kan vara när en biljett bokas online, bekräftelsemailet efter bokning och interaktionen med anställda på teatern.
       </p>
       <img class="content-image box-shadow" src="img/blueprint4.png" alt="exempelbild">
       <p>
