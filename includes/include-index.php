@@ -21,14 +21,14 @@
 
     <div class="pure-g hogelid-info">
       <div class="pure-u-md-1-2 pure-u-1 project-image hogelid-image">
-        <a href="/project/bokningssystem"><img class="zoom-hogelid" src="img/hogelid1.png" alt="Bild på webbplats för bokning av tennisbana på Högelids Tennisklubb."></a>
+        <a href="/projekt/bokningssystem"><img class="zoom-hogelid" src="img/hogelid1.png" alt="Bild på webbplats för bokning av tennisbana på Högelids Tennisklubb."></a>
       </div>
       <div class="pure-u-md-1-2 pure-u-1 project-info">
         <div class="info-content">
-          <h2 class="text-center zoom-hogelid"><a href="/project/bokningssystem">Bokningssystem</a></h2>
+          <h2 class="text-center zoom-hogelid"><a href="/projekt/bokningssystem">Bokningssystem</a></h2>
           <p>En webbtjänst för att boka tennisbanan på Högelids Tennisklubb. Ett ideellt arbete efter önskemål ifrån medlemmar med längre resväg. Hemsidan möjliggör att medlemmar kan se bokade tider och boka lediga tider.</p>
           <p>Mitt ansvarsområde har varit att skissa på idéer, designat prototyper, kodat front-end och implementerat på webbserver.</p>
-          <a href="/project/bokningssystem" class="text-center project-button button">Läs mer</a>
+          <a href="/projekt/bokningssystem" class="text-center project-button button">Läs mer</a>
           <div class="skill-tags">
             <span class="skill-tag first">Sketch</span>
             <span class="skill-tag first">Prototyping</span>
@@ -46,16 +46,16 @@
 
     <div class="pure-g noizier-info">
       <div class="pure-u-md-1-2 pure-u-1 project-image noizier-image">
-        <a href="project/webbplats"><img class="zoom-noizier" src="img/noizier-mockup2.png" alt="Bild på webbplats för en ljudtekniker."></a>
+        <a href="projekt/webbplats"><img class="zoom-noizier" src="img/noizier-mockup2.png" alt="Bild på webbplats för en ljudtekniker."></a>
       </div>
       <div class="pure-u-md-1-2 pure-u-1 project-info">
         <div class="info-content">
-          <h2 class="text-center zoom-noizier"><a href="project/webbplats">Webbplats</a></h2>
+          <h2 class="text-center zoom-noizier"><a href="projekt/webbplats">Webbplats</a></h2>
           <p>En portfolio för en musiker som vill demonstrera sina yrkeskunskaper. En webbplats där klienten kan demonstrera material både som musiker och som producent.</p>
           <p>Ett helhetsprojekt med utveckling av webbplats samt serverhantering. Webbplatsen använder sig av ett ramverk ifrån <a href="http://purecss.io/" class="link-inline" target="_blank">Pure CSS&nbsp
             <i class="fa fa-external-link" aria-hidden="true"></i>
           </a>&nbspför att skapa en responsiv sida som anpassar sig efter den enhet som används.</p>
-          <a href="project/webbplats" class="text-center project-button button">Läs mer</a>
+          <a href="projekt/webbplats" class="text-center project-button button">Läs mer</a>
           <div class="skill-tags">
             <span class="skill-tag first">Sketch</span>
             <span class="skill-tag first">HTML</span>
@@ -69,14 +69,14 @@
 
     <div class="pure-g blueprint-info">
       <div class="pure-u-md-1-2 pure-u-1 project-image">
-        <a href="/project/servicedesign"><img class="zoom-blueprint" src="img/blueprint4.png" alt="Bild på en Service Blueprint som används inom Service Design."></a>
+        <a href="/projekt/servicedesign"><img class="zoom-blueprint" src="img/blueprint4.png" alt="Bild på en Service Blueprint som används inom Service Design."></a>
       </div>
       <div class="pure-u-md-1-2 pure-u-1 project-info">
         <div class="info-content">
-          <h2 class="text-center zoom-blueprint"><a href="/project/servicedesign">Service Design</a></h2>
+          <h2 class="text-center zoom-blueprint"><a href="/projekt/servicedesign">Service Design</a></h2>
           <p>Ett skolarbete som gjordes tillsammans med två klasskamrater.</p>
           <p>Vi fick i uppdrag att hjälpa Oscarsteatern att med stöd av IT skapa en mer komplett teaterupplevelse för teaterpubliken. Olika modeller över verksamheten togs fram och sedan presenterades ett förbättringsförslag som, med hjälp av IT, förhöjde upplevelsen för teaterbesökare.</p>
-          <a href="/project/servicedesign" class="text-center project-button button">Läs mer</a>
+          <a href="/projekt/servicedesign" class="text-center project-button button">Läs mer</a>
           <div class="skill-tags">
             <span class="skill-tag first">Kundintervjuer</span>
             <span class="skill-tag">Användaranalys</span>
