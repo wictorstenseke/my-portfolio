@@ -21,14 +21,14 @@
 
     <div class="pure-g hogelid-info">
       <div class="pure-u-md-1-2 pure-u-1 project-image hogelid-image">
-        <a href="case-hogelid.php"><img class="zoom-hogelid" src="img/hogelid1.png" alt="Bild på webbplats för bokning av tennisbana på Högelids Tennisklubb."></a>
+        <a href="/project/bokningssystem"><img class="zoom-hogelid" src="img/hogelid1.png" alt="Bild på webbplats för bokning av tennisbana på Högelids Tennisklubb."></a>
       </div>
       <div class="pure-u-md-1-2 pure-u-1 project-info">
         <div class="info-content">
-          <h2 class="text-center zoom-hogelid"><a href="case-hogelid.php">Bokningssystem</a></h2>
+          <h2 class="text-center zoom-hogelid"><a href="/project/bokningssystem">Bokningssystem</a></h2>
           <p>En webbtjänst för att boka tennisbanan på Högelids Tennisklubb. Ett ideellt arbete efter önskemål ifrån medlemmar med längre resväg. Hemsidan möjliggör att medlemmar kan se bokade tider och boka lediga tider.</p>
           <p>Mitt ansvarsområde har varit att skissa på idéer, designat prototyper, kodat front-end och implementerat på webbserver.</p>
-          <a href="case-hogelid.php" class="text-center project-button button">Läs mer</a>
+          <a href="/project/bokningssystem" class="text-center project-button button">Läs mer</a>
           <div class="skill-tags">
             <span class="skill-tag first">Sketch</span>
             <span class="skill-tag first">Prototyping</span>
@@ -46,16 +46,16 @@
 
     <div class="pure-g noizier-info">
       <div class="pure-u-md-1-2 pure-u-1 project-image noizier-image">
-        <a href="case-noizier.php"><img class="zoom-noizier" src="img/noizier-mockup2.png" alt="Bild på webbplats för en ljudtekniker."></a>
+        <a href="project/webbplats"><img class="zoom-noizier" src="img/noizier-mockup2.png" alt="Bild på webbplats för en ljudtekniker."></a>
       </div>
       <div class="pure-u-md-1-2 pure-u-1 project-info">
         <div class="info-content">
-          <h2 class="text-center zoom-noizier"><a href="case-noizier.php">Webbplats</a></h2>
+          <h2 class="text-center zoom-noizier"><a href="project/webbplats">Webbplats</a></h2>
           <p>En portfolio för en musiker som vill demonstrera sina yrkeskunskaper. En webbplats där klienten kan demonstrera material både som musiker och som producent.</p>
           <p>Ett helhetsprojekt med utveckling av webbplats samt serverhantering. Webbplatsen använder sig av ett ramverk ifrån <a href="http://purecss.io/" class="link-inline" target="_blank">Pure CSS&nbsp
             <i class="fa fa-external-link" aria-hidden="true"></i>
           </a>&nbspför att skapa en responsiv sida som anpassar sig efter den enhet som används.</p>
-          <a href="case-noizier.php" class="text-center project-button button">Läs mer</a>
+          <a href="project/webbplats" class="text-center project-button button">Läs mer</a>
           <div class="skill-tags">
             <span class="skill-tag first">Sketch</span>
             <span class="skill-tag first">HTML</span>
