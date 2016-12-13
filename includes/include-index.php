@@ -69,14 +69,14 @@
 
     <div class="pure-g blueprint-info">
       <div class="pure-u-md-1-2 pure-u-1 project-image">
-        <a href="case-servicedesign.php"><img class="zoom-blueprint" src="img/blueprint4.png" alt="Bild på en Service Blueprint som används inom Service Design."></a>
+        <a href="/project/servicedesign"><img class="zoom-blueprint" src="img/blueprint4.png" alt="Bild på en Service Blueprint som används inom Service Design."></a>
       </div>
       <div class="pure-u-md-1-2 pure-u-1 project-info">
         <div class="info-content">
-          <h2 class="text-center zoom-blueprint"><a href="case-servicedesign.php">Service Design</a></h2>
+          <h2 class="text-center zoom-blueprint"><a href="/project/servicedesign">Service Design</a></h2>
           <p>Ett skolarbete som gjordes tillsammans med två klasskamrater.</p>
           <p>Vi fick i uppdrag att hjälpa Oscarsteatern att med stöd av IT skapa en mer komplett teaterupplevelse för teaterpubliken. Olika modeller över verksamheten togs fram och sedan presenterades ett förbättringsförslag som, med hjälp av IT, förhöjde upplevelsen för teaterbesökare.</p>
-          <a href="case-servicedesign.php" class="text-center project-button button">Läs mer</a>
+          <a href="/project/servicedesign" class="text-center project-button button">Läs mer</a>
           <div class="skill-tags">
             <span class="skill-tag first">Kundintervjuer</span>
             <span class="skill-tag">Användaranalys</span>
