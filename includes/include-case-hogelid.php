@@ -27,7 +27,6 @@
         Då vissa medlemmar har lång resväg har de inte velat chansa på att banan skulle vara ledig och har då struntat i att spela. Tanken är att applikationen skall fungera som en anslagstavla för bokade tider samt att få fler medlemmar att nyttja tennisbanan.
       </p>
       <img class="content-image" src="img/hogelid2.png" alt="exempelbild">
-      <!-- <p class="image-caption">Exempeltext för bild texter.</p> -->
       <p class="checklist">
         Designprocessen började med att skissa upp en idé med penna och papper. Eftersom det är en liten applikation användes digitala designverktyg tidigt i processen. Sedan skapades en klickbar prototyp som delades med olika medlemmar för att samla in feedback.
       </p>
