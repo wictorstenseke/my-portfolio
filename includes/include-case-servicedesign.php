@@ -41,7 +41,7 @@
       </p>
     </div>
     <div class="hr"></div>
-    <a href="/img/CV_Wictor-Stenseke.pdf" class="text-center cv-button" target="_blank"><i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>&nbsp&nbsp&nbsp&nbspLadda ner CV</a>
+    <a href="/img/CV_Wictor-Stenseke.pdf" class="text-center cv-button button" target="_blank"><i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>&nbsp&nbsp&nbsp&nbspLadda ner CV</a>
     <div class="more-projects">
       <h2 class="text-center">Andra projekt</h2>
       <div class="pure-g">
