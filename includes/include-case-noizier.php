@@ -38,8 +38,8 @@
     <div class="more-projects">
       <h2 class="text-center">Andra projekt</h2>
       <div class="pure-g">
-        <div class="pure-u-1-2 hogelid-image"><a href="bokningssystem.php"><img src="/img/hogelid1.png" alt="Länk som tar dig vidare till annat projekt."></a></div>
-        <div class="pure-u-1-2 servicedesign-image"><a href="servicedesign.php"><img src="/img/servicedesign-header2.png" alt="Länk som tar dig vidare till annat projekt."></a></div>
+        <div class="pure-u-1-2 hogelid-image"><a href="bokningssystem"><img src="/img/hogelid1.png" alt="Länk som tar dig vidare till annat projekt."></a></div>
+        <div class="pure-u-1-2 servicedesign-image"><a href="servicedesign"><img src="/img/servicedesign-header2.png" alt="Länk som tar dig vidare till annat projekt."></a></div>
       </div>
     </div>
   </div>

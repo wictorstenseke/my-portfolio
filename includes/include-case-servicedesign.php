@@ -45,8 +45,8 @@
     <div class="more-projects">
       <h2 class="text-center">Andra projekt</h2>
       <div class="pure-g">
-        <div class="pure-u-1-2 hogelid-image"><a href="bokningssystem.php"><img src="/img/hogelid1.png" alt="Länk som tar dig vidare till annat projekt."></a></div>
-        <div class="pure-u-1-2 noizier-image"><a href="webbplats.php"><img src="/img/noizier-mockup2.png" alt="Länk som tar dig vidare till annat projekt."></a></div>
+        <div class="pure-u-1-2 hogelid-image"><a href="bokningssystem"><img src="/img/hogelid1.png" alt="Länk som tar dig vidare till annat projekt."></a></div>
+        <div class="pure-u-1-2 noizier-image"><a href="webbplats"><img src="/img/noizier-mockup2.png" alt="Länk som tar dig vidare till annat projekt."></a></div>
       </div>
     </div>
   </div>
