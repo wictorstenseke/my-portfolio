@@ -1511,15 +1511,6 @@ img {
     background: #ed7932;
     color: #ffffff; }
 
-.cv-button {
-  margin: 30px auto;
-  background: rgba(196, 196, 196, 0.05);
-  border: 2px solid #ed7932;
-  color: #ed7932; }
-  .cv-button:hover {
-    background: #ed7932;
-    color: #ffffff; }
-
 .social-icons {
   padding: 10px;
   text-align: center;
