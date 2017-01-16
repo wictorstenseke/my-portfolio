@@ -34,11 +34,12 @@
       <img class="content-image" src="/img/noizier-soundcloud.png" alt="Laptop med webbplats.">
     </div>
     <div class="hr"></div>
+    <a href="/img/CV_Wictor-Stenseke.pdf" class="text-center cv-button button" target="_blank"><i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>&nbsp&nbsp&nbsp&nbspLadda ner CV</a>
     <div class="more-projects">
       <h2 class="text-center">Andra projekt</h2>
       <div class="pure-g">
-        <div class="pure-u-1-2 hogelid-image"><a href="bokningssystem"><img src="/img/hogelid1.png" alt="Länk som tar dig vidare till annat projekt."></a></div>
-        <div class="pure-u-1-2 servicedesign-image"><a href="servicedesign"><img src="/img/servicedesign-header2.png" alt="Länk som tar dig vidare till annat projekt."></a></div>
+        <div class="pure-u-1-2 hogelid-image"><a href="bokningssystem.php"><img src="/img/hogelid1.png" alt="Länk som tar dig vidare till annat projekt."></a></div>
+        <div class="pure-u-1-2 servicedesign-image"><a href="servicedesign.php"><img src="/img/servicedesign-header2.png" alt="Länk som tar dig vidare till annat projekt."></a></div>
       </div>
     </div>
   </div>
