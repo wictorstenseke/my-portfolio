@@ -7,7 +7,8 @@
       </div>
       <div class="pure-g">
         <div class="pure-u-md-1 pure-u-1 banner">
-          <p class="intro">Hej, jag heter Wictor Stenseke.<br>UX Designer som studerar sista året på Högskolan i Skövde.</p>
+          <h1>Wictor Stenseke</h1>
+          <h2>Student | UX-Designer | Web-Developer</h2>
           <a href="#portfolio" class="button">Se några av mina projekt</a>
         </div>
       </div>
