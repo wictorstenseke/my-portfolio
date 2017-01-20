@@ -1,10 +1,10 @@
 <section class="header">
   <div class="header-wrapper">
     <div class="hero-image">
-      <div class="logo">
+      <!-- <div class="logo">
         <p class="logo-text">Wictor</p>
         <p class="logo-text">Stenseke</p>
-      </div>
+      </div> -->
       <div class="pure-g">
         <div class="pure-u-md-1 pure-u-1 banner">
           <h1>Wictor Stenseke</h1>
