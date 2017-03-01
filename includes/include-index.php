@@ -96,7 +96,7 @@
 <section class="about">
   <div class="about-wrapper">
     <img class="avatar" src="img/avatar.png">
-    <p class="biography">Just nu studerar jag programmet <a href="http://www.his.se/Utbildning/Hitta-utbildning/vara-program/IT-User-Experience-Design/" class="link-inline" target="_blank">User Experience Design på Högskolan i Skövde</a>. Inne på sista året och skall skriva examensarbete till våren. </p>
+    <p class="biography">Just nu studerar jag programmet <a href="http://www.his.se/Utbildning/Hitta-utbildning/vara-program/IT-User-Experience-Design/" class="link-inline" target="_blank">User Experience Design på Högskolan i Skövde</a>. Jag är inne på min sista termin och skriver nu examensarbete tillsammans med <a href="https://www.viktoria.se/" class="link-inline" target="_blank">RISE Viktoria</a> i Göteborg med inriktning på självkörande fordon. </p>
     <p class="biography">Jag är en vetgirig person som tycker om att anta utmaningar och lära mig nya saker. Det senaste året har bestått till stor del av att lära mig webbutveckling. Därför såg jag skapandet av denna hemsida som ett bra tillfälle till att lära mig mera och utvidga mina kunskaper.</p>
     <p class="biography">Som UX Designer anser jag att en stor del av arbetsprocessen att förstå användares behov och kartlägga vad som motiverar dem till att nå sina mål. Detta möjligggör att kunna designa bra lösningar med användaren och användarens mål i fokus.</p>
     <p class="biography">Att involvera UX tidigt i en utvecklingsprocess kan spara mycket tid och pengar då det kan ge en bred förståelse för användargrupper och beteendemönster. Att inte göra rätt från början är en stor tidstjuv!</p>
