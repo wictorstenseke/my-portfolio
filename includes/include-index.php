@@ -53,9 +53,9 @@
         <div class="info-content">
           <h2 class="text-center zoom-noizier"><a href="projekt/webbplats">Webbplats</a></h2>
           <p>En portfolio för en musiker som vill demonstrera sina yrkeskunskaper. En webbplats där klienten kan demonstrera material både som musiker och som producent.</p>
-          <p>Ett helhetsprojekt med utveckling av webbplats samt serverhantering. Webbplatsen använder sig av ett ramverk ifrån <a href="http://purecss.io/" class="link-inline" target="_blank">Pure CSS&nbsp
+          <p>Ett helhetsprojekt med utveckling av webbplats samt serverhantering. Webbplatsen använder sig av ett ramverk ifrån <a href="http://purecss.io/" class="link-inline" target="_blank">Pure CSS&nbsp;
             <i class="fa fa-external-link" aria-hidden="true"></i>
-          </a>&nbspför att skapa en responsiv sida som anpassar sig efter den enhet som används.</p>
+          </a>&nbsp;för att skapa en responsiv sida som anpassar sig efter den enhet som används.</p>
           <a href="projekt/webbplats" class="text-center project-button button">Läs mer</a>
           <div class="skill-tags">
             <span class="skill-tag first">Sketch</span>
@@ -95,13 +95,13 @@
 
 <section class="about">
   <div class="about-wrapper">
-    <img class="avatar" src="img/avatar.png">
+    <img class="avatar" src="img/avatar2.jpg">
     <p class="biography">Just nu studerar jag programmet <a href="http://www.his.se/Utbildning/Hitta-utbildning/vara-program/IT-User-Experience-Design/" class="link-inline" target="_blank">User Experience Design på Högskolan i Skövde</a>. Jag är inne på min sista termin och skriver nu examensarbete tillsammans med <a href="https://www.viktoria.se/" class="link-inline" target="_blank">RISE Viktoria</a> i Göteborg med inriktning på självkörande fordon. </p>
     <p class="biography">Jag är en vetgirig person som tycker om att anta utmaningar och lära mig nya saker. Det senaste året har bestått till stor del av att lära mig webbutveckling. Därför såg jag skapandet av denna hemsida som ett bra tillfälle till att lära mig mera och utvidga mina kunskaper.</p>
     <p class="biography">Som UX Designer anser jag att en stor del av arbetsprocessen att förstå användares behov och kartlägga vad som motiverar dem till att nå sina mål. Detta möjligggör att kunna designa bra lösningar med användaren och användarens mål i fokus.</p>
     <p class="biography">Att involvera UX tidigt i en utvecklingsprocess kan spara mycket tid och pengar då det kan ge en bred förståelse för användargrupper och beteendemönster. Att inte göra rätt från början är en stor tidstjuv!</p>
     <p class="biography">Kolla in mitt CV eller lägg till mig på Linkedin. Där finns mer information om utbildning och tidigare arbete.</p>
-    <a href="/img/CV_Wictor-Stenseke.pdf" class="text-center cv-button button" target="_blank"><i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>&nbsp&nbsp&nbsp&nbspLadda ner CV</a>
+    <a href="/img/CV_Wictor-Stenseke.pdf" class="text-center cv-button button" target="_blank"><i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;Ladda ner CV</a>
     <div class="social-icons">
       <a class="social-icon linkedin" href="https://se.linkedin.com/in/wictorstenseke" target="_blank">
         <i class="fa fa-linkedin-square fa-3x" aria-hidden="true"></i>

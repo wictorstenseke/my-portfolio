@@ -15,8 +15,8 @@
   <div class="case-info">
     <h1 class="text-center">Service Design</h1>
     <div class="author-date">
-      <img class="author-avatar" src="/img/avatar.png" alt="Profilbild på författaren av texten">
-      <p class="author">Wictor Stenseke&nbsp</p><p class="date">| 24 November 2016</p>
+      <img class="author-avatar" src="/img/avatar2.jpg" alt="Profilbild på författaren av texten">
+      <p class="author">Wictor Stenseke&nbsp;</p><p class="date">| 24 November 2016</p>
     </div>
     <div class="hr"></div>
     <div class="case-content">
@@ -41,7 +41,7 @@
       </p>
     </div>
     <div class="hr"></div>
-    <a href="/img/CV_Wictor-Stenseke.pdf" class="text-center cv-button button" target="_blank"><i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>&nbsp&nbsp&nbsp&nbspLadda ner CV</a>
+    <a href="/img/CV_Wictor-Stenseke.pdf" class="text-center cv-button button" target="_blank"><i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;Ladda ner CV</a>
     <div class="more-projects">
       <h2 class="text-center">Andra projekt</h2>
       <div class="pure-g">
