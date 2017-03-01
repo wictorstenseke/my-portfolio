@@ -6,7 +6,7 @@
 <meta property="og:image" content="http://wictorstenseke.se/img/og-image.jpg">
 <meta property="og:title" content="UX DESIGNER | Wictor Stenseke" />
 <meta property="og:description" content="Min portfolio med projekt, hemsidor och tjänster jag skapat eller deltagit inom. Välkommen att kontakta mig via Linkedin eller Facebook!" />
-<meta property="og:url" content="wictorstenseke.se">
+<meta property="og:url" content="http://wictorstenseke.se">
 <meta property="og:locale" content="sv_SE" />
 
 
