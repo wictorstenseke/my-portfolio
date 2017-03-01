@@ -7,7 +7,7 @@
       </div> -->
       <div class="pure-g">
         <div class="pure-u-md-1 pure-u-1 banner">
-          <h1 style="font-family: 'Murky Buzz DEMO', sans-serif; font-size: 64px; color: #EBF2FA; letter-spacing: 3px; margin-bottom: 20px;">Wictor Stenseke</h1>
+          <h1 style="font-family: 'Murky Buzz DEMO', sans-serif; font-size: 64px; color: #EBF2FA; letter-spacing: 3px; margin-bottom: 25px;">Wictor Stenseke</h1>
           <h2>Student | UX-Designer</h2>
           <a href="#portfolio" class="button">Se några av mina projekt</a>
         </div>
