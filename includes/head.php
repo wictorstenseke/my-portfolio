@@ -15,5 +15,5 @@
 <link rel="shortcut icon" href="/favicon.ico?v=2">
 <meta name="theme-color" content="#ffffff">
 
-<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/all.css">
 <script src="https://use.fontawesome.com/5cafce8111.js"></script>
