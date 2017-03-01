@@ -172,7 +172,6 @@ https://github.com/yahoo/pure/blob/master/LICENSE.md
   text-rendering: optimizespeed;
   font-family: FreeSans,Arimo,"Droid Sans",Helvetica,Arial,sans-serif;
   display: -webkit-flex;
-  -webkit-flex-flow: row wrap;
   display: -ms-flexbox;
   -ms-flex-flow: row wrap;
   -ms-align-content: flex-start;
