@@ -1171,9 +1171,9 @@ textarea {
 
 @font-face {
   font-family: 'Murky Buzz DEMO';
-  src: url("../fonts/MurkyBuzzDEMO-webfont.eot");
+  src: url("../fonts/MurkyBuzzDEMO.eot");
   /* IE9 Compat Modes */
-  src: url("../fonts/MurkyBuzzDEMO-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/MurkyBuzzDEMO-webfont.woff") format("woff"), url("../fonts/MurkyBuzzDEMO-webfont.ttf") format("truetype"); }
+  src: url("../fonts/MurkyBuzzDEMO.eot?#iefix") format("embedded-opentype"), url("../fonts/MurkyBuzzDEMO.woff") format("woff"), url("../fonts/MurkyBuzzDEMO.ttf") format("truetype"); }
 .first {
   margin-top: 0 !important;
   margin-left: 0 !important; }
