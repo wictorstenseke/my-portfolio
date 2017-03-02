@@ -1191,7 +1191,7 @@ textarea {
 
 @font-face {
   font-family: "Murky Buzz DEMO";
-  src: url("MurkyBuzzDEMO.eot");
+  src: url("/fonts/MurkyBuzzDEMO.eot");
   src: url("/fonts/MurkyBuzzDEMO.eot?#iefix") format("embedded-opentype"), url("/fonts/MurkyBuzzDEMO.woff") format("woff"), url("/fonts/MurkyBuzzDEMO.ttf") format("truetype"); }
 html, button, input, select, textarea, .pure-g [class*="pure-u"] {
   font-family: "Lato", Arial, sans-serif; }
