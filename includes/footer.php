@@ -6,7 +6,7 @@
       <a class="footer-link-3" href="https://www.facebook.com/wictorstenseke" target="_blank"><i class="fa fa-facebook fa-1x" aria-hidden="true"></i></a>
     </div>
     <div class="copyright">
-      <p>© 2016 Wictor Stenseke</p>
+      <p>© 2017 Wictor Stenseke</p>
     </div>
   </section>
 </footer>
