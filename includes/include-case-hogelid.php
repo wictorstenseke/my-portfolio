@@ -39,7 +39,7 @@
       </p>
     </div>
     <div class="hr"></div>
-    <a href="/img/CV_Wictor-Stenseke.pdf" class="text-center cv-button button" target="_blank">
+    <a href="/img/cv-wictor_stenseke-uxdesigner.pdf" class="text-center cv-button button" target="_blank">
       <i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>
         &nbsp;&nbsp;&nbsp;&nbsp;Ladda ner CV
     </a>
