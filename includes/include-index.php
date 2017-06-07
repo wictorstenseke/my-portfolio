@@ -97,7 +97,7 @@
   <div class="about-wrapper">
     <img class="avatar" src="img/avatar2.jpg">
     <p class="biography">Jag är en vetgirig person som tycker om att anta utmaningar och lära mig nya saker. Det senaste året har bestått till stor del av att lära mig webbutveckling. Därför såg jag skapandet av denna hemsida som ett bra tillfälle till att lära mig mera och utvidga mina kunskaper.</p>
-    <p class="biography">Som UX Designer anser jag att en stor del av arbetsprocessen att förstå användares behov och kartlägga vad som motiverar dem till att nå sina mål. Detta möjligggör att kunna designa bra lösningar med användaren och användarens mål i fokus.</p>
+    <p class="biography">Som UX Designer anser jag att en stor del av arbetsprocessen att förstå användares behov och kartlägga vad som motiverar dem till att nå sina mål. Detta möjliggör att kunna designa bra lösningar med användaren och användarens mål i fokus.</p>
     <p class="biography">Att involvera UX tidigt i en utvecklingsprocess kan spara mycket tid och pengar då det kan ge en bred förståelse för användargrupper och beteendemönster. Att inte göra rätt från början är en stor tidstjuv!</p>
     <p class="biography">Ta en titt på mitt CV eller lägg till mig på Linkedin. Där finns mer information om utbildning och tidigare arbete.</p>
     <a href="/img/cv-wictor_stenseke-uxdesigner.pdf" class="text-center cv-button button" target="_blank"><i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;Ladda ner CV</a>
