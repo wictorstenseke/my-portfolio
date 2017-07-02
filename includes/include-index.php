@@ -8,7 +8,7 @@
       <div class="pure-g">
         <div class="pure-u-md-1 pure-u-1 banner">
           <h1 style="font-family: 'Murky Buzz DEMO', Lato, sans-serif; font-size: 58px; color: #EBF2FA; letter-spacing: 2px; margin-bottom: 33px; line-height: 0.7;">Wictor Stenseke</h1>
-          <h2>Student | UX-Designer</h2>
+          <h2>UX-Designer @ Knowit</h2>
           <a href="#portfolio" class="button">Se några av mina projekt</a>
         </div>
       </div>
