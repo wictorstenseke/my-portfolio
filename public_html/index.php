@@ -2,7 +2,7 @@
 <html lang="sv">
 <head>
   <!-- change this to each site -->
-  <title>Wictor Stenseke | UX Designer</title>
+  <title>Wictor Stenseke | UX Designer at Knowit</title>
   <!-- change this to each site -->
   <meta name="description" content="UX Designer | Min portfolio över projekt jag skapat eller deltagit inom. Välkommen att kontakta mig via Linkedin eller Facebook!">
   <!-- include general head-tags -->
