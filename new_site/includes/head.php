@@ -2,6 +2,11 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+        <meta property="og:title" content="UX DESIGNER | Wictor Stenseke" />
+        <meta property="og:description" content="Min portfolio med projekt, hemsidor och tjänster jag skapat eller deltagit inom. Välkommen att kontakta mig via Linkedin eller Facebook!" />
+        <meta property="og:url" content="https://wictorstenseke.se">
+        <meta property="og:locale" content="sv_SE" />
+
         <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
         <link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
         <link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
