@@ -15,7 +15,6 @@
                     </div>
                 </div>
                 <div class="col-xs-12 footer-ws text-center">
-                        <!-- <div class="hr"></div> -->
                         <p class="copyright">© 2017 | wictorstenseke.se</p>
                     </div>
             </div>
