@@ -11,8 +11,6 @@
     <body>
         <?php $page = "index"; ?>
 
-        <!-- import navbar -->
-
         <!-- import content -->
         <?php include "../includes/pages/index-include.php" ?>
 
