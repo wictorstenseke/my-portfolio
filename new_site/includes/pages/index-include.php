@@ -15,7 +15,7 @@
                     </div>
                 </div>
                 <div class="col-xs-12 footer-ws text-center">
-                        <p class="copyright">© 2017 | wictorstenseke.se</p>
+                        <p class="copyright">© <?php echo date("Y"); ?> | wictorstenseke.se</p>
                     </div>
             </div>
         </div>
