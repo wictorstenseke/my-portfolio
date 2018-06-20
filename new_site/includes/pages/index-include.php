@@ -6,7 +6,6 @@
                     <img class="profile-avatar" src="/img/avatar.jpg">
                     <h3>Wictor Stenseke</h3>
                     <p>UX Designer at Knowit Solutions</p>
-                    <p>Currently at Collector Bank</p>
                     <p class="bold-text bio-end"><img class="pin" src="/img/pin.svg">Göteborg, Sverige</p>
                     <div class="col-sm-4  col-sm-offset-2 button-set">
                         <a class="btn cta-button-mail" role="button" href="mailto:wictorstenseke@gmail.com">Maila mig&nbsp;&nbsp;&nbsp;<i class="fa fa-paper-plane" aria-hidden="true"></i></a>
