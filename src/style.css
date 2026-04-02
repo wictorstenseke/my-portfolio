@@ -6,9 +6,7 @@
   --muted: #807a6f;
   --accent: #e09f3e;
   --accent-dim: rgba(224, 159, 62, 0.12);
-  --font-display: "Fugaz One", cursive;
   --font-body: "Barlow", sans-serif;
-  --font-mono: "JetBrains Mono", monospace;
 }
 
 /* ─── Reset ─── */

@@ -7,7 +7,7 @@ export function App() {
       <main>
         <div class="portrait">
           <div class="portrait-frame">
-            <img src="/img/avatar.jpg" alt="Wictor Stenseke" />
+            <img src="/img/avatar.webp" alt="Wictor Stenseke" width="400" height="400" />
           </div>
         </div>
 
