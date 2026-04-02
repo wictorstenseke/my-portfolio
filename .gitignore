@@ -24,6 +24,9 @@ config.codekit3
 # Allow config.codekit3 in archives (kept for build history)
 !archive/**/config.codekit3
 
+### Superpowers (local plugin / brainstorm session state) ###
+.superpowers/
+
 ### IDE ###
 .idea/
 .vscode/
