@@ -34,3 +34,6 @@ config.codekit3
 node_modules/
 .env
 .env.local
+
+### Docs ###
+docs/
