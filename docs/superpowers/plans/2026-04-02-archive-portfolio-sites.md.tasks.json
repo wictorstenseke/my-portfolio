@@ -1,0 +1,64 @@
+{
+  "planPath": "docs/superpowers/plans/2026-04-02-archive-portfolio-sites.md",
+  "tasks": [
+    {
+      "id": 1,
+      "subject": "Task 1: Create archive directory structure",
+      "status": "pending",
+      "description": "**Goal:** Create archive/v1/ and archive/v2/ directory trees with all subdirectories",
+      "metadata": {
+        "files": ["archive/v1/", "archive/v2/"],
+        "verifyCommand": "ls archive/v1/ archive/v2/",
+        "acceptanceCriteria": ["archive/v1 with subdirs exists", "archive/v2 with subdirs exists"]
+      }
+    },
+    {
+      "id": 2,
+      "subject": "Task 2: Flatten V1 (old site) to static HTML and copy assets",
+      "status": "pending",
+      "blockedBy": [1],
+      "description": "**Goal:** Render all 4 V1 PHP pages to static HTML, fix absolute paths to relative, add .html to internal links, copy static assets",
+      "metadata": {
+        "files": ["archive/v1/index.html", "archive/v1/projekt/bokningssystem.html", "archive/v1/projekt/servicedesign.html", "archive/v1/projekt/webbplats.html"],
+        "verifyCommand": "grep -rn 'href=\"/' archive/v1/ | grep -v 'https\\|http\\|//'",
+        "acceptanceCriteria": ["4 HTML pages rendered", "No absolute paths remain", "Internal links use .html", "All static assets copied"]
+      }
+    },
+    {
+      "id": 3,
+      "subject": "Task 3: Flatten V2 (new site) to static HTML and copy assets",
+      "status": "pending",
+      "blockedBy": [1],
+      "description": "**Goal:** Render 2 V2 PHP pages to static HTML, fix absolute paths to relative, copy static assets",
+      "metadata": {
+        "files": ["archive/v2/index.html", "archive/v2/error_404.html"],
+        "verifyCommand": "grep -rn 'href=\"/' archive/v2/ | grep -v 'https\\|http\\|//'",
+        "acceptanceCriteria": ["2 HTML pages rendered", "No absolute paths remain", "All static assets copied"]
+      }
+    },
+    {
+      "id": 4,
+      "subject": "Task 4: Clean root directory and update .gitignore",
+      "status": "pending",
+      "blockedBy": [2, 3],
+      "description": "**Goal:** Remove old site directories, update .gitignore for clean slate",
+      "metadata": {
+        "files": [".gitignore"],
+        "verifyCommand": "ls -la",
+        "acceptanceCriteria": ["Old dirs removed", ".gitignore updated", "Only archive/ and git files at root"]
+      }
+    },
+    {
+      "id": 5,
+      "subject": "Task 5: Final verification",
+      "status": "pending",
+      "blockedBy": [4],
+      "description": "**Goal:** Verify both archives are complete, self-contained, and browsable",
+      "metadata": {
+        "verifyCommand": "grep -rn 'href=\"/' archive/ | grep -v 'https\\|http\\|//'",
+        "acceptanceCriteria": ["No absolute paths remain", "All referenced assets exist", "Pages render in browser"]
+      }
+    }
+  ],
+  "lastUpdated": "2026-04-02T00:00:00Z"
+}
