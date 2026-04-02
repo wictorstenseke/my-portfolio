@@ -30,8 +30,9 @@ config.codekit3
 *.swp
 *.swo
 
-### Node (for future v3) ###
+### Node ###
 node_modules/
+dist/
 .env
 .env.local
 

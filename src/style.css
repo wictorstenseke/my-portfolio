@@ -1,0 +1,242 @@
+/* ─── Tokens ─── */
+:root {
+  --bg: #111110;
+  --surface: #1a1a18;
+  --text: #e8e4dd;
+  --muted: #807a6f;
+  --accent: #e09f3e;
+  --accent-dim: rgba(224, 159, 62, 0.12);
+  --font-display: "Fugaz One", cursive;
+  --font-body: "Barlow", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+/* ─── Reset ─── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100dvh;
+  overflow-x: hidden;
+}
+
+/* ─── Grain overlay ─── */
+.grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px;
+}
+
+/* ─── Page layout ─── */
+.page {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3rem 2rem;
+}
+
+.main-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+  max-width: 420px;
+  width: 100%;
+  animation: fadeUp 0.8s ease-out both;
+}
+
+/* ─── Portrait ─── */
+.portrait {
+  position: relative;
+  animation: fadeUp 0.6s ease-out both;
+}
+
+.portrait-frame {
+  width: 150px;
+  height: 150px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 2px solid var(--accent);
+  transform: rotate(-3deg);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.portrait-frame:hover {
+  transform: rotate(0deg) scale(1.04);
+}
+
+.portrait-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(20%) contrast(1.05);
+  transition: filter 0.4s ease;
+}
+
+.portrait-frame:hover img {
+  filter: grayscale(0%) contrast(1);
+}
+
+/* ─── Intro ─── */
+.intro {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 1rem;
+  width: 100%;
+  animation: fadeUp 0.8s ease-out 0.15s both;
+}
+
+h1 {
+  font-family: var(--font-body);
+  line-height: 0.78;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  width: 100%;
+}
+
+h1 .line {
+  display: block;
+  white-space: nowrap;
+}
+
+h1 .line-1 {
+  font-weight: 700;
+  font-size: clamp(3.5rem, 12vw, 6.5rem);
+  opacity: 0.6;
+}
+
+h1 .line-2 {
+  color: var(--accent);
+  font-weight: 700;
+  font-size: clamp(2.6rem, 9vw, 4.9rem);
+}
+
+.bio {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--text);
+  text-align: left;
+  width: 100%;
+  padding: 1.25rem 1.5rem;
+  border-left: 2px solid var(--accent);
+  background: var(--surface);
+  border-radius: 0 8px 8px 0;
+}
+
+/* ─── Links ─── */
+.links {
+  display: flex;
+  gap: 1rem;
+  animation: fadeUp 0.8s ease-out 0.3s both;
+}
+
+.link-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--text);
+  text-decoration: none;
+  padding: 10px 24px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 100px;
+  background: var(--surface);
+  transition: all 0.3s ease;
+}
+
+.link-pill:hover {
+  border-color: var(--accent);
+  background: var(--accent-dim);
+  color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.link-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+.link-pill:hover .link-dot {
+  opacity: 1;
+}
+
+/* ─── Footer ─── */
+footer {
+  margin-top: auto;
+  padding-top: 4rem;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: flex;
+  gap: 0.5rem;
+  animation: fadeUp 0.8s ease-out 0.45s both;
+}
+
+.separator {
+  opacity: 0.3;
+}
+
+/* ─── Animations ─── */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 480px) {
+  .page {
+    padding: 2rem 1.5rem;
+  }
+
+  .links {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .link-pill {
+    justify-content: center;
+  }
+}
