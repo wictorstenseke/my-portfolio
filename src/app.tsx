@@ -27,23 +27,22 @@ export function App() {
             UX Designer in Gothenburg, Sweden — bridging users
             and product through research, prototyping &amp; craft.
           </p>
+          <nav class="links">
+            <a href="mailto:wictorstenseke@gmail.com" class="link-pill">
+              <span class="link-dot" />
+              Email
+            </a>
+            <a
+              href="https://www.linkedin.com/in/wictorstenseke/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="link-pill"
+            >
+              <span class="link-dot" />
+              LinkedIn
+            </a>
+          </nav>
         </div>
-
-        <nav class="links">
-          <a href="mailto:wictorstenseke@gmail.com" class="link-pill">
-            <span class="link-dot" />
-            Email
-          </a>
-          <a
-            href="https://www.linkedin.com/in/wictorstenseke/"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="link-pill"
-          >
-            <span class="link-dot" />
-            LinkedIn
-          </a>
-        </nav>
       </main>
       </div>
 
