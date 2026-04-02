@@ -1,6 +1,13 @@
 export function App() {
   return (
     <div class="page">
+      <svg width="0" height="0" aria-hidden="true">
+        <defs>
+          <clipPath id="squircle" clipPathUnits="objectBoundingBox">
+            <path d="M 0,0.5 C 0,0 0,0 0.5,0 S 1,0 1,0.5 1,1 0.5,1 0,1 0,0.5" />
+          </clipPath>
+        </defs>
+      </svg>
       <div class="grain" aria-hidden="true" />
 
       <div class="main-wrapper">
