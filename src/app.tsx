@@ -8,6 +8,7 @@ export function App() {
           </clipPath>
         </defs>
       </svg>
+      <div class="bg-grid" aria-hidden="true" />
 
       <div class="main-wrapper">
       <main>
