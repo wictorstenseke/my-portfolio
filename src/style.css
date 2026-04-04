@@ -220,47 +220,54 @@ h1 .line-2 {
 
 .timeline {
   position: relative;
-  padding-left: 1.25rem;
 }
 
-.timeline::before {
-  content: "";
-  position: absolute;
-  left: 3px;
-  top: 6px;
-  bottom: 6px;
-  width: 1px;
-  background: linear-gradient(
-    to bottom,
-    var(--accent) 0%,
-    rgba(224, 159, 62, 0.15) 100%
-  );
+.timeline-group {
+  padding-bottom: 1.5rem;
+  animation: fadeUp 0.5s ease-out both;
+}
+
+.timeline-group:last-child {
+  padding-bottom: 0;
 }
 
 .timeline-entry {
   position: relative;
-  padding-bottom: 1.25rem;
-  animation: fadeUp 0.5s ease-out both;
-}
-
-.timeline-entry:last-child {
-  padding-bottom: 0;
 }
 
 .timeline-marker {
-  position: absolute;
-  left: -1.25rem;
-  top: 6px;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 0 3px var(--bg);
+  display: none;
 }
 
-.timeline-entry:not(:first-child) .timeline-marker {
-  background: var(--muted);
-  opacity: 0.4;
+.timeline-consulting {
+  margin-top: 0.75rem;
+  margin-left: 0.25rem;
+  padding-left: 1rem;
+  border-left: 1px solid rgba(224, 159, 62, 0.15);
+}
+
+.consulting-label {
+  display: block;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  opacity: 0.5;
+  margin-bottom: 0.6rem;
+}
+
+.timeline-entry--nested {
+  padding-bottom: 0.75rem;
+  animation: fadeUp 0.5s ease-out both;
+}
+
+.timeline-entry--nested:last-child {
+  padding-bottom: 0;
+}
+
+.timeline-marker--nested {
+  display: none;
 }
 
 .timeline-content {
