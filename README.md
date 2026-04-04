@@ -1,6 +1,6 @@
 # My Portfolio
 
-Personal portfolio site for Wictor Stenseke — UX Designer based in Gothenburg, Sweden.
+Personal portfolio site for Wictor Stenseke — UX Designer & Developer based in Gothenburg, Sweden.
 
 ## Stack
 
