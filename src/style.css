@@ -62,6 +62,7 @@ body {
   flex: 1;
   display: flex;
   align-items: center;
+  padding: 2rem 0;
 }
 
 main {
@@ -199,6 +200,94 @@ h1 .line-2 {
 
 .link-pill:hover .link-dot {
   opacity: 1;
+}
+
+/* ─── Experience ─── */
+.experience {
+  width: 100%;
+  animation: fadeUp 0.8s ease-out 0.35s both;
+}
+
+.section-heading {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+}
+
+.timeline {
+  position: relative;
+  padding-left: 1.25rem;
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 3px;
+  top: 6px;
+  bottom: 6px;
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    var(--accent) 0%,
+    rgba(224, 159, 62, 0.15) 100%
+  );
+}
+
+.timeline-entry {
+  position: relative;
+  padding-bottom: 1.25rem;
+  animation: fadeUp 0.5s ease-out both;
+}
+
+.timeline-entry:last-child {
+  padding-bottom: 0;
+}
+
+.timeline-marker {
+  position: absolute;
+  left: -1.25rem;
+  top: 6px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 3px var(--bg);
+}
+
+.timeline-entry:not(:first-child) .timeline-marker {
+  background: var(--muted);
+  opacity: 0.4;
+}
+
+.timeline-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.timeline-period {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.timeline-role {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.3;
+}
+
+.timeline-company {
+  font-size: 0.8rem;
+  color: var(--muted);
+  font-weight: 600;
 }
 
 /* ─── Footer ─── */
