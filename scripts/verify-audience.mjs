@@ -94,6 +94,18 @@ try {
 
   assert.equal(Object.isFrozen(CANONICAL_INTRO), true);
   assert.equal(Object.isFrozen(CANONICAL_EXPERIENCE), true);
+  assert.deepEqual(
+    CANONICAL_EXPERIENCE.map((entry) => entry.id),
+    ["bonfire-development", "bokio", "knowit"],
+  );
+  assert.deepEqual(
+    CANONICAL_EXPERIENCE[0].consulting.map((assignment) => assignment.id),
+    ["wolters-kluwer-sverige", "icore-solutions", "polestar"],
+  );
+  assert.deepEqual(
+    CANONICAL_EXPERIENCE[2].consulting.map((assignment) => assignment.id),
+    ["skf-group", "telia", "collector-bank"],
+  );
   assert.equal(Object.isFrozen(CANONICAL_EXPERIENCE[0]), true);
   assert.equal(Object.isFrozen(CANONICAL_EXPERIENCE[0].consulting), true);
   assert.equal(Object.isFrozen(CANONICAL_EXPERIENCE[0].consulting[0]), true);
@@ -120,6 +132,8 @@ try {
   assert.notStrictEqual(generalProfileA.experience[0], CANONICAL_EXPERIENCE[0]);
   assert.notStrictEqual(generalProfileA.experience[0].consulting, CANONICAL_EXPERIENCE[0].consulting);
   assert.notStrictEqual(generalProfileA.experience[0].consulting[0], CANONICAL_EXPERIENCE[0].consulting[0]);
+  assert.equal(generalProfileA.experience[0].id, CANONICAL_EXPERIENCE[0].id);
+  assert.equal(generalProfileA.experience[0].consulting[0].id, CANONICAL_EXPERIENCE[0].consulting[0].id);
 
   assert.notStrictEqual(generalProfileA.intro, generalProfileB.intro);
   assert.notStrictEqual(generalProfileA.experience, generalProfileB.experience);

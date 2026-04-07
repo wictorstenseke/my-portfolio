@@ -1,12 +1,14 @@
 import type { Audience } from "../audience";
 
 export type ConsultingAssignment = {
+  readonly id: string;
   readonly role: string;
   readonly company: string;
   readonly period: string;
 };
 
 export type ExperienceEntry = {
+  readonly id: string;
   readonly role: string;
   readonly company: string;
   readonly period: string;
