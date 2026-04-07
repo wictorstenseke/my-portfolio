@@ -1,38 +1,12 @@
-import type { Audience } from "./audience";
+import type { ResolvedProfile } from "./portfolio/types";
 
 export type AppProps = {
-  audience: Audience;
+  profile: ResolvedProfile;
 };
 
-const experience = [
-  {
-    role: "UX Designer",
-    company: "Bonfire Development AB",
-    period: "Nov 2021 – Present",
-    consulting: [
-      { role: "UX Designer", company: "Wolters Kluwer Sverige", period: "Dec 2023 – Present" },
-      { role: "Product Owner | UX Designer", company: "iCore Solutions AB", period: "Oct 2022 – Dec 2023" },
-      { role: "UX Designer", company: "Polestar", period: "Nov 2021 – Oct 2022" },
-    ],
-  },
-  {
-    role: "UX Designer",
-    company: "Bokio",
-    period: "Sep 2021 – Nov 2021",
-  },
-  {
-    role: "UX Designer",
-    company: "Knowit",
-    period: "May 2017 – Sep 2021",
-    consulting: [
-      { role: "UX Designer", company: "SKF Group", period: "Nov 2020 – Sep 2021" },
-      { role: "UX Designer", company: "Telia", period: "Aug 2018 – Sep 2020" },
-      { role: "UX Designer", company: "Collector Bank", period: "Nov 2017 – Jun 2018" },
-    ],
-  },
-];
+export function App({ profile }: AppProps) {
+  const { audience, experience, intro } = profile;
 
-export function App({ audience }: AppProps) {
   return (
     <div class="page" data-audience={audience}>
       <svg width="0" height="0" aria-hidden="true">
@@ -57,10 +31,7 @@ export function App({ audience }: AppProps) {
             <span class="line line-1">Wictor</span>
             <span class="line line-2">Stenseke</span>
           </h1>
-          <p class="bio">
-            UX Designer in Gothenburg, Sweden — bridging users
-            and product through research, prototyping &amp; craft.
-          </p>
+          <p class="bio">{intro.bio}</p>
           <nav class="links">
             <a href="mailto:wictorstenseke@gmail.com" class="link-pill">
               <span class="link-dot" />
