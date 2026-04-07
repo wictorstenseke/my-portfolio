@@ -1,8 +1,9 @@
 /** Query parameter name for shared portfolio audience links. */
 export const AUDIENCE_QUERY_PARAM = "audience" as const;
+export const DEFAULT_AUDIENCE = "general" as const;
 
 export const SUPPORTED_AUDIENCES = [
-  "general",
+  DEFAULT_AUDIENCE,
   "product-manager",
   "frontend-engineer",
 ] as const;
@@ -13,14 +14,14 @@ const audienceSet = new Set<string>(SUPPORTED_AUDIENCES);
 
 /**
  * Normalizes a raw `audience` query value. Missing or unsupported values
- * resolve to `general`.
+ * resolve to the default audience.
  */
 export function resolveAudience(raw: string | null | undefined): Audience {
   if (raw == null || raw === "") {
-    return "general";
+    return DEFAULT_AUDIENCE;
   }
   const key = raw.trim().toLowerCase();
-  return audienceSet.has(key) ? (key as Audience) : "general";
+  return audienceSet.has(key) ? (key as Audience) : DEFAULT_AUDIENCE;
 }
 
 export function audienceFromSearch(search: string): Audience {
