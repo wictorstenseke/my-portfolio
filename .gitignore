@@ -26,6 +26,7 @@ config.codekit3
 
 ### Superpowers (local plugin / brainstorm session state) ###
 .superpowers/
+.worktrees/
 
 ### IDE ###
 .idea/
