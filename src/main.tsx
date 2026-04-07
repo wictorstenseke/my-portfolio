@@ -1,8 +1,5 @@
 import { render } from "preact";
-import { App } from "./app";
-import { audienceFromSearch } from "./audience";
+import { createPortfolioApp } from "./portfolio-app";
 import "./style.css";
 
-const audience = audienceFromSearch(window.location.search);
-
-render(<App audience={audience} />, document.getElementById("app")!);
+render(createPortfolioApp(window.location.search), document.getElementById("app")!);
