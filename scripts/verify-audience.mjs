@@ -83,6 +83,38 @@ try {
   assert.equal(audienceFromSearch("?audience=product-manager"), "product-manager");
   assert.equal(audienceFromSearch("?audience=%20FRONTEND-ENGINEER%20"), "frontend-engineer");
 
+  function normalizedExperienceFacts(entries) {
+    return [...entries]
+      .map((e) => e.id)
+      .sort()
+      .map((id) => {
+        const e = entries.find((x) => x.id === id);
+        return {
+          id: e.id,
+          role: e.role,
+          company: e.company,
+          period: e.period,
+          consulting: e.consulting
+            ? [...e.consulting]
+                .sort((a, b) => a.id.localeCompare(b.id))
+                .map((c) => ({
+                  id: c.id,
+                  role: c.role,
+                  company: c.company,
+                  period: c.period,
+                }))
+            : undefined,
+        };
+      });
+  }
+
+  function experienceIdOrder(entries) {
+    return entries.map((e) => ({
+      jobId: e.id,
+      consultingIds: e.consulting ? e.consulting.map((c) => c.id) : undefined,
+    }));
+  }
+
   const generalHtml = renderToString(createPortfolioApp(""));
   const pmHtml = renderToString(createPortfolioApp("?audience=product-manager"));
   const frontendHtml = renderToString(createPortfolioApp("?audience=frontend-engineer"));
@@ -100,6 +132,10 @@ try {
   assert.match(frontendHtml, /Component-level/);
   assert.ok(!generalHtml.includes("Roadmap"));
   assert.ok(!generalHtml.includes("Component-level thinking"));
+
+  assert.ok(!generalHtml.includes("data-emphasized"));
+  assert.match(pmHtml, /data-emphasized="true"/);
+  assert.match(frontendHtml, /data-emphasized="true"/);
 
   assert.equal(Object.isFrozen(CANONICAL_INTRO), true);
   assert.equal(Object.isFrozen(CANONICAL_EXPERIENCE), true);
@@ -170,6 +206,27 @@ try {
   assert.notStrictEqual(generalProfileA.experience[0], generalProfileB.experience[0]);
   assert.notStrictEqual(generalProfileA.experience[0].consulting, generalProfileB.experience[0].consulting);
   assert.notStrictEqual(generalProfileA.experience[0].consulting[0], generalProfileB.experience[0].consulting[0]);
+
+  const canonicalFacts = normalizedExperienceFacts(CANONICAL_EXPERIENCE);
+  assert.deepEqual(normalizedExperienceFacts(generalProfileA.experience), canonicalFacts);
+  assert.deepEqual(normalizedExperienceFacts(pmProfile.experience), canonicalFacts);
+  assert.deepEqual(normalizedExperienceFacts(feProfile.experience), canonicalFacts);
+
+  const canonicalIdOrder = experienceIdOrder(CANONICAL_EXPERIENCE);
+  assert.deepEqual(experienceIdOrder(generalProfileA.experience), canonicalIdOrder);
+  assert.deepEqual(experienceIdOrder(pmProfile.experience), canonicalIdOrder);
+  assert.deepEqual(experienceIdOrder(feProfile.experience), canonicalIdOrder);
+
+  assert.deepEqual(generalProfileA.experiencePresentation.emphasizedJobIds, []);
+  assert.deepEqual(generalProfileA.experiencePresentation.emphasizedConsultingIds, []);
+  assert.notDeepEqual(
+    [...pmProfile.experiencePresentation.emphasizedJobIds].sort(),
+    [...feProfile.experiencePresentation.emphasizedJobIds].sort(),
+  );
+  assert.notDeepEqual(
+    [...pmProfile.experiencePresentation.emphasizedConsultingIds].sort(),
+    [...feProfile.experiencePresentation.emphasizedConsultingIds].sort(),
+  );
 
   generalProfileA.intro.bio = "Audience-specific bio";
   generalProfileA.experience[0].role = "Reordered Role";

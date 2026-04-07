@@ -5,7 +5,9 @@ export type AppProps = {
 };
 
 export function App({ profile }: AppProps) {
-  const { audience, experience, intro, skillsHighlights } = profile;
+  const { audience, experience, intro, skillsHighlights, experiencePresentation } = profile;
+  const emphasizedJobs = new Set(experiencePresentation.emphasizedJobIds);
+  const emphasizedConsulting = new Set(experiencePresentation.emphasizedConsultingIds);
 
   return (
     <div class="page" data-audience={audience}>
@@ -70,7 +72,14 @@ export function App({ profile }: AppProps) {
           <div class="timeline">
             {experience.map((job, i) => (
               <div key={job.id} class="timeline-group" style={{ animationDelay: `${0.4 + i * 0.12}s` }}>
-                <div class="timeline-entry">
+                <div
+                  class={
+                    emphasizedJobs.has(job.id)
+                      ? "timeline-entry timeline-entry--emphasized"
+                      : "timeline-entry"
+                  }
+                  data-emphasized={emphasizedJobs.has(job.id) ? "true" : undefined}
+                >
                   <div class="timeline-marker" />
                   <div class="timeline-content">
                     <span class="timeline-period">{job.period}</span>
@@ -84,7 +93,12 @@ export function App({ profile }: AppProps) {
                     {job.consulting.map((c, j) => (
                       <div
                         key={c.id}
-                        class="timeline-entry timeline-entry--nested"
+                        class={
+                          emphasizedConsulting.has(c.id)
+                            ? "timeline-entry timeline-entry--nested timeline-entry--emphasized"
+                            : "timeline-entry timeline-entry--nested"
+                        }
+                        data-emphasized={emphasizedConsulting.has(c.id) ? "true" : undefined}
                         style={{ animationDelay: `${0.5 + i * 0.12 + j * 0.06}s` }}
                       >
                         <div class="timeline-marker timeline-marker--nested" />

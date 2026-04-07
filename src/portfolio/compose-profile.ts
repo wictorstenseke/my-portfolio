@@ -5,6 +5,10 @@ import {
   CANONICAL_INTRO,
   CANONICAL_SKILLS_HIGHLIGHTS,
 } from "./canonical";
+import {
+  applyExperiencePresentationRules,
+  resolveExperiencePresentation,
+} from "./experience-presentation";
 import type {
   ConsultingAssignment,
   ExperienceEntry,
@@ -49,10 +53,16 @@ export function composeProfile(audience: Audience): ResolvedProfile {
   const skillsHighlights = overlay.skillsHighlights
     ? cloneSkillsHighlights(overlay.skillsHighlights)
     : cloneSkillsHighlights(CANONICAL_SKILLS_HIGHLIGHTS);
+  const clonedExperience = cloneExperience(CANONICAL_EXPERIENCE);
+  const experience = applyExperiencePresentationRules(
+    clonedExperience,
+    overlay.experiencePresentation,
+  );
   return {
     audience,
-    experience: cloneExperience(CANONICAL_EXPERIENCE),
+    experience,
     intro: mergeIntro(CANONICAL_INTRO, overlay.intro),
     skillsHighlights,
+    experiencePresentation: resolveExperiencePresentation(overlay.experiencePresentation),
   };
 }

@@ -19,6 +19,11 @@ export const AUDIENCE_OVERLAYS: Record<Audience, AudienceOverlay> = {
         "Iteration guided by usage, feedback & product metrics",
       ],
     },
+    experiencePresentation: {
+      jobOrder: ["bonfire-development", "bokio", "knowit"],
+      emphasizedJobIds: ["knowit"],
+      emphasizedConsultingIds: ["icore-solutions", "telia", "skf-group"],
+    },
   },
   "frontend-engineer": {
     skillsHighlights: {
@@ -31,6 +36,13 @@ export const AUDIENCE_OVERLAYS: Record<Audience, AudienceOverlay> = {
         "Accessibility & performance as design constraints",
         "Tight iteration with frontend in the delivery loop",
       ],
+    },
+    experiencePresentation: {
+      consultingOrderByJobId: {
+        knowit: ["skf-group", "telia", "collector-bank"],
+      },
+      emphasizedJobIds: ["bonfire-development"],
+      emphasizedConsultingIds: ["wolters-kluwer-sverige", "polestar", "telia"],
     },
   },
 };

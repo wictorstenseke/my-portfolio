@@ -258,6 +258,17 @@ h1 .line-2 {
   position: relative;
 }
 
+.timeline-entry--emphasized .timeline-content {
+  padding-left: 0.65rem;
+  margin-left: -0.65rem;
+  border-left: 2px solid var(--accent);
+  border-radius: 0 6px 6px 0;
+}
+
+.timeline-entry--nested.timeline-entry--emphasized .timeline-content {
+  margin-left: calc(-0.65rem - 0.25rem);
+}
+
 .timeline-marker {
   display: none;
 }
