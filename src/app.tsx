@@ -53,7 +53,7 @@ export function App({ profile }: AppProps) {
           <h2 class="section-heading">Experience</h2>
           <div class="timeline">
             {experience.map((job, i) => (
-              <div class="timeline-group" style={{ animationDelay: `${0.4 + i * 0.12}s` }}>
+              <div key={job.id} class="timeline-group" style={{ animationDelay: `${0.4 + i * 0.12}s` }}>
                 <div class="timeline-entry">
                   <div class="timeline-marker" />
                   <div class="timeline-content">
@@ -66,7 +66,11 @@ export function App({ profile }: AppProps) {
                   <div class="timeline-consulting">
                     <span class="consulting-label">Consulting assignments</span>
                     {job.consulting.map((c, j) => (
-                      <div class="timeline-entry timeline-entry--nested" style={{ animationDelay: `${0.5 + i * 0.12 + j * 0.06}s` }}>
+                      <div
+                        key={c.id}
+                        class="timeline-entry timeline-entry--nested"
+                        style={{ animationDelay: `${0.5 + i * 0.12 + j * 0.06}s` }}
+                      >
                         <div class="timeline-marker timeline-marker--nested" />
                         <div class="timeline-content">
                           <span class="timeline-period">{c.period}</span>
