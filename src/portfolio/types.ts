@@ -1,20 +1,20 @@
 import type { Audience } from "../audience";
 
 export type ConsultingAssignment = {
-  role: string;
-  company: string;
-  period: string;
+  readonly role: string;
+  readonly company: string;
+  readonly period: string;
 };
 
 export type ExperienceEntry = {
-  role: string;
-  company: string;
-  period: string;
-  consulting?: ConsultingAssignment[];
+  readonly role: string;
+  readonly company: string;
+  readonly period: string;
+  readonly consulting?: readonly ConsultingAssignment[];
 };
 
 export type IntroContent = {
-  bio: string;
+  readonly bio: string;
 };
 
 /**
@@ -26,7 +26,7 @@ export type AudienceOverlay = {
 };
 
 export type ResolvedProfile = {
-  audience: Audience;
-  experience: readonly ExperienceEntry[];
-  intro: IntroContent;
+  readonly audience: Audience;
+  readonly experience: readonly ExperienceEntry[];
+  readonly intro: IntroContent;
 };
