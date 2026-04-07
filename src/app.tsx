@@ -106,7 +106,6 @@ export function App({ profile }: AppProps) {
                         <div class="timeline-marker timeline-marker--nested" />
                         <div class="timeline-content">
                           <span class="timeline-period">{c.period}</span>
-                          <h3 class="timeline-role">{c.role}</h3>
                           <span class="timeline-company">{c.company}</span>
                         </div>
                       </div>
