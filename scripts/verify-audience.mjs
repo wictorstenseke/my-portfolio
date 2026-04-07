@@ -43,7 +43,6 @@ try {
 
   const audienceModule = require(path.join(tempDir, "src/audience.js"));
   const canonicalModule = require(path.join(tempDir, "src/portfolio/canonical.js"));
-  const composeProfileModule = require(path.join(tempDir, "src/portfolio/compose-profile.js"));
   const personalizationModule = require(path.join(tempDir, "src/portfolio/personalization.js"));
   const experiencePresentationModule = require(path.join(tempDir, "src/portfolio/experience-presentation.js"));
   const portfolioAppModule = require(path.join(tempDir, "src/portfolio-app.js"));
@@ -55,12 +54,7 @@ try {
     resolveAudience,
   } = audienceModule;
   const { CANONICAL_EXPERIENCE, CANONICAL_INTRO, CANONICAL_SKILLS_HIGHLIGHTS } = canonicalModule;
-  const { composeProfile } = composeProfileModule;
-  assert.strictEqual(
-    personalizationModule.composeProfile,
-    composeProfile,
-    "personalization.ts should re-export composeProfile",
-  );
+  const { composeProfile } = personalizationModule;
   const { applyExperiencePresentationRules } = experiencePresentationModule;
   const { createPortfolioApp } = portfolioAppModule;
 
