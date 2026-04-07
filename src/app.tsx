@@ -5,7 +5,7 @@ export type AppProps = {
 };
 
 export function App({ profile }: AppProps) {
-  const { audience, experience, intro } = profile;
+  const { audience, experience, intro, skillsHighlights } = profile;
 
   return (
     <div class="page" data-audience={audience}>
@@ -48,6 +48,22 @@ export function App({ profile }: AppProps) {
             </a>
           </nav>
         </div>
+
+        <section
+          class="skills-highlights"
+          aria-labelledby="skills-highlights-heading"
+        >
+          <h2 id="skills-highlights-heading" class="section-heading">
+            {skillsHighlights.title}
+          </h2>
+          <ul class="skills-highlights-list">
+            {skillsHighlights.highlights.map((text, i) => (
+              <li key={`${i}-${text}`} class="skills-highlights-item">
+                {text}
+              </li>
+            ))}
+          </ul>
+        </section>
 
         <section class="experience">
           <h2 class="section-heading">Experience</h2>

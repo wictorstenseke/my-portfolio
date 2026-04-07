@@ -1,4 +1,4 @@
-import type { ExperienceEntry, IntroContent } from "./types";
+import type { ExperienceEntry, IntroContent, SkillsHighlightsSection } from "./types";
 
 function freezeExperienceEntry(entry: ExperienceEntry): ExperienceEntry {
   return Object.freeze({
@@ -16,6 +16,23 @@ function freezeExperience(entries: readonly ExperienceEntry[]): readonly Experie
 export const CANONICAL_INTRO: IntroContent = Object.freeze({
   bio:
     "UX Designer in Gothenburg, Sweden — bridging users and product through research, prototyping & craft.",
+});
+
+function freezeHighlights(items: readonly string[]): readonly string[] {
+  return Object.freeze([...items]);
+}
+
+/** Balanced emphasis for the default audience — broad UX/product collaboration, not tuned to one role. */
+export const CANONICAL_SKILLS_HIGHLIGHTS: SkillsHighlightsSection = Object.freeze({
+  title: "Skills highlights",
+  highlights: freezeHighlights([
+    "User research & discovery",
+    "Prototyping & interaction design",
+    "Product discovery with PMs & engineers",
+    "Workshops, alignment & facilitation",
+    "Design specs & handoff to development",
+    "Product Owner experience on cross-functional teams",
+  ]),
 });
 
 export const CANONICAL_EXPERIENCE: readonly ExperienceEntry[] = freezeExperience([

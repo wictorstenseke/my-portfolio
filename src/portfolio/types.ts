@@ -19,16 +19,25 @@ export type IntroContent = {
   readonly bio: string;
 };
 
+/** Short, scannable emphasis lines shown above Experience; tailored per audience. */
+export type SkillsHighlightsSection = {
+  readonly title: string;
+  readonly highlights: readonly string[];
+};
+
 /**
  * Audience-specific deltas applied on top of canonical portfolio facts.
  * Later phases can add fields (e.g. skill highlights) without duplicating full profiles.
  */
 export type AudienceOverlay = {
   intro?: Partial<IntroContent>;
+  /** When set, replaces the canonical skills highlights for this audience. */
+  skillsHighlights?: SkillsHighlightsSection;
 };
 
 export type ResolvedProfile = {
   readonly audience: Audience;
   readonly experience: readonly ExperienceEntry[];
   readonly intro: IntroContent;
+  readonly skillsHighlights: SkillsHighlightsSection;
 };

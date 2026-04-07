@@ -202,6 +202,29 @@ h1 .line-2 {
   opacity: 1;
 }
 
+/* ─── Skills highlights ─── */
+.skills-highlights {
+  width: 100%;
+  animation: fadeUp 0.8s ease-out 0.32s both;
+}
+
+.skills-highlights-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.skills-highlights-item {
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: var(--text);
+  padding: 0.65rem 1rem 0.65rem 1.1rem;
+  background: var(--surface);
+  border-radius: 0 8px 8px 0;
+  border-left: 2px solid rgba(224, 159, 62, 0.35);
+}
+
 /* ─── Experience ─── */
 .experience {
   width: 100%;

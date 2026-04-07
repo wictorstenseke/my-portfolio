@@ -52,7 +52,7 @@ try {
     audienceFromSearch,
     resolveAudience,
   } = audienceModule;
-  const { CANONICAL_EXPERIENCE, CANONICAL_INTRO } = canonicalModule;
+  const { CANONICAL_EXPERIENCE, CANONICAL_INTRO, CANONICAL_SKILLS_HIGHLIGHTS } = canonicalModule;
   const { composeProfile } = composeProfileModule;
   const { createPortfolioApp } = portfolioAppModule;
 
@@ -84,13 +84,22 @@ try {
   assert.equal(audienceFromSearch("?audience=%20FRONTEND-ENGINEER%20"), "frontend-engineer");
 
   const generalHtml = renderToString(createPortfolioApp(""));
+  const pmHtml = renderToString(createPortfolioApp("?audience=product-manager"));
   const frontendHtml = renderToString(createPortfolioApp("?audience=frontend-engineer"));
   const fallbackHtml = renderToString(createPortfolioApp("?audience=invalid"));
 
   assert.match(generalHtml, /data-audience="general"/);
+  assert.match(pmHtml, /data-audience="product-manager"/);
   assert.match(frontendHtml, /data-audience="frontend-engineer"/);
   assert.match(fallbackHtml, /data-audience="general"/);
   assert.match(frontendHtml, /Wictor/);
+
+  assert.match(generalHtml, /skills-highlights/);
+  assert.match(generalHtml, /User research/);
+  assert.match(pmHtml, /Roadmap/);
+  assert.match(frontendHtml, /Component-level/);
+  assert.ok(!generalHtml.includes("Roadmap"));
+  assert.ok(!generalHtml.includes("Component-level thinking"));
 
   assert.equal(Object.isFrozen(CANONICAL_INTRO), true);
   assert.equal(Object.isFrozen(CANONICAL_EXPERIENCE), true);
@@ -110,6 +119,12 @@ try {
   assert.equal(Object.isFrozen(CANONICAL_EXPERIENCE[0].consulting), true);
   assert.equal(Object.isFrozen(CANONICAL_EXPERIENCE[0].consulting[0]), true);
 
+  assert.equal(Object.isFrozen(CANONICAL_SKILLS_HIGHLIGHTS), true);
+  assert.equal(Object.isFrozen(CANONICAL_SKILLS_HIGHLIGHTS.highlights), true);
+  assert.throws(() => {
+    CANONICAL_SKILLS_HIGHLIGHTS.highlights.push("mutated");
+  }, TypeError);
+
   assert.throws(() => {
     CANONICAL_INTRO.bio = "mutated";
   }, TypeError);
@@ -126,6 +141,21 @@ try {
 
   const generalProfileA = composeProfile("general");
   const generalProfileB = composeProfile("general");
+  const pmProfile = composeProfile("product-manager");
+  const feProfile = composeProfile("frontend-engineer");
+
+  assert.notEqual(
+    generalProfileA.skillsHighlights.highlights.join("\n"),
+    pmProfile.skillsHighlights.highlights.join("\n"),
+  );
+  assert.notEqual(
+    generalProfileA.skillsHighlights.highlights.join("\n"),
+    feProfile.skillsHighlights.highlights.join("\n"),
+  );
+  assert.notEqual(
+    pmProfile.skillsHighlights.highlights.join("\n"),
+    feProfile.skillsHighlights.highlights.join("\n"),
+  );
 
   assert.notStrictEqual(generalProfileA.intro, CANONICAL_INTRO);
   assert.notStrictEqual(generalProfileA.experience, CANONICAL_EXPERIENCE);
@@ -144,6 +174,7 @@ try {
   generalProfileA.intro.bio = "Audience-specific bio";
   generalProfileA.experience[0].role = "Reordered Role";
   generalProfileA.experience[0].consulting[0].company = "Mutated Client";
+  generalProfileA.skillsHighlights.highlights[0] = "Mutated skill highlight";
 
   assert.equal(CANONICAL_INTRO.bio, "UX Designer in Gothenburg, Sweden — bridging users and product through research, prototyping & craft.");
   assert.equal(CANONICAL_EXPERIENCE[0].role, "UX Designer");
@@ -151,6 +182,11 @@ try {
   assert.equal(generalProfileB.intro.bio, CANONICAL_INTRO.bio);
   assert.equal(generalProfileB.experience[0].role, CANONICAL_EXPERIENCE[0].role);
   assert.equal(generalProfileB.experience[0].consulting[0].company, CANONICAL_EXPERIENCE[0].consulting[0].company);
+  assert.equal(
+    generalProfileB.skillsHighlights.highlights[0],
+    CANONICAL_SKILLS_HIGHLIGHTS.highlights[0],
+  );
+  assert.equal(CANONICAL_SKILLS_HIGHLIGHTS.highlights[0], "User research & discovery");
 
   console.log("audience verification passed");
 } finally {
