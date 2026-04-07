@@ -19,7 +19,6 @@ export const AUDIENCE_OVERLAYS: Record<Audience, AudienceOverlay> = {
       ],
     },
     experiencePresentation: {
-      jobOrder: ["bonfire-development", "bokio", "knowit"],
       emphasizedJobIds: ["knowit"],
       emphasizedConsultingIds: ["icore-solutions", "telia", "skf-group"],
     },
@@ -37,9 +36,6 @@ export const AUDIENCE_OVERLAYS: Record<Audience, AudienceOverlay> = {
       ],
     },
     experiencePresentation: {
-      consultingOrderByJobId: {
-        knowit: ["skf-group", "telia", "collector-bank"],
-      },
       emphasizedJobIds: ["bonfire-development"],
       emphasizedConsultingIds: ["wolters-kluwer-sverige", "polestar", "telia"],
     },
