@@ -44,6 +44,7 @@ try {
   const audienceModule = require(path.join(tempDir, "src/audience.js"));
   const canonicalModule = require(path.join(tempDir, "src/portfolio/canonical.js"));
   const composeProfileModule = require(path.join(tempDir, "src/portfolio/compose-profile.js"));
+  const experiencePresentationModule = require(path.join(tempDir, "src/portfolio/experience-presentation.js"));
   const portfolioAppModule = require(path.join(tempDir, "src/portfolio-app.js"));
   const {
     AUDIENCE_QUERY_PARAM,
@@ -54,6 +55,7 @@ try {
   } = audienceModule;
   const { CANONICAL_EXPERIENCE, CANONICAL_INTRO, CANONICAL_SKILLS_HIGHLIGHTS } = canonicalModule;
   const { composeProfile } = composeProfileModule;
+  const { applyExperiencePresentationRules } = experiencePresentationModule;
   const { createPortfolioApp } = portfolioAppModule;
 
   assert.equal(AUDIENCE_QUERY_PARAM, "audience");
@@ -227,6 +229,24 @@ try {
     [...pmProfile.experiencePresentation.emphasizedConsultingIds].sort(),
     [...feProfile.experiencePresentation.emphasizedConsultingIds].sort(),
   );
+
+  assert.throws(() => {
+    applyExperiencePresentationRules(CANONICAL_EXPERIENCE, {
+      consultingOrderByJobId: {
+        nope: ["whatever"],
+      },
+    });
+  }, /experience\.consultingOrderByJobId: unknown job id nope/);
+  assert.throws(() => {
+    applyExperiencePresentationRules(CANONICAL_EXPERIENCE, {
+      emphasizedJobIds: ["nope"],
+    });
+  }, /experience\.emphasizedJobIds: unknown id nope/);
+  assert.throws(() => {
+    applyExperiencePresentationRules(CANONICAL_EXPERIENCE, {
+      emphasizedConsultingIds: ["nope"],
+    });
+  }, /experience\.emphasizedConsultingIds: unknown id nope/);
 
   generalProfileA.intro.bio = "Audience-specific bio";
   generalProfileA.experience[0].role = "Reordered Role";
