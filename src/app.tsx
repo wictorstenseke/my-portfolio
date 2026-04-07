@@ -1,3 +1,9 @@
+import type { Audience } from "./audience";
+
+export type AppProps = {
+  audience: Audience;
+};
+
 const experience = [
   {
     role: "UX Designer",
@@ -26,9 +32,9 @@ const experience = [
   },
 ];
 
-export function App() {
+export function App({ audience }: AppProps) {
   return (
-    <div class="page">
+    <div class="page" data-audience={audience}>
       <svg width="0" height="0" aria-hidden="true">
         <defs>
           <clipPath id="squircle" clipPathUnits="objectBoundingBox">
