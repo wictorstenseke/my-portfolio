@@ -121,6 +121,12 @@ try {
     return [...text.matchAll(pattern)].length;
   }
 
+  function emphasizedIdsFromHtml(text) {
+    return [...text.matchAll(/data-entry-id="([^"]+)"[^>]*data-emphasized="true"/g)].map(
+      (match) => match[1],
+    );
+  }
+
   const generalHtml = renderToString(createPortfolioApp(""));
   const pmHtml = renderToString(createPortfolioApp("?audience=product-manager"));
   const frontendHtml = renderToString(createPortfolioApp("?audience=frontend-engineer"));
@@ -222,6 +228,30 @@ try {
   assert.deepEqual(experienceIdOrder(generalProfileA.experience), canonicalIdOrder);
   assert.deepEqual(experienceIdOrder(pmProfile.experience), canonicalIdOrder);
   assert.deepEqual(experienceIdOrder(feProfile.experience), canonicalIdOrder);
+  assert.deepEqual(
+    experienceIdOrder(
+      applyExperiencePresentationRules(CANONICAL_EXPERIENCE, {
+        jobOrder: ["knowit", "bokio", "bonfire-development"],
+        consultingOrderByJobId: {
+          "bonfire-development": ["polestar", "icore-solutions", "wolters-kluwer-sverige"],
+        },
+      }),
+    ),
+    [
+      {
+        jobId: "knowit",
+        consultingIds: ["skf-group", "telia", "collector-bank"],
+      },
+      {
+        jobId: "bokio",
+        consultingIds: undefined,
+      },
+      {
+        jobId: "bonfire-development",
+        consultingIds: ["polestar", "icore-solutions", "wolters-kluwer-sverige"],
+      },
+    ],
+  );
 
   assert.deepEqual(generalProfileA.experiencePresentation.emphasizedJobIds, []);
   assert.deepEqual(generalProfileA.experiencePresentation.emphasizedConsultingIds, []);
@@ -238,6 +268,19 @@ try {
   assert.equal(countMatches(generalHtml, /data-emphasized="true"/g), 0);
   assert.equal(countMatches(pmHtml, /data-emphasized="true"/g), 4);
   assert.equal(countMatches(frontendHtml, /data-emphasized="true"/g), 4);
+  assert.deepEqual(emphasizedIdsFromHtml(generalHtml), []);
+  assert.deepEqual(emphasizedIdsFromHtml(pmHtml), [
+    "icore-solutions",
+    "knowit",
+    "skf-group",
+    "telia",
+  ]);
+  assert.deepEqual(emphasizedIdsFromHtml(frontendHtml), [
+    "bonfire-development",
+    "wolters-kluwer-sverige",
+    "polestar",
+    "telia",
+  ]);
 
   assert.throws(() => {
     applyExperiencePresentationRules(CANONICAL_EXPERIENCE, {

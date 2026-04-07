@@ -78,6 +78,7 @@ export function App({ profile }: AppProps) {
                       ? "timeline-entry timeline-entry--emphasized"
                       : "timeline-entry"
                   }
+                  data-entry-id={job.id}
                   data-emphasized={emphasizedJobs.has(job.id) ? "true" : undefined}
                 >
                   <div class="timeline-marker" />
@@ -98,6 +99,7 @@ export function App({ profile }: AppProps) {
                             ? "timeline-entry timeline-entry--nested timeline-entry--emphasized"
                             : "timeline-entry timeline-entry--nested"
                         }
+                        data-entry-id={c.id}
                         data-emphasized={emphasizedConsulting.has(c.id) ? "true" : undefined}
                         style={{ animationDelay: `${0.5 + i * 0.12 + j * 0.06}s` }}
                       >
