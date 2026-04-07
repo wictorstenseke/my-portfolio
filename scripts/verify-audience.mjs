@@ -117,6 +117,10 @@ try {
     }));
   }
 
+  function countMatches(text, pattern) {
+    return [...text.matchAll(pattern)].length;
+  }
+
   const generalHtml = renderToString(createPortfolioApp(""));
   const pmHtml = renderToString(createPortfolioApp("?audience=product-manager"));
   const frontendHtml = renderToString(createPortfolioApp("?audience=frontend-engineer"));
@@ -221,14 +225,19 @@ try {
 
   assert.deepEqual(generalProfileA.experiencePresentation.emphasizedJobIds, []);
   assert.deepEqual(generalProfileA.experiencePresentation.emphasizedConsultingIds, []);
-  assert.notDeepEqual(
-    [...pmProfile.experiencePresentation.emphasizedJobIds].sort(),
-    [...feProfile.experiencePresentation.emphasizedJobIds].sort(),
+  assert.deepEqual(pmProfile.experiencePresentation.emphasizedJobIds, ["knowit"]);
+  assert.deepEqual(
+    pmProfile.experiencePresentation.emphasizedConsultingIds,
+    ["icore-solutions", "telia", "skf-group"],
   );
-  assert.notDeepEqual(
-    [...pmProfile.experiencePresentation.emphasizedConsultingIds].sort(),
-    [...feProfile.experiencePresentation.emphasizedConsultingIds].sort(),
+  assert.deepEqual(feProfile.experiencePresentation.emphasizedJobIds, ["bonfire-development"]);
+  assert.deepEqual(
+    feProfile.experiencePresentation.emphasizedConsultingIds,
+    ["wolters-kluwer-sverige", "polestar", "telia"],
   );
+  assert.equal(countMatches(generalHtml, /data-emphasized="true"/g), 0);
+  assert.equal(countMatches(pmHtml, /data-emphasized="true"/g), 4);
+  assert.equal(countMatches(frontendHtml, /data-emphasized="true"/g), 4);
 
   assert.throws(() => {
     applyExperiencePresentationRules(CANONICAL_EXPERIENCE, {
