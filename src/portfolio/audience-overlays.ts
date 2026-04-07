@@ -1,5 +1,4 @@
 import type { Audience } from "../audience";
-import { SUPPORTED_AUDIENCES } from "../audience";
 import type { AudienceOverlay } from "./types";
 
 /**
@@ -46,8 +45,3 @@ export const AUDIENCE_OVERLAYS: Record<Audience, AudienceOverlay> = {
     },
   },
 };
-
-/** Supported audience identities in stable order (alias for extension points / iteration). */
-export function listSupportedAudiences(): readonly Audience[] {
-  return SUPPORTED_AUDIENCES;
-}

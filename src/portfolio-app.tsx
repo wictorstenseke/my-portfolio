@@ -1,6 +1,6 @@
 import { App } from "./app";
 import { audienceFromSearch } from "./audience";
-import { composeProfile } from "./portfolio/compose-profile";
+import { composeProfile } from "./portfolio/personalization";
 
 export function createPortfolioApp(search: string) {
   const audience = audienceFromSearch(search);

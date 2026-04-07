@@ -53,7 +53,8 @@ export type ResolvedExperiencePresentation = {
 
 /**
  * Audience-specific deltas applied on top of canonical portfolio facts.
- * Later phases can add fields (e.g. skill highlights) without duplicating full profiles.
+ * Add new optional fields here when a slice needs more than intro / skills / experience presentation;
+ * implement the merge in `compose-profile.ts`. See `plans/adding-an-audience.md`.
  */
 export type AudienceOverlay = {
   intro?: Partial<IntroContent>;

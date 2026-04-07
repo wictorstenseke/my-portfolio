@@ -1,3 +1,4 @@
+import { experienceEmphasisViewModel } from "./portfolio/profile-view-model";
 import type { ResolvedProfile } from "./portfolio/types";
 
 export type AppProps = {
@@ -5,9 +6,8 @@ export type AppProps = {
 };
 
 export function App({ profile }: AppProps) {
-  const { audience, experience, intro, skillsHighlights, experiencePresentation } = profile;
-  const emphasizedJobs = new Set(experiencePresentation.emphasizedJobIds);
-  const emphasizedConsulting = new Set(experiencePresentation.emphasizedConsultingIds);
+  const { audience, experience, intro, skillsHighlights } = profile;
+  const { emphasizedJobs, emphasizedConsulting } = experienceEmphasisViewModel(profile);
 
   return (
     <div class="page" data-audience={audience}>
