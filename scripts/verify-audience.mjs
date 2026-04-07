@@ -43,6 +43,7 @@ try {
 
   const audienceModule = require(path.join(tempDir, "src/audience.js"));
   const canonicalModule = require(path.join(tempDir, "src/portfolio/canonical.js"));
+  const composeProfileModule = require(path.join(tempDir, "src/portfolio/compose-profile.js"));
   const portfolioAppModule = require(path.join(tempDir, "src/portfolio-app.js"));
   const {
     AUDIENCE_QUERY_PARAM,
@@ -52,6 +53,7 @@ try {
     resolveAudience,
   } = audienceModule;
   const { CANONICAL_EXPERIENCE, CANONICAL_INTRO } = canonicalModule;
+  const { composeProfile } = composeProfileModule;
   const { createPortfolioApp } = portfolioAppModule;
 
   assert.equal(AUDIENCE_QUERY_PARAM, "audience");
@@ -109,6 +111,32 @@ try {
       period: "mutated",
     });
   }, TypeError);
+
+  const generalProfileA = composeProfile("general");
+  const generalProfileB = composeProfile("general");
+
+  assert.notStrictEqual(generalProfileA.intro, CANONICAL_INTRO);
+  assert.notStrictEqual(generalProfileA.experience, CANONICAL_EXPERIENCE);
+  assert.notStrictEqual(generalProfileA.experience[0], CANONICAL_EXPERIENCE[0]);
+  assert.notStrictEqual(generalProfileA.experience[0].consulting, CANONICAL_EXPERIENCE[0].consulting);
+  assert.notStrictEqual(generalProfileA.experience[0].consulting[0], CANONICAL_EXPERIENCE[0].consulting[0]);
+
+  assert.notStrictEqual(generalProfileA.intro, generalProfileB.intro);
+  assert.notStrictEqual(generalProfileA.experience, generalProfileB.experience);
+  assert.notStrictEqual(generalProfileA.experience[0], generalProfileB.experience[0]);
+  assert.notStrictEqual(generalProfileA.experience[0].consulting, generalProfileB.experience[0].consulting);
+  assert.notStrictEqual(generalProfileA.experience[0].consulting[0], generalProfileB.experience[0].consulting[0]);
+
+  generalProfileA.intro.bio = "Audience-specific bio";
+  generalProfileA.experience[0].role = "Reordered Role";
+  generalProfileA.experience[0].consulting[0].company = "Mutated Client";
+
+  assert.equal(CANONICAL_INTRO.bio, "UX Designer in Gothenburg, Sweden — bridging users and product through research, prototyping & craft.");
+  assert.equal(CANONICAL_EXPERIENCE[0].role, "UX Designer");
+  assert.equal(CANONICAL_EXPERIENCE[0].consulting[0].company, "Wolters Kluwer Sverige");
+  assert.equal(generalProfileB.intro.bio, CANONICAL_INTRO.bio);
+  assert.equal(generalProfileB.experience[0].role, CANONICAL_EXPERIENCE[0].role);
+  assert.equal(generalProfileB.experience[0].consulting[0].company, CANONICAL_EXPERIENCE[0].consulting[0].company);
 
   console.log("audience verification passed");
 } finally {
