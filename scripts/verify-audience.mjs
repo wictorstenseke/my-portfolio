@@ -42,6 +42,7 @@ try {
   );
 
   const audienceModule = require(path.join(tempDir, "src/audience.js"));
+  const canonicalModule = require(path.join(tempDir, "src/portfolio/canonical.js"));
   const portfolioAppModule = require(path.join(tempDir, "src/portfolio-app.js"));
   const {
     AUDIENCE_QUERY_PARAM,
@@ -50,6 +51,7 @@ try {
     audienceFromSearch,
     resolveAudience,
   } = audienceModule;
+  const { CANONICAL_EXPERIENCE, CANONICAL_INTRO } = canonicalModule;
   const { createPortfolioApp } = portfolioAppModule;
 
   assert.equal(AUDIENCE_QUERY_PARAM, "audience");
@@ -87,6 +89,26 @@ try {
   assert.match(frontendHtml, /data-audience="frontend-engineer"/);
   assert.match(fallbackHtml, /data-audience="general"/);
   assert.match(frontendHtml, /Wictor/);
+
+  assert.equal(Object.isFrozen(CANONICAL_INTRO), true);
+  assert.equal(Object.isFrozen(CANONICAL_EXPERIENCE), true);
+  assert.equal(Object.isFrozen(CANONICAL_EXPERIENCE[0]), true);
+  assert.equal(Object.isFrozen(CANONICAL_EXPERIENCE[0].consulting), true);
+  assert.equal(Object.isFrozen(CANONICAL_EXPERIENCE[0].consulting[0]), true);
+
+  assert.throws(() => {
+    CANONICAL_INTRO.bio = "mutated";
+  }, TypeError);
+  assert.throws(() => {
+    CANONICAL_EXPERIENCE[0].role = "mutated";
+  }, TypeError);
+  assert.throws(() => {
+    CANONICAL_EXPERIENCE[0].consulting.push({
+      role: "mutated",
+      company: "mutated",
+      period: "mutated",
+    });
+  }, TypeError);
 
   console.log("audience verification passed");
 } finally {
