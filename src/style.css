@@ -6,7 +6,20 @@
   --muted: #807a6f;
   --accent: #e09f3e;
   --accent-dim: rgba(224, 159, 62, 0.12);
+  --border: rgba(255, 255, 255, 0.08);
+  --grid-line: rgba(255, 255, 255, 0.03);
   --font-body: "Barlow", sans-serif;
+}
+
+[data-theme="light"] {
+  --bg: #f7f3ec;
+  --surface: #eee9e0;
+  --text: #1c1917;
+  --muted: #6b6259;
+  --accent: #b8741a;
+  --accent-dim: rgba(184, 116, 26, 0.1);
+  --border: rgba(0, 0, 0, 0.08);
+  --grid-line: rgba(0, 0, 0, 0.04);
 }
 
 /* ─── Reset ─── */
@@ -23,6 +36,7 @@ html {
   background-color: var(--bg);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 body {
@@ -31,6 +45,7 @@ body {
   color: var(--text);
   min-height: 100dvh;
   overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* ─── Grid background ─── */
@@ -40,8 +55,8 @@ body {
   pointer-events: none;
   z-index: 0;
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
   background-size: 40px 40px;
   -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 100%);
   mask-image: radial-gradient(ellipse at center, black 40%, transparent 100%);
@@ -176,7 +191,7 @@ h1 .line-2 {
   color: var(--text);
   text-decoration: none;
   padding: 10px 24px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border);
   border-radius: 12px;
   background: var(--surface);
   transition: all 0.3s ease;
@@ -313,6 +328,31 @@ footer {
 
 .separator {
   opacity: 0.3;
+}
+
+/* ─── Theme toggle ─── */
+.theme-toggle {
+  position: fixed;
+  top: 1.25rem;
+  right: 1.25rem;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--muted);
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+}
+
+.theme-toggle:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: scale(1.08);
 }
 
 /* ─── Animations ─── */
