@@ -5,25 +5,29 @@ const experience = [
     role: "UX Designer",
     company: "Bonfire Development AB",
     period: "Nov 2021 – Present",
+    logo: "/img/logos/bonfire.svg",
+    logoBg: "#2c2520",
     consulting: [
-      { role: "UX Designer", company: "Wolters Kluwer Sverige", period: "Dec 2023 – Present" },
-      { role: "Product Owner | UX Designer", company: "iCore Solutions AB", period: "Oct 2022 – Dec 2023" },
-      { role: "UX Designer", company: "Polestar", period: "Nov 2021 – Oct 2022" },
+      { role: "UX Designer", company: "Wolters Kluwer Sverige", period: "Dec 2023 – Present", logo: "/img/logos/wolters-kluwer.png" },
+      { role: "Product Owner | UX Designer", company: "iCore Solutions AB", period: "Oct 2022 – Dec 2023", logo: "/img/logos/icore.png" },
+      { role: "UX Designer", company: "Polestar", period: "Nov 2021 – Oct 2022", logo: "/img/logos/polestar.png" },
     ],
   },
   {
     role: "UX Designer",
     company: "Bokio",
     period: "Sep 2021 – Nov 2021",
+    logo: "/img/logos/bokio.png",
   },
   {
     role: "UX Designer",
     company: "Knowit",
     period: "May 2017 – Sep 2021",
+    logo: "/img/logos/knowit.png",
     consulting: [
-      { role: "UX Designer", company: "SKF Group", period: "Nov 2020 – Sep 2021" },
-      { role: "UX Designer", company: "Telia", period: "Aug 2018 – Sep 2020" },
-      { role: "UX Designer", company: "Collector Bank", period: "Nov 2017 – Jun 2018" },
+      { role: "UX Designer", company: "SKF Group", period: "Nov 2020 – Sep 2021", logo: "/img/logos/skf.png" },
+      { role: "UX Designer", company: "Telia", period: "Aug 2018 – Sep 2020", logo: "/img/logos/telia.png" },
+      { role: "UX Designer", company: "Collector Bank", period: "Nov 2017 – Jun 2018", logo: "/img/logos/collector.png" },
     ],
   },
 ];
@@ -123,22 +127,28 @@ export function App() {
               <div class="timeline-group" style={{ animationDelay: `${0.4 + i * 0.12}s` }}>
                 <div class="timeline-entry">
                   <div class="timeline-marker" />
+                  <img class="timeline-logo" src={job.logo} alt={job.company} width="32" height="32" style={job.logoBg ? { background: job.logoBg } : undefined} />
                   <div class="timeline-content">
+                    <div class="timeline-left">
+                      <h3 class="timeline-role">{job.role}</h3>
+                      <span class="timeline-company">{job.company}</span>
+                    </div>
                     <span class="timeline-period">{job.period}</span>
-                    <h3 class="timeline-role">{job.role}</h3>
-                    <span class="timeline-company">{job.company}</span>
                   </div>
                 </div>
                 {job.consulting && (
                   <div class="timeline-consulting">
-                    <span class="consulting-label">Consulting assignments</span>
+
                     {job.consulting.map((c, j) => (
                       <div class="timeline-entry timeline-entry--nested" style={{ animationDelay: `${0.5 + i * 0.12 + j * 0.06}s` }}>
                         <div class="timeline-marker timeline-marker--nested" />
+                        <img class="timeline-logo" src={c.logo} alt={c.company} width="32" height="32" />
                         <div class="timeline-content">
+                          <div class="timeline-left">
+                            <h3 class="timeline-role">{c.role}</h3>
+                            <span class="timeline-company">{c.company}</span>
+                          </div>
                           <span class="timeline-period">{c.period}</span>
-                          <h3 class="timeline-role">{c.role}</h3>
-                          <span class="timeline-company">{c.company}</span>
                         </div>
                       </div>
                     ))}
