@@ -15,12 +15,6 @@ const experience = [
   },
   {
     role: "UX Designer",
-    company: "Bokio",
-    period: "Sep 2021 – Nov 2021",
-    logo: "/img/logos/bokio.png",
-  },
-  {
-    role: "UX Designer",
     company: "Knowit",
     period: "May 2017 – Sep 2021",
     logo: "/img/logos/knowit.png",
@@ -145,8 +139,7 @@ export function App() {
                         <img class="timeline-logo" src={c.logo} alt={c.company} width="32" height="32" />
                         <div class="timeline-content">
                           <div class="timeline-left">
-                            <h3 class="timeline-role">{c.role}</h3>
-                            <span class="timeline-company">{c.company}</span>
+                            <h3 class="timeline-company">{c.company}</h3>
                           </div>
                           <span class="timeline-period">{c.period}</span>
                         </div>
