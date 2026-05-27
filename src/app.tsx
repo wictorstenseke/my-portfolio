@@ -1,27 +1,81 @@
 import { useState, useEffect } from "preact/hooks";
 
-const experience = [
+const tenure = [
   {
-    role: "UX Designer",
     company: "Bonfire Development AB",
-    period: "Nov 2021 – Present",
+    role: "UX Designer",
+    period: "2021 — Now",
     logo: "/img/logos/bonfire.svg",
     logoBg: "#2c2520",
-    consulting: [
-      { role: "UX Designer", company: "Wolters Kluwer Sverige", period: "Dec 2023 – Present", logo: "/img/logos/wolters-kluwer.png" },
-      { role: "Product Owner | UX Designer", company: "iCore Solutions AB", period: "Oct 2022 – Dec 2023", logo: "/img/logos/icore.png" },
-      { role: "UX Designer", company: "Polestar", period: "Nov 2021 – Oct 2022", logo: "/img/logos/polestar.png" },
+    engagements: [
+      {
+        company: "Wolters Kluwer Sverige",
+        period: "2023 —",
+        logo: "/img/logos/wolters-kluwer.png",
+      },
+      {
+        company: "iCore Solutions AB",
+        period: "2022 — 23",
+        logo: "/img/logos/icore.png",
+        note: "Product Owner & UX",
+      },
+      {
+        company: "Polestar",
+        period: "2021 — 22",
+        logo: "/img/logos/polestar.png",
+      },
     ],
   },
   {
-    role: "UX Designer",
     company: "Knowit",
-    period: "May 2017 – Sep 2021",
+    role: "UX Designer",
+    period: "2017 — 21",
     logo: "/img/logos/knowit.png",
-    consulting: [
-      { role: "UX Designer", company: "SKF Group", period: "Nov 2020 – Sep 2021", logo: "/img/logos/skf.png" },
-      { role: "UX Designer", company: "Telia", period: "Aug 2018 – Sep 2020", logo: "/img/logos/telia.png" },
-      { role: "UX Designer", company: "Collector Bank", period: "Nov 2017 – Jun 2018", logo: "/img/logos/collector.png" },
+    engagements: [
+      {
+        company: "SKF Group",
+        period: "2020 — 21",
+        logo: "/img/logos/skf.png",
+      },
+      { company: "Telia", period: "2018 — 20", logo: "/img/logos/telia.png" },
+      {
+        company: "Collector Bank",
+        period: "2017 — 18",
+        logo: "/img/logos/collector.png",
+      },
+    ],
+  },
+];
+
+const instruments = [
+  {
+    title: "Research",
+    items: [
+      "User interviews",
+      "Diary studies",
+      "Workshop facilitation",
+      "Usability testing",
+      "Field studies",
+    ],
+  },
+  {
+    title: "Craft",
+    items: [
+      "Figma & FigJam",
+      "Framer & Spline",
+      "HTML / CSS / TypeScript",
+      "Preact & React",
+      "Motion & Lottie",
+    ],
+  },
+  {
+    title: "Systems",
+    items: [
+      "Design tokens",
+      "Component libraries",
+      "Documentation",
+      "Design operations",
+      "Cross-team rituals",
     ],
   },
 ];
@@ -30,7 +84,9 @@ function useTheme() {
   const [theme, setTheme] = useState<"dark" | "light">(() => {
     const stored = localStorage.getItem("theme");
     if (stored === "light" || stored === "dark") return stored;
-    return window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+    return window.matchMedia("(prefers-color-scheme: light)").matches
+      ? "light"
+      : "dark";
   });
 
   useEffect(() => {
@@ -38,126 +94,307 @@ function useTheme() {
     localStorage.setItem("theme", theme);
   }, [theme]);
 
-  const toggle = () => setTheme(t => (t === "dark" ? "light" : "dark"));
+  const toggle = () => setTheme((t) => (t === "dark" ? "light" : "dark"));
   return { theme, toggle };
+}
+
+type SectionHeadProps = {
+  num: string;
+  kicker: string;
+  title: preact.ComponentChildren;
+  meta?: string;
+};
+
+function SectionHead({ num, kicker, title, meta }: SectionHeadProps) {
+  return (
+    <header class="section-head">
+      <div class="section-num" aria-hidden="true">
+        {num}
+      </div>
+      <p class="kicker">
+        <span class="kicker-bullet">●</span>
+        <span class="kicker-text">{kicker}</span>
+      </p>
+      <h2 class="section-title">{title}</h2>
+      {meta && <p class="section-meta">{meta}</p>}
+    </header>
+  );
 }
 
 export function App() {
   const { theme, toggle } = useTheme();
 
   return (
-    <div class="page">
-      <svg width="0" height="0" aria-hidden="true">
-        <defs>
-          <clipPath id="squircle" clipPathUnits="objectBoundingBox">
-            <path d="M 0,0.5 C 0,0 0,0 0.5,0 S 1,0 1,0.5 1,1 0.5,1 0,1 0,0.5" />
-          </clipPath>
-        </defs>
-      </svg>
-      <div class="bg-grid" aria-hidden="true" />
+    <div class="folio">
+      <div class="paper-grain" aria-hidden="true" />
 
-      <button
-        class="theme-toggle"
-        onClick={toggle}
-        aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-      >
-        {theme === "dark" ? (
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="5" />
-            <line x1="12" y1="1" x2="12" y2="3" />
-            <line x1="12" y1="21" x2="12" y2="23" />
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-            <line x1="1" y1="12" x2="3" y2="12" />
-            <line x1="21" y1="12" x2="23" y2="12" />
-            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-          </svg>
-        ) : (
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-          </svg>
-        )}
-      </button>
+      <header class="folio-strip">
+        <span class="strip-mark">Vol · I</span>
+        <span class="strip-dot" aria-hidden="true">·</span>
+        <span class="strip-mark">N° MMXXVI</span>
+        <span class="strip-dot" aria-hidden="true">·</span>
+        <span class="strip-mark strip-mark--wide">Gothenburg, 57.7°N</span>
 
-      <div class="main-wrapper">
-      <main>
-        <div class="portrait">
-          <div class="portrait-frame">
-            <img src="/img/avatar.webp" alt="Wictor Stenseke" width="400" height="400" />
-          </div>
-        </div>
+        <button
+          class="theme-toggle"
+          onClick={toggle}
+          aria-label={
+            theme === "dark" ? "Switch to light mode" : "Switch to dark mode"
+          }
+        >
+          <span class="toggle-orb" aria-hidden="true" />
+          <span class="toggle-label">{theme === "dark" ? "Day" : "Night"}</span>
+        </button>
+      </header>
 
-        <div class="intro">
-          <h1>
-            <span class="line line-1">Wictor</span>
-            <span class="line line-2">Stenseke</span>
-          </h1>
-          <p class="bio">
-            UX Designer in Gothenburg, Sweden — bridging users
-            and product through research, prototyping &amp; craft.
+      <hr class="rule rule--top" />
+
+      <main class="folio-main">
+        <section class="masthead" aria-labelledby="masthead-title">
+          <p class="masthead-kicker kicker">
+            <span class="kicker-bullet">●</span>
+            <span class="kicker-num">§ I</span>
+            <span class="kicker-sep">/</span>
+            <span class="kicker-text">Portrait of the designer</span>
           </p>
-          <nav class="links">
-            <a href="mailto:wictorstenseke@gmail.com" class="link-pill">
-              <span class="link-dot" />
-              Email
-            </a>
-            <a
-              href="https://www.linkedin.com/in/wictorstenseke/"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="link-pill"
-            >
-              <span class="link-dot" />
-              LinkedIn
-            </a>
-          </nav>
-        </div>
 
-        <section class="experience">
-          <h2 class="section-heading">Experience</h2>
-          <div class="timeline">
-            {experience.map((job, i) => (
-              <div class="timeline-group" style={{ animationDelay: `${0.4 + i * 0.12}s` }}>
-                <div class="timeline-entry">
-                  <div class="timeline-marker" />
-                  <img class="timeline-logo" src={job.logo} alt={job.company} width="32" height="32" style={job.logoBg ? { background: job.logoBg } : undefined} />
-                  <div class="timeline-content">
-                    <div class="timeline-left">
-                      <h3 class="timeline-role">{job.role}</h3>
-                      <span class="timeline-company">{job.company}</span>
-                    </div>
-                    <span class="timeline-period">{job.period}</span>
-                  </div>
-                </div>
-                {job.consulting && (
-                  <div class="timeline-consulting">
+          <h1 id="masthead-title" class="masthead-title">
+            <span class="title-line title-line--top">Wictor</span>
+            <span class="title-line title-line--bottom">
+              <em>Stenseke</em>
+            </span>
+          </h1>
 
-                    {job.consulting.map((c, j) => (
-                      <div class="timeline-entry timeline-entry--nested" style={{ animationDelay: `${0.5 + i * 0.12 + j * 0.06}s` }}>
-                        <div class="timeline-marker timeline-marker--nested" />
-                        <img class="timeline-logo" src={c.logo} alt={c.company} width="32" height="32" />
-                        <div class="timeline-content">
-                          <div class="timeline-left">
-                            <h3 class="timeline-company">{c.company}</h3>
-                          </div>
-                          <span class="timeline-period">{c.period}</span>
-                        </div>
+          <figure class="portrait">
+            <div class="portrait-frame">
+              <img
+                src="/img/avatar.webp"
+                alt="Wictor Stenseke"
+                width="400"
+                height="400"
+              />
+            </div>
+            <figcaption>
+              <span class="fig-label">Fig. 1</span>
+              <span class="fig-text">The designer, in residence.</span>
+            </figcaption>
+          </figure>
+
+          <div class="masthead-aside">
+            <p class="lede">
+              <span class="dropcap">U</span>X Designer working at the seam
+              between user and product — through research, prototyping, and a
+              stubborn attention to craft. Based in Gothenburg, occupied with
+              software that ought to feel inevitable.
+            </p>
+
+            <ul class="contact-list">
+              <li>
+                <a href="mailto:wictorstenseke@gmail.com">
+                  <span class="contact-num">01</span>
+                  <span class="contact-label">Correspondence</span>
+                  <span class="contact-handle">wictorstenseke@gmail.com</span>
+                  <span class="contact-arrow" aria-hidden="true">
+                    →
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.linkedin.com/in/wictorstenseke/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span class="contact-num">02</span>
+                  <span class="contact-label">LinkedIn</span>
+                  <span class="contact-handle">in/wictorstenseke</span>
+                  <span class="contact-arrow" aria-hidden="true">
+                    →
+                  </span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <hr class="rule" />
+
+        <section class="section section--tenure" aria-labelledby="tenure-title">
+          <SectionHead
+            num="II"
+            kicker="Tenure"
+            title={
+              <>
+                Nine years
+                <br />
+                <em>at the table</em>.
+              </>
+            }
+            meta="Two employers, six engagements."
+          />
+
+          <div class="section-body">
+            <ol class="ledger">
+              {tenure.map((job) => (
+                <li class="ledger-block">
+                  <div class="ledger-row ledger-row--employer">
+                    <span class="ledger-period">{job.period}</span>
+                    <div class="ledger-body">
+                      <img
+                        class="ledger-logo"
+                        src={job.logo}
+                        alt=""
+                        width="32"
+                        height="32"
+                        style={
+                          job.logoBg ? { background: job.logoBg } : undefined
+                        }
+                      />
+                      <div class="ledger-text">
+                        <span class="ledger-name">{job.company}</span>
+                        <span class="ledger-role">{job.role}</span>
                       </div>
-                    ))}
+                    </div>
                   </div>
-                )}
+
+                  <ol class="ledger-engagements">
+                    {job.engagements.map((e) => (
+                      <li class="ledger-row ledger-row--engagement">
+                        <span class="ledger-period">{e.period}</span>
+                        <div class="ledger-body">
+                          <span class="ledger-bullet" aria-hidden="true">
+                            ↳
+                          </span>
+                          <img
+                            class="ledger-logo ledger-logo--small"
+                            src={e.logo}
+                            alt=""
+                            width="22"
+                            height="22"
+                          />
+                          <div class="ledger-text">
+                            <span class="ledger-name ledger-name--engagement">
+                              {e.company}
+                            </span>
+                            {e.note && (
+                              <span class="ledger-note">{e.note}</span>
+                            )}
+                          </div>
+                        </div>
+                      </li>
+                    ))}
+                  </ol>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+
+        <hr class="rule" />
+
+        <section
+          class="section section--instruments"
+          aria-labelledby="instruments-title"
+        >
+          <SectionHead
+            num="III"
+            kicker="Instruments"
+            title={
+              <>
+                Tools, methods,
+                <br />
+                <em>minor obsessions</em>.
+              </>
+            }
+          />
+
+          <div class="section-body">
+            <div class="instruments-grid">
+              {instruments.map((col, i) => (
+                <div class="instrument-col">
+                  <h3 class="instrument-title">
+                    <span class="instrument-num">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span>{col.title}</span>
+                  </h3>
+                  <ul class="instrument-list">
+                    {col.items.map((item) => (
+                      <li>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <hr class="rule" />
+
+        <section
+          class="section section--currently"
+          aria-labelledby="currently-title"
+        >
+          <SectionHead
+            num="IV"
+            kicker="Currently"
+            title={
+              <>
+                <em>Presently</em>,<br />
+                in the studio.
+              </>
+            }
+          />
+
+          <div class="section-body">
+            <dl class="now-list">
+              <div class="now-row">
+                <dt>Designing</dt>
+                <dd>
+                  Tax & accounting tools at <em>Wolters Kluwer Sverige</em>,
+                  quietly making them feel less like tax & accounting tools.
+                </dd>
               </div>
-            ))}
+              <div class="now-row">
+                <dt>Tinkering</dt>
+                <dd>
+                  A self-built portfolio in Preact and CSS, at unreasonable
+                  hours.
+                </dd>
+              </div>
+              <div class="now-row">
+                <dt>Reading</dt>
+                <dd>
+                  <em>A Philosophy of Software Design</em> — Ousterhout.
+                </dd>
+              </div>
+              <div class="now-row">
+                <dt>Listening</dt>
+                <dd>Nils Frahm, Bonobo, and the kettle.</dd>
+              </div>
+            </dl>
           </div>
         </section>
       </main>
-      </div>
 
-      <footer>
-        <span>&copy; 2026</span>
-        <span class="separator">/</span>
-        <span>wictorstenseke.se</span>
+      <hr class="rule rule--bottom" />
+
+      <footer class="colophon">
+        <p class="colophon-ornament" aria-hidden="true">
+          ❦
+        </p>
+        <p class="colophon-body">
+          Set in <em>Fraunces</em>, <em>Geist</em>, & <em>JetBrains Mono</em>.
+          Composed in Gothenburg with Preact, Vite, and a steady hand. No
+          analytics, no tracking, no cookies — only paper.
+        </p>
+        <p class="colophon-meta">
+          <span>© MMXXVI</span>
+          <span class="dot">·</span>
+          <span>wictorstenseke.se</span>
+          <span class="dot">·</span>
+          <span>All rights, mostly reserved.</span>
+        </p>
       </footer>
     </div>
   );
