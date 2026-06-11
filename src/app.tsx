@@ -298,23 +298,18 @@ export function App() {
       if (e.key === "Escape") closeSheet();
     };
     window.addEventListener("keydown", onKey);
-    // lock background scroll while the sheet is open — position:fixed is the
-    // only lock touch browsers respect; plain overflow:hidden still pans
-    const scrollY = window.scrollY;
+    // lock background scroll while the sheet is open. overflow:hidden keeps
+    // layout and scroll position intact (no jump, no resize event for the
+    // canvas); touch panning behind the sheet is already blocked by
+    // touch-action:none on the full-viewport backdrop
+    const root = document.documentElement;
     const body = document.body;
-    body.style.position = "fixed";
-    body.style.top = `-${scrollY}px`;
-    body.style.left = "0";
-    body.style.right = "0";
+    root.style.overflow = "hidden";
     body.style.overflow = "hidden";
     return () => {
       window.removeEventListener("keydown", onKey);
-      body.style.position = "";
-      body.style.top = "";
-      body.style.left = "";
-      body.style.right = "";
+      root.style.overflow = "";
       body.style.overflow = "";
-      window.scrollTo(0, scrollY);
     };
   }, [sheet]);
 

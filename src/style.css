@@ -606,7 +606,8 @@ a {
 /* ---------- theme toggle ---------- */
 
 .theme-toggle {
-  position: fixed;
+  /* anchored to the top of the page (inside .page), scrolls with content */
+  position: absolute;
   top: 1rem;
   right: 1rem;
   z-index: 20;
