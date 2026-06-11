@@ -1,457 +1,818 @@
-/* ─── Tokens ─── */
+/* ============================================================
+   Wictor Stenseke — portfolio
+   Light, centered, typographic. Peach accent + figma handles.
+   Mimics the mathieugrac.com recipe with own tokens.
+   ============================================================ */
+
 :root {
-  --bg: #111110;
-  --surface: #1a1a18;
-  --text: #e8e4dd;
-  --muted: #807a6f;
-  --accent: #e09f3e;
-  --accent-dim: rgba(224, 159, 62, 0.12);
-  --border: rgba(255, 255, 255, 0.08);
-  --grid-line: rgba(255, 255, 255, 0.03);
-  --font-body: "Barlow", sans-serif;
+  --bg: #fcfcfc;
+  --text: #222;
+  --text-soft: #636363;
+  --accent: #ffcebd;
+  --accent-ink: #222;
+  --link: #2768d4;
+  --card-bg: #fff;
+  --card-border: #eae6e8;
+  --card-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.05);
+  --bubble-bg: #222;
+  --bubble-text: hsla(0, 0%, 100%, 0.92);
+  --btn-bg: #222;
+  --btn-text: #fcfcfc;
+  --logo-filter: grayscale(1) opacity(0.8);
+  --logo-filter-hover: grayscale(0) opacity(1);
+  --label-bg: var(--accent);
+  --label-ink: var(--accent-ink);
 }
 
-[data-theme="light"] {
-  --bg: #f7f3ec;
-  --surface: #eee9e0;
-  --text: #1c1917;
-  --muted: #6b6259;
-  --accent: #b8741a;
-  --accent-dim: rgba(184, 116, 26, 0.1);
-  --border: rgba(0, 0, 0, 0.08);
-  --grid-line: rgba(0, 0, 0, 0.04);
+[data-theme="dark"] {
+  --bg: #121211;
+  --text: #ececec;
+  --text-soft: #9c9c98;
+  --accent: #ffcebd;
+  --accent-ink: #222;
+  --link: #82aaf2;
+  --card-bg: #1b1b1a;
+  --card-border: #2c2c2a;
+  --card-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.3);
+  --bubble-bg: #ececec;
+  --bubble-text: rgba(18, 18, 17, 0.92);
+  --btn-bg: #ececec;
+  --btn-text: #121211;
+  --logo-filter: grayscale(1) invert(1) opacity(0.8);
+  --logo-filter-hover: grayscale(1) invert(1) opacity(1);
+  /* muted terracotta, same family as the dark avatar ring */
+  --label-bg: #8a5a45;
+  --label-ink: #ffe3d6;
 }
 
-/* ─── Reset ─── */
-*,
-*::before,
-*::after {
+* {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
 html {
-  font-size: 16px;
-  background-color: var(--bg);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  font-size: 100%;
+}
+
+html,
+body {
+  overflow-x: clip;
 }
 
 body {
-  font-family: var(--font-body);
+  margin: 0;
+  padding: 0;
   background-color: var(--bg);
   color: var(--text);
-  min-height: 100dvh;
-  overflow-x: hidden;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  font-family: "Instrument Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
-/* ─── Grid background ─── */
-.bg-grid {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  background-image:
-    linear-gradient(var(--grid-line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-  background-size: 40px 40px;
-  -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 100%);
-  mask-image: radial-gradient(ellipse at center, black 40%, transparent 100%);
-}
-
-/* ─── Page layout ─── */
-.page {
-  position: relative;
-  z-index: 1;
-  min-height: 100dvh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 3rem 2rem;
-}
-
-.main-wrapper {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  padding: 2rem 0;
-}
-
-main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 3rem;
-  max-width: 420px;
-  width: 100%;
-  animation: fadeUp 0.8s ease-out both;
-}
-
-/* ─── Portrait ─── */
-.portrait {
-  position: relative;
-  animation: fadeUp 0.6s ease-out both;
-}
-
-.portrait-frame {
-  width: 154px;
-  height: 154px;
-  padding: 2px;
+::selection {
   background: var(--accent);
-  clip-path: url(#squircle);
-  transform: rotate(-3deg);
-  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  color: var(--accent-ink);
 }
 
-.portrait-frame:hover {
-  transform: rotate(0deg) scale(1.04);
+/* theme toggle drives its own wavy clip-path reveal — kill the default
+   view-transition cross-fade so the old theme stays put underneath */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
 }
 
-.portrait-frame img {
-  width: 150px;
-  height: 150px;
-  object-fit: cover;
-  clip-path: url(#squircle);
-  filter: grayscale(20%) contrast(1.05);
-  transition: filter 0.4s ease;
-}
-
-.portrait-frame:hover img {
-  filter: grayscale(0%) contrast(1);
-}
-
-/* ─── Intro ─── */
-.intro {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  gap: 2.25rem;
-  width: 100%;
-  animation: fadeUp 0.8s ease-out 0.15s both;
-}
-
-h1 {
-  font-family: var(--font-body);
-  line-height: 0.78;
-  letter-spacing: -0.02em;
-  text-transform: uppercase;
-  width: 100%;
-}
-
-h1 .line {
-  display: block;
-  white-space: nowrap;
-}
-
-h1 .line-1 {
-  font-weight: 700;
-  font-size: 6.7rem;
-  opacity: 0.6;
-}
-
-h1 .line-2 {
-  color: var(--accent);
-  font-weight: 700;
-  font-size: 4.9rem;
-}
-
-.bio {
-  font-size: 0.95rem;
-  line-height: 1.7;
-  color: var(--text);
-  text-align: left;
-  width: 100%;
-  padding: 1.25rem 1.5rem;
-  border-left: 2px solid var(--accent);
-  background: var(--surface);
-  border-radius: 0 8px 8px 0;
-}
-
-/* ─── Links ─── */
-.links {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 1rem;
-  animation: fadeUp 0.8s ease-out 0.3s both;
-}
-
-.link-pill {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-family: var(--font-body);
-  font-size: 0.85rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  color: var(--text);
-  text-decoration: none;
-  padding: 10px 24px;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  background: var(--surface);
-  transition: all 0.3s ease;
-}
-
-.link-pill:hover {
-  border-color: var(--accent);
-  background: var(--accent-dim);
-  color: var(--accent);
-  transform: translateY(-2px);
-}
-
-.link-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--accent);
-  opacity: 0.6;
-  transition: opacity 0.3s ease;
-}
-
-.link-pill:hover .link-dot {
-  opacity: 1;
-}
-
-/* ─── Experience ─── */
-.experience {
-  width: 100%;
-  animation: fadeUp 0.8s ease-out 0.35s both;
-}
-
-.section-heading {
-  font-family: var(--font-body);
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 1.5rem;
-}
-
-.timeline {
-  position: relative;
-  background: var(--surface);
-  border: 1px solid rgba(128, 128, 128, 0.08);
-  border-radius: 12px;
-  padding: 1.25rem;
-}
-
-.timeline-group {
-  padding-bottom: 1.25rem;
-  border-bottom: 1px solid rgba(128, 128, 128, 0.08);
-  animation: fadeUp 0.5s ease-out both;
-}
-
-.timeline-group + .timeline-group {
-  padding-top: 1.25rem;
-}
-
-.timeline-group:last-child {
-  padding-bottom: 0;
-  border-bottom: none;
-}
-
-.timeline-entry {
-  position: relative;
-  display: flex;
-  align-items: flex-start;
-  gap: 0.75rem;
-}
-
-.timeline-logo {
-  width: 32px;
-  height: 32px;
-  border-radius: 6px;
-  flex-shrink: 0;
-  margin-top: 0.15rem;
-  background: var(--logo-bg, rgba(128, 128, 128, 0.1));
-  padding: 4px;
-  object-fit: contain;
-}
-
-.timeline-marker {
-  display: none;
-}
-
-.timeline-consulting {
-  margin-top: 0.75rem;
-  margin-left: 0.25rem;
-  padding-left: 1rem;
-  border-left: 1px solid rgba(224, 159, 62, 0.15);
-}
-
-.consulting-label {
-  display: block;
-  font-size: 0.6rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--accent);
-  opacity: 0.5;
-  margin-bottom: 0.6rem;
-}
-
-.timeline-entry--nested {
-  padding-bottom: 0.75rem;
-  animation: fadeUp 0.5s ease-out both;
-}
-
-.timeline-entry--nested:last-child {
-  padding-bottom: 0;
-}
-
-.timeline-marker--nested {
-  display: none;
-}
-
-.timeline-content {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 1rem;
-  flex: 1;
-  min-width: 0;
-}
-
-.timeline-left {
-  display: flex;
-  flex-direction: column;
-  gap: 0.15rem;
-}
-
-.timeline-period {
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  color: var(--muted);
-  flex-shrink: 0;
-  text-align: right;
-  white-space: nowrap;
-}
-
-.timeline-role {
-  font-family: var(--font-body);
-  font-size: 0.9rem;
-  font-weight: 700;
-  color: var(--text);
-  line-height: 1.3;
-}
-
-.timeline-company {
-  font-size: 0.8rem;
-  color: var(--muted);
+h1,
+h2,
+h3,
+h4,
+p {
+  margin: 0;
   font-weight: 400;
 }
 
-/* ─── Footer ─── */
-footer {
-  margin-top: auto;
-  padding-top: 4rem;
-  font-family: var(--font-body);
+a {
+  color: var(--link);
+  text-decoration: none;
+}
+
+/* ---------- type scale ---------- */
+
+.txt-sm {
   font-size: 0.75rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--muted);
+  line-height: 1rem;
+  color: var(--text-soft);
+}
+
+.txt-xl {
+  font-size: 1.375rem;
+  line-height: 2rem;
+  color: var(--text-soft);
+}
+
+.txt-xxl {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin-bottom: 0.8125rem;
+}
+
+@media (min-width: 56.25rem) {
+  .txt-sm {
+    font-size: 0.8125rem;
+    line-height: 1.125rem;
+  }
+  .txt-xl {
+    font-size: 1.5625rem;
+    line-height: 2.375rem;
+  }
+  .txt-xxl {
+    font-size: 2.625rem;
+    line-height: 3.125rem;
+  }
+}
+
+.wide-only {
+  display: none;
+}
+
+@media (min-width: 36.25rem) {
+  .wide-only {
+    display: inline;
+  }
+}
+
+/* ---------- layout ---------- */
+
+/* uniform vertical rhythm: every section pads --sect top+bottom,
+   so the gap between any two sections is always 2 x --sect */
+:root {
+  --sect: 2.5rem;
+}
+
+@media (min-width: 36.25rem) {
+  :root {
+    --sect: 3.5rem;
+  }
+}
+
+.container {
   display: flex;
-  gap: 0.5rem;
-  animation: fadeUp 0.8s ease-out 0.45s both;
+  flex-direction: column;
+  gap: 1.625rem;
+  padding: var(--sect) 1.625rem;
+  text-align: center;
+  margin: 0 auto;
+  max-width: 57.5rem;
+  width: 100%;
 }
 
-.separator {
-  opacity: 0.3;
+@media (min-width: 56.25rem) {
+  .container {
+    gap: 2.25rem;
+  }
 }
 
-/* ─── Theme toggle ─── */
-.theme-toggle {
-  position: fixed;
-  top: 1.25rem;
-  right: 1.25rem;
-  z-index: 100;
+.header {
+  align-items: center;
+  padding-top: 3.25rem;
+}
+
+@media (min-width: 56.25rem) {
+  .header {
+    padding-top: 8.125rem;
+  }
+}
+
+/* boxed citation — actually resizable, like its figma handles promise.
+   max-width tracks the container so the layout can't break; height is free.
+   handles live on the wrapper because resize forces overflow clipping */
+.statement-wrap {
+  position: relative;
+  margin: 0 auto;
+  width: fit-content;
+  max-width: 100%;
+}
+
+
+/* figma-style frame title above the box */
+.statement-label {
+  position: absolute;
+  top: -1.375rem;
+  left: 0;
+  font-size: 0.6875rem;
+  line-height: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  color: #0c8ce9;
+  user-select: none;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.statement-box {
+  margin: 0;
+  width: min(36rem, 88vw);
+  max-width: 100%;
+  min-width: 16rem;
+  min-height: 5rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 38px;
-  height: 38px;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  background: var(--surface);
-  color: var(--muted);
+  overflow: hidden;
+  padding: 1.25rem 2rem;
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 1.25rem;
+  box-shadow: var(--card-shadow);
+}
+
+.statement-box p {
+  margin: 0;
+  font-weight: 500;
+  font-size: 1.375rem;
+  /* relative so the JS fit-to-box font scaling keeps proportions */
+  line-height: 1.4;
+  color: var(--text);
+}
+
+@media (min-width: 56.25rem) {
+  .statement-box p {
+    font-size: 1.625rem;
+  }
+}
+
+/* figma corner handles — 5px square visual, 28px hit area, one per corner */
+.statement-handle {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: nwse-resize;
+  touch-action: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.statement-handle--tl {
+  top: -14px;
+  left: -14px;
+}
+
+.statement-handle--tr {
+  top: -14px;
+  right: -14px;
+  cursor: nesw-resize;
+}
+
+.statement-handle--bl {
+  bottom: -14px;
+  left: -14px;
+  cursor: nesw-resize;
+}
+
+.statement-handle--br {
+  bottom: -14px;
+  right: -14px;
+}
+
+.statement-handle::after {
+  content: "";
+  width: 5px;
+  height: 5px;
+  background-color: var(--text);
+}
+
+.statement-handle:hover::after,
+.statement-handle:focus-visible::after {
+  transform: scale(1.8);
+  outline: 1px solid var(--bg);
+}
+
+
+.cta-text {
+  max-width: 26rem;
+  margin: 0 auto;
+  font-size: 1.0625rem;
+  line-height: 1.625rem;
+  color: var(--text-soft);
+}
+
+.cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+/* ---------- portrait ---------- */
+
+/* squircle avatar with a peach gradient ring.
+   corner-shape: squircle = true superellipse corners (Chromium 139+),
+   older browsers fall back to the plain rounded rect. */
+.portrait {
+  position: relative;
+  padding: 4px;
+  border-radius: 44px;
+  corner-shape: squircle;
+  background: linear-gradient(
+    145deg,
+    #ffe3d6 0%,
+    var(--accent) 45%,
+    #f0a988 100%
+  );
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06),
+    0 16px 40px -12px rgba(240, 169, 136, 0.55);
+  transition: transform 0.25s cubic-bezier(0.31, 0.026, 0, 0.997),
+    box-shadow 0.25s cubic-bezier(0.31, 0.026, 0, 0.997);
+}
+
+.portrait img {
+  width: 160px;
+  height: 160px;
+  border-radius: 40px;
+  corner-shape: squircle;
+  object-fit: cover;
+  display: block;
+}
+
+/* hairline inset line keeps the ring edge crisp */
+.portrait::after {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border-radius: 40px;
+  corner-shape: squircle;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  pointer-events: none;
+}
+
+.portrait {
+  transform: rotate(-2.5deg);
+}
+
+.portrait:hover {
+  transform: rotate(0deg) scale(1.03);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06),
+    0 22px 48px -12px rgba(240, 169, 136, 0.7);
+}
+
+[data-theme="dark"] .portrait {
+  background: linear-gradient(145deg, #8a5a45 0%, #b07457 45%, #5c3a2c 100%);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4),
+    0 16px 40px -12px rgba(176, 116, 87, 0.4);
+}
+
+[data-theme="dark"] .portrait:hover {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4),
+    0 22px 48px -12px rgba(176, 116, 87, 0.55);
+}
+
+[data-theme="dark"] .portrait::after {
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+/* ---------- section label (figma handles) ---------- */
+
+.section-label {
+  font-size: 1.125rem;
+  line-height: 1.5rem;
+  font-weight: 600;
+  color: var(--label-ink);
+}
+
+@media (min-width: 56.25rem) {
+  .section-label {
+    font-size: 1.375rem;
+    line-height: 1.75rem;
+  }
+}
+
+.section-label > span {
+  position: relative;
+  padding: 0.25rem 0.5rem;
+  background-color: var(--label-bg);
+  border-left: 1px solid var(--text);
+  border-right: 1px solid var(--text);
+}
+
+.section-label > span::before,
+.section-label > span::after {
+  content: "";
+  width: 5px;
+  height: 5px;
+  background-color: var(--text);
+  display: block;
+  position: absolute;
+}
+
+.section-label > span::before {
+  top: -3px;
+  left: -3px;
+}
+
+.section-label > span::after {
+  bottom: -3px;
+  right: -3px;
+}
+
+/* ---------- logo wall ---------- */
+
+.logo-wall {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem;
+  position: relative;
+}
+
+@media (min-width: 56.25rem) {
+  .logo-wall {
+    gap: 1.5rem;
+  }
+}
+
+.logo {
+  position: relative;
+  flex-grow: 1;
+  width: calc(50% - 1rem);
+  user-select: none;
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 1.25rem;
+  box-shadow: var(--card-shadow);
+  padding: 0.875rem 1rem;
+  transition: transform 0.2s cubic-bezier(0.31, 0.026, 0, 0.997),
+    box-shadow 0.2s cubic-bezier(0.31, 0.026, 0, 0.997),
+    background-color 0.2s ease, border-color 0.2s ease;
+}
+
+@media (min-width: 36.25rem) {
+  .logo {
+    width: calc(25% - 1rem);
+  }
+
+  .logo:hover,
+  .logo:focus-visible {
+    z-index: 100;
+    transform: rotate(-1.5deg);
+  }
+
+  .logo:active {
+    transform: perspective(500px) translateZ(-20px) rotate(0deg);
+    box-shadow: none;
+  }
+}
+
+@media (min-width: 56.25rem) {
+  .logo {
+    width: calc(25% - 1.5rem);
+    padding: 1rem 1.25rem;
+  }
+}
+
+.logo-img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+}
+
+.logo-img img {
+  /* height comes per-logo via inline style, tuned to its aspect ratio */
+  max-width: 100%;
+  width: auto;
+  object-fit: contain;
+  filter: var(--logo-filter);
+  transition: filter 0.2s ease;
+}
+
+.logo:hover .logo-img img,
+.logo:focus-visible .logo-img img,
+.logo:active .logo-img img {
+  filter: var(--logo-filter-hover);
+}
+
+/* dark mode hover: card lifts a shade, colored logos show as-is */
+[data-theme="dark"] .logo:hover,
+[data-theme="dark"] .logo:focus-visible,
+[data-theme="dark"] .logo:active {
+  background-color: #262624;
+  border-color: #363632;
+}
+
+[data-theme="dark"] .logo:hover .logo-img img,
+[data-theme="dark"] .logo:focus-visible .logo-img img,
+[data-theme="dark"] .logo:active .logo-img img {
+  filter: none;
+}
+
+/* near-black wordmarks: flip lightness, keep hue, so they stay legible */
+[data-theme="dark"] .logo--dark:hover .logo-img img,
+[data-theme="dark"] .logo--dark:focus-visible .logo-img img,
+[data-theme="dark"] .logo--dark:active .logo-img img {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+/* speech bubble — 16/16/16/4 radius + 1deg tilt, like the original.
+   display:none below the breakpoint: even at opacity 0 it occupies layout
+   and pushes the page wider than the viewport on mobile */
+.bubble {
+  display: none;
+  position: absolute;
+  bottom: calc(100% + 0.375rem);
+  left: 45%;
+  width: 240px;
+  padding: 9px 12px;
+  background: var(--bubble-bg);
+  color: var(--bubble-text);
+  text-align: left;
+  font-size: 0.875rem;
+  line-height: 1.125rem;
+  border-radius: 16px 16px 16px 4px;
+  box-shadow: 0 4px 30px 0 rgba(0, 0, 0, 0.3);
+  transform: rotate(1deg);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+  z-index: 10;
+}
+
+@media (min-width: 36.25rem) {
+  .bubble {
+    display: block;
+  }
+
+  .logo:hover .bubble,
+  .logo:focus-visible .bubble {
+    opacity: 1;
+  }
+}
+
+/* keep the bubble inside the viewport on the row's right edge */
+.logo:nth-child(4n) .bubble {
+  left: auto;
+  right: 45%;
+  border-radius: 16px 16px 4px 16px;
+  transform: rotate(-1deg);
+}
+
+/* ---------- button ---------- */
+
+.btn {
+  display: inline-block;
+  padding: 1rem 2.25rem;
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  font-size: 1.125rem;
+  font-weight: 600;
+  border-radius: 22px;
+  corner-shape: squircle;
+  transition: transform 0.15s ease, box-shadow 0.15s ease,
+    background-color 0.15s ease, color 0.15s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn--secondary {
+  background: transparent;
+  color: var(--text);
+  box-shadow: inset 0 0 0 1px var(--card-border);
+}
+
+.btn--secondary:hover {
+  background: var(--card-bg);
+  box-shadow: inset 0 0 0 1px var(--card-border),
+    0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* ---------- theme toggle ---------- */
+
+.theme-toggle {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--text-soft);
   cursor: pointer;
-  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+  transition: background 0.15s ease, color 0.15s ease;
 }
 
 .theme-toggle:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-  transform: scale(1.08);
+  background: var(--accent);
+  color: var(--accent-ink);
 }
 
-/* ─── Animations ─── */
-@keyframes fadeUp {
+/* ---------- mobile action sheet ---------- */
+
+.sheet-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 100;
+  animation: backdrop-in 0.2s ease;
+  touch-action: none;
+  overscroll-behavior: contain;
+}
+
+.sheet {
+  touch-action: none;
+  overscroll-behavior: contain;
+}
+
+.sheet {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--card-bg);
+  border-radius: 20px 20px 0 0;
+  padding: 2rem 1.625rem calc(2rem + env(safe-area-inset-bottom));
+  text-align: left;
+  animation: sheet-up 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.sheet-close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  padding: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--text-soft);
+  cursor: pointer;
+}
+
+.sheet-close:active {
+  background: var(--card-border);
+}
+
+.sheet-logo {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 1.25rem;
+}
+
+.sheet-logo img {
+  filter: none;
+}
+
+[data-theme="dark"] .sheet-logo--dark img {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+.sheet-note {
+  max-width: 22rem;
+  margin: 0;
+  color: var(--text);
+  font-size: 1.0625rem;
+  line-height: 1.625rem;
+}
+
+/* exit: class is added 240ms before unmount */
+.sheet-closing {
+  animation: backdrop-out 0.24s ease forwards;
+}
+
+.sheet-closing .sheet {
+  animation: sheet-down 0.24s cubic-bezier(0.55, 0, 0.78, 0.45) forwards;
+}
+
+@keyframes sheet-up {
   from {
-    opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(100%);
   }
   to {
-    opacity: 1;
     transform: translateY(0);
   }
 }
 
-/* ─── Responsive ─── */
-@media (max-width: 480px) {
-  .page {
-    padding: 2rem 1.5rem;
+@keyframes sheet-down {
+  from {
+    transform: translateY(0);
   }
-
-  h1 .line-1 {
-    font-size: 5rem;
-  }
-
-  h1 .line-2 {
-    font-size: 3.9rem;
-  }
-
-  .bio {
-    padding: 1rem 1.25rem;
-  }
-
-  .links {
-    width: 100%;
-  }
-
-  .link-pill {
-    flex: 1;
-    justify-content: center;
+  to {
+    transform: translateY(100%);
   }
 }
 
-@media (max-width: 360px) {
-  .page {
-    padding: 1.5rem 1rem;
+@keyframes backdrop-in {
+  from {
+    opacity: 0;
   }
+  to {
+    opacity: 1;
+  }
+}
 
-  h1 .line-1 {
-    font-size: 4rem;
+@keyframes backdrop-out {
+  from {
+    opacity: 1;
   }
+  to {
+    opacity: 0;
+  }
+}
 
-  h1 .line-2 {
-    font-size: 3.1rem;
-  }
+/* ---------- footer ---------- */
 
-  .bio {
-    padding: 0.75rem 1rem;
-    font-size: 0.85rem;
-  }
+.footer {
+  /* snaps to the viewport bottom when the page is short */
+  margin-top: auto;
+  padding-bottom: 2rem;
+  gap: 1rem;
+  opacity: 0.7;
+}
 
-  .link-pill {
-    font-size: 0.8rem;
-    padding: 8px 16px;
-  }
+.footer-line {
+  margin-bottom: 6px;
+}
+
+
+/* ---------- background canvas ---------- */
+
+.bg-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.page {
+  position: relative;
+  z-index: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+}
+
+/* ---------- hero intro (gsap, motion-gated) ---------- */
+
+.hero-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.name-line {
+  display: block;
+  overflow: hidden;
+}
+
+.name-line-inner {
+  display: block;
+}
+
+/* initial hidden states — only when JS + motion are available, so a
+   no-JS or reduced-motion visit gets a fully visible page */
+.motion .name-line-inner {
+  transform: translateY(110%);
+}
+
+.motion [data-intro],
+.motion [data-scroll-reveal] {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(16px);
+}
+
+.motion .portrait[data-intro] {
+  transform: translateY(10px) scale(0.7);
+  /* hover transition must not fight gsap's per-frame transforms during
+     the intro; the attribute is removed when the intro completes */
+  transition: none;
 }
