@@ -60,16 +60,22 @@ test("dragging a handle hands that paddle to the player", async ({ page }) => {
   await expect(handle).not.toHaveAttribute("data-live");
 
   const box = await handle.boundingBox();
-  if (!box) throw new Error("handle has no box");
+  const arena = await page.locator(".pong-canvas").boundingBox();
+  if (!box || !arena) throw new Error("missing boxes");
   const cx = box.x + box.width / 2;
-  const cy = box.y + box.height / 2;
-  await page.mouse.move(cx, cy);
+  const targetY = arena.y + arena.height / 2; // mid-arena is never clamped
+  await page.mouse.move(cx, box.y + box.height / 2);
   await page.mouse.down();
-  await page.mouse.move(cx, cy + 70, { steps: 6 });
+  await page.mouse.move(cx, targetY, { steps: 6 });
 
   await expect(handle).toHaveAttribute("data-live", "");
-  // the paddle (and its handle) tracked the drag
-  await expect.poll(async () => (await handle.boundingBox())?.y ?? 0).toBeGreaterThan(box.y + 35);
+  // the paddle (and its riding handle) settled onto the pointer
+  await expect
+    .poll(async () => {
+      const b = await handle.boundingBox();
+      return b ? Math.abs(b.y + b.height / 2 - targetY) : 999;
+    })
+    .toBeLessThan(30);
   await page.mouse.up();
 });
 
@@ -85,6 +91,34 @@ test("arrow keys steer a paddle from the keyboard", async ({ page }) => {
 
   await expect(handle).toHaveAttribute("data-live", "");
   await expect.poll(async () => (await handle.boundingBox())?.y ?? 0).toBeGreaterThan(before + 20);
+});
+
+test("cpu-vs-cpu demo keeps no score and shows no list", async ({ page }) => {
+  await scrollToPong(page);
+  await page.waitForTimeout(600); // let the demo rally run a moment
+  await expect(page.locator(".pong-scores")).toBeEmpty();
+  await expect(page.locator(".pong-scores")).toBeHidden();
+});
+
+test("stored best rallies render beneath the arena on load", async ({ page }) => {
+  await page.addInitScript(() => {
+    localStorage.setItem(
+      "pong-scores",
+      JSON.stringify([
+        { s: 12, t: 1749722400000 },
+        { s: 7, t: 1749722400000 },
+        { s: 3, t: 1749722400000 },
+      ]),
+    );
+  });
+  await scrollToPong(page);
+
+  const scores = page.locator(".pong-scores");
+  await expect(scores).toBeVisible();
+  await expect(scores.locator("li")).toHaveCount(3);
+  // sorted: the reigning best comes first
+  await expect(scores.locator("li b").first()).toHaveText("12");
+  await expect(scores.getByText("best rallies")).toBeVisible();
 });
 
 test.describe("reduced motion", () => {

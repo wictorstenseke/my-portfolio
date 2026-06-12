@@ -99,6 +99,7 @@ export function App() {
   const pongLeftRef = useRef<HTMLButtonElement>(null);
   const pongRightRef = useRef<HTMLButtonElement>(null);
   const pongStatusRef = useRef<HTMLParagraphElement>(null);
+  const pongScoresRef = useRef<HTMLDivElement>(null);
   const boxRef = useRef<HTMLQuoteElement>(null);
   const sheetRef = useRef<HTMLDivElement>(null);
   const openerRef = useRef<HTMLElement | null>(null);
@@ -285,6 +286,7 @@ export function App() {
             leftHandle: pongLeftRef.current,
             rightHandle: pongRightRef.current,
             status: pongStatusRef.current,
+            scores: pongScoresRef.current,
           });
         })
         .catch(() => {}); // decorative chunk — a failed load must never break the page
@@ -416,6 +418,7 @@ export function App() {
             />
             <p class="visually-hidden" aria-live="polite" ref={pongStatusRef} />
           </div>
+          <div class="pong-scores txt-sm" ref={pongScoresRef} />
         </section>
       </main>
 

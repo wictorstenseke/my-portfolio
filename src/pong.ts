@@ -1,15 +1,18 @@
 // Pong arena drawn as a figma frame. Two CPU paddles rally on their own;
-// grabbing a paddle's edge handle (drag or arrow keys) hands that side to
-// the human until they let go. Physics run on a fixed 120 Hz step with an
-// accumulator and the frame renders an interpolated state, so ball speed is
-// identical on 60/120/144 Hz displays.
+// grabbing a paddle (or its edge handle) hands that side to the human until
+// they let go. The CPU demo keeps no score — once a human takes a paddle, a
+// run counter tracks their returns, and finished runs land in a localStorage
+// highscore list rendered beneath the arena. Physics run on a fixed 120 Hz
+// step with an accumulator and the frame renders an interpolated state, so
+// ball speed is identical on 60/120/144 Hz displays.
 
 const STEP = 1 / 120;
 const MAX_FRAME = 1 / 20; // clamp post-jank deltas so physics never explode
-const WIN_SCORE = 11;
 const FIGMA_BLUE = "#0c8ce9";
-const SPEEDUP = 1.09; // per paddle hit — a rally should heat up within a few bounces
+const SPEEDUP = 1.13; // per paddle hit — the rally turns hot within a handful of bounces
 const GRAB = 32; // px of forgiveness around a paddle column for direct grabs
+const SCORES_KEY = "pong-scores";
+const SCORES_MAX = 5;
 
 type Side = {
   /** paddle center y */
@@ -28,20 +31,19 @@ type Side = {
   aiTarget: number;
   /** error refreshes once per approach, not per step — looks like commitment */
   aiArmed: boolean;
-  score: number;
   handle: HTMLElement;
 };
 
-type Phase =
-  | { kind: "serve"; t: number }
-  | { kind: "play" }
-  | { kind: "win"; t: number; left: boolean };
+type Phase = { kind: "serve"; t: number } | { kind: "play" };
+
+type ScoreEntry = { s: number; t: number };
 
 export function initPong(opts: {
   canvas: HTMLCanvasElement;
   leftHandle: HTMLElement;
   rightHandle: HTMLElement;
   status: HTMLElement | null;
+  scores: HTMLElement | null;
 }): () => void {
   const { canvas, status } = opts;
   const ctx = canvas.getContext("2d");
@@ -74,7 +76,6 @@ export function initPong(opts: {
       keyDown: false,
       aiTarget: 0,
       aiArmed: false,
-      score: 0,
       handle,
     };
   }
@@ -162,25 +163,66 @@ export function initPong(opts: {
     if (status && humanPlaying()) status.textContent = msg;
   };
 
-  const sideName = (s: Side) => {
-    // mixed match reads "you" vs "cpu"; demo and human-vs-human go positional
-    if ((left.mode === "ai") !== (right.mode === "ai")) return s.mode === "ai" ? "cpu" : "you";
-    return s === left ? "left" : "right";
+  // ---- highscore runs ----
+  // the CPU demo keeps no score. A run starts when a human takes a paddle,
+  // counts their returns, and registers on a miss (or when control lapses).
+  let runCount = -1; // -1 = no run, demo mode
+
+  // localStorage can throw in private/lockdown modes — scores just won't stick
+  const readScores = (): ScoreEntry[] => {
+    try {
+      const arr: unknown = JSON.parse(localStorage.getItem(SCORES_KEY) ?? "[]");
+      if (!Array.isArray(arr)) return [];
+      return arr.filter(
+        (e): e is ScoreEntry =>
+          typeof e === "object" && e !== null && typeof (e as ScoreEntry).s === "number",
+      );
+    } catch {
+      return [];
+    }
   };
 
-  const winText = (winner: Side) =>
-    winner.mode !== "ai" && sideName(winner) === "you" ? "you win" : `${sideName(winner)} wins`;
-
-  const scorePoint = (scorer: Side, conceder: Side) => {
-    scorer.score += 1;
-    serveDir = scorer === left ? 1 : -1; // loser receives
-    if (scorer.score >= WIN_SCORE) {
-      phase = { kind: "win", t: 1.6, left: scorer === left };
-      announce(`${winText(scorer)} ${scorer.score}–${conceder.score}`);
-    } else {
-      announce(`${sideName(left)} ${left.score} — ${sideName(right)} ${right.score}`);
-      serve();
+  const writeScores = (list: ScoreEntry[]) => {
+    try {
+      localStorage.setItem(SCORES_KEY, JSON.stringify(list));
+    } catch {
+      /* the list simply won't persist */
     }
+  };
+
+  // the list lives beneath the arena and only exists once something scored
+  const renderScores = () => {
+    const host = opts.scores;
+    if (!host) return;
+    const list = readScores();
+    if (list.length === 0) return; // stays :empty → hidden
+    const label = document.createElement("span");
+    label.className = "pong-scores-label";
+    label.textContent = "best rallies";
+    const ol = document.createElement("ol");
+    for (const e of list) {
+      const li = document.createElement("li");
+      const n = document.createElement("b");
+      n.textContent = String(e.s);
+      const d = document.createElement("span");
+      d.textContent = e.t
+        ? new Date(e.t).toLocaleDateString(undefined, { day: "numeric", month: "short" })
+        : "";
+      li.append(n, d);
+      ol.appendChild(li);
+    }
+    host.replaceChildren(label, ol);
+  };
+
+  const registerRun = () => {
+    if (runCount <= 0) return; // nothing returned, nothing to brag about
+    const list = [...readScores(), { s: runCount, t: Date.now() }]
+      .sort((a, b) => b.s - a.s)
+      .slice(0, SCORES_MAX);
+    writeScores(list);
+    renderScores();
+    const best = list[0]?.s ?? runCount;
+    announce(`run over: ${runCount} return${runCount === 1 ? "" : "s"} — best ${best}`);
   };
 
   // ---- AI ----
@@ -232,6 +274,8 @@ export function initPong(opts: {
     ball.vx = Math.cos(angle) * v * dir;
     ball.vy = Math.sin(angle) * v;
     ball.x = faceX + ballR * dir;
+    // a human return extends the current run
+    if (s.mode !== "ai" && runCount >= 0) runCount += 1;
   };
 
   const stepBall = () => {
@@ -261,8 +305,18 @@ export function initPong(opts: {
       if (Math.abs(yAt - right.y) <= padH / 2 + ballR) bounce(right, rFace, -1);
     }
 
-    if (ball.x < -ballR * 4) scorePoint(right, left);
-    else if (ball.x > W + ballR * 4) scorePoint(left, right);
+    if (ball.x < -ballR * 4) ballOut(left);
+    else if (ball.x > W + ballR * 4) ballOut(right);
+  };
+
+  const ballOut = (conceder: Side) => {
+    // a human miss ends their run; the rally itself just restarts
+    if (conceder.mode !== "ai" && runCount > 0) {
+      registerRun();
+      runCount = 0;
+    }
+    serveDir = conceder === left ? -1 : 1; // the side that missed receives
+    serve();
   };
 
   const step = () => {
@@ -297,18 +351,11 @@ export function initPong(opts: {
     if (phase.kind === "serve") {
       phase.t -= STEP;
       if (phase.t <= 0) phase = { kind: "play" };
-    } else if (phase.kind === "play") {
+    } else {
       stepBall();
       if (!reducedMq.matches) {
         trail.push({ x: ball.x, y: ball.y });
         if (trail.length > 14) trail.shift();
-      }
-    } else {
-      phase.t -= STEP;
-      if (phase.t <= 0) {
-        left.score = 0;
-        right.score = 0;
-        serve();
       }
     }
   };
@@ -319,9 +366,15 @@ export function initPong(opts: {
     if (mode === "ai") {
       s.handle.removeAttribute("data-live");
       s.aiArmed = false;
-      if (!humanPlaying() && status) status.textContent = "";
+      if (!humanPlaying()) {
+        // back to pure demo: a lapsed run still counts, then no more scoring
+        registerRun();
+        runCount = -1;
+        if (status) status.textContent = "";
+      }
     } else {
       s.handle.setAttribute("data-live", "");
+      if (runCount < 0) runCount = 0; // first human input — the counter begins
       kick();
     }
   };
@@ -467,15 +520,16 @@ export function initPong(opts: {
     ctx.stroke();
     ctx.setLineDash([]);
 
-    // ghost score
-    ctx.font = `600 ${Math.round(H * 0.2)}px "Instrument Sans Variable", sans-serif`;
-    ctx.textAlign = "center";
-    ctx.textBaseline = "top";
-    ctx.globalAlpha = 0.14;
-    ctx.fillStyle = colors.soft;
-    ctx.fillText(String(left.score), W / 2 - W * 0.11, H * 0.07);
-    ctx.fillText(String(right.score), W / 2 + W * 0.11, H * 0.07);
-    ctx.globalAlpha = 1;
+    // ghost run counter — only once a human is in the rally; the demo is scoreless
+    if (runCount >= 0) {
+      ctx.font = `600 ${Math.round(H * 0.2)}px "Instrument Sans Variable", sans-serif`;
+      ctx.textAlign = "center";
+      ctx.textBaseline = "top";
+      ctx.globalAlpha = 0.14;
+      ctx.fillStyle = colors.soft;
+      ctx.fillText(String(runCount), W / 2, H * 0.07);
+      ctx.globalAlpha = 1;
+    }
 
     // layer-name captions, figma blue
     ctx.font = `500 11px "Instrument Sans Variable", sans-serif`;
@@ -512,27 +566,15 @@ export function initPong(opts: {
     // ball — peach square with a hairline ink edge, reads in both themes
     const bx = phase.kind === "play" ? lerp(ball.prevX, ball.x, alpha) : W / 2;
     const by = phase.kind === "play" ? lerp(ball.prevY, ball.y, alpha) : H / 2;
-    if (phase.kind !== "win") {
-      const pulse = phase.kind === "serve" ? 1 + 0.18 * Math.sin((0.9 - phase.t) * 9) : 1;
-      const r = ballR * pulse;
-      ctx.fillStyle = colors.accent;
-      roundRect(bx - r, by - r, r * 2, r * 2, r * 0.45);
-      ctx.strokeStyle = colors.text;
-      ctx.globalAlpha = 0.5;
-      ctx.lineWidth = 1;
-      ctx.strokeRect(bx - r + 0.5, by - r + 0.5, r * 2 - 1, r * 2 - 1);
-      ctx.globalAlpha = 1;
-    }
-
-    if (phase.kind === "win") {
-      ctx.font = `600 ${Math.round(H * 0.085)}px "Instrument Sans Variable", sans-serif`;
-      ctx.textAlign = "center";
-      ctx.textBaseline = "middle";
-      ctx.fillStyle = colors.text;
-      ctx.globalAlpha = 0.85;
-      ctx.fillText(winText(phase.left ? left : right), W / 2, H / 2);
-      ctx.globalAlpha = 1;
-    }
+    const pulse = phase.kind === "serve" ? 1 + 0.18 * Math.sin((0.9 - phase.t) * 9) : 1;
+    const r = ballR * pulse;
+    ctx.fillStyle = colors.accent;
+    roundRect(bx - r, by - r, r * 2, r * 2, r * 0.45);
+    ctx.strokeStyle = colors.text;
+    ctx.globalAlpha = 0.5;
+    ctx.lineWidth = 1;
+    ctx.strokeRect(bx - r + 0.5, by - r + 0.5, r * 2 - 1, r * 2 - 1);
+    ctx.globalAlpha = 1;
 
     // edge handles ride their paddles
     left.handle.style.transform = `translate3d(0, ${ly - handleHalf}px, 0)`;
@@ -581,6 +623,7 @@ export function initPong(opts: {
   resize(canvas.clientWidth, canvas.clientHeight);
   serve();
   render(1);
+  renderScores(); // earlier visits' bests show up right away
 
   const ro = new ResizeObserver((entries) => {
     const e = entries[0];
