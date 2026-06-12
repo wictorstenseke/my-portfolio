@@ -25,7 +25,7 @@ export const clients: Client[] = [
   {
     name: "Polestar",
     logo: "/img/logos/polestar.svg",
-    h: 24,
+    h: 20,
     darkLogo: true,
     note: "Shaped digital experiences for the electric performance car brand.",
   },
@@ -51,7 +51,7 @@ export const clients: Client[] = [
   {
     name: "Bonfire Development",
     logo: "/img/logos/bonfire-wordmark.svg",
-    h: 36,
+    h: 30,
     darkLogo: true,
     note: "My home base since 2021 — a small senior consultancy crew.",
   },
