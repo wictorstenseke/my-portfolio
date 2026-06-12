@@ -8,6 +8,12 @@ on:
 permissions:
   contents: read
 
+# a newer push obsoletes the running check; deploys still serialize on
+# their own "pages" group below
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   check:
     runs-on: ubuntu-latest
