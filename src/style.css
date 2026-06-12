@@ -856,8 +856,15 @@ a {
 }
 
 .motion .portrait[data-intro] {
-  transform: translateY(10px) scale(0.7);
-  /* hover transition must not fight gsap's per-frame transforms during
-     the intro; the attribute is removed when the intro completes */
+  /* must equal the resting transform. The element is invisible here
+     (opacity/visibility above) and the intro keyframes own the visible
+     from-state, so this value never shows — but if it differs from the
+     resting one, removing the attribute changes the underlying transform
+     and WebKit runs the hover transition from it (Safari computes the
+     before-change style without the script animation's fill): the avatar
+     visibly snaps small and re-grows at the end of the intro. */
+  transform: rotate(-2.5deg);
+  /* hover transition must not fight the intro's per-frame transforms;
+     the attribute is removed when the intro completes */
   transition: none;
 }
