@@ -4,12 +4,36 @@ import { isDark, onSystemThemeChange, toggleTheme } from "./theme";
 
 function ThemeToggle() {
   const [dark, setDark] = useState(isDark);
+  const btnRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => onSystemThemeChange(setDark), []);
+
+  // while the theme sweep runs, real clicks hit-test to <html> instead of
+  // the button (view-transition snapshots cover the live page), so catch
+  // clicks inside the button's rect at the document level to allow
+  // rapid re-toggling mid-animation
+  useEffect(() => {
+    const onDocClick = (e: MouseEvent) => {
+      const btn = btnRef.current;
+      if (!btn || btn.contains(e.target as Node)) return; // normal click path
+      const r = btn.getBoundingClientRect();
+      if (
+        e.clientX >= r.left &&
+        e.clientX <= r.right &&
+        e.clientY >= r.top &&
+        e.clientY <= r.bottom
+      ) {
+        toggleTheme(setDark);
+      }
+    };
+    document.addEventListener("click", onDocClick);
+    return () => document.removeEventListener("click", onDocClick);
+  }, []);
 
   return (
     <button
       type="button"
+      ref={btnRef}
       class="theme-toggle"
       onClick={() => toggleTheme(setDark)}
       aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}

@@ -87,6 +87,14 @@ body {
   mix-blend-mode: normal;
 }
 
+/* the snapshot overlay covers the viewport for the whole sweep and would
+   swallow every real click — let events fall through to the document.
+   NOTE: mid-transition they hit-test to <html>, not the element under the
+   cursor; the theme toggle catches them via document-level delegation */
+::view-transition {
+  pointer-events: none;
+}
+
 h1,
 h2,
 h3,

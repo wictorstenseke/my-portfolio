@@ -61,13 +61,17 @@ function waveFrames(): string[] {
   const F = 40; // keyframes
   const N = 24; // wave samples along the edge
   const amp = Math.min(110, L * 0.12);
-  const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2);
+  // ease-out: the sweep must MOVE the instant it starts — a slow-attack ease
+  // here reads as input lag, not elegance
+  const ease = (t: number) => 1 - (1 - t) ** 3;
 
   const frames: string[] = [];
   for (let f = 0; f < F; f++) {
     const t = f / (F - 1);
     const e = ease(t);
-    const edgeA = L / 2 + pad + amp - e * (L + 2 * (pad + amp));
+    // edge starts exactly at the corner (env is 0 at t=0, so no overshoot)
+    // — any lead-in past the corner is invisible dead time after the click
+    const edgeA = L / 2 - e * (L + pad + amp);
     const env = Math.sin(Math.PI * t) * amp; // straight edge at both ends
     const phase = t * Math.PI * 3; // wave flows while sweeping
     const pts: string[] = [];
@@ -87,7 +91,7 @@ function waveFrames(): string[] {
 
 // fallback for browsers without view transitions: solid curtain in the OLD
 // theme color sweeps out after the theme flips beneath it
-function curtainWipe(nextDark: boolean, applyTheme: () => void, onDone: () => void) {
+function curtainWipe(nextDark: boolean, applyTheme: () => void): () => void {
   const w = window.innerWidth;
   const h = window.innerHeight;
   const L = Math.hypot(w, h);
@@ -128,13 +132,18 @@ function curtainWipe(nextDark: boolean, applyTheme: () => void, onDone: () => vo
   const amp = Math.min(110, L * 0.12);
   const dur = 1000;
   const start = performance.now();
-  const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2);
+  // ease-out to match the view-transition sweep: instant attack, soft landing
+  const ease = (t: number) => 1 - (1 - t) ** 3;
+
+  let cancelled = false;
 
   const frame = (now: number) => {
+    if (cancelled) return;
     const t = Math.min(1, (now - start) / dur);
     const e = ease(t);
-    // edge retreats from beyond the top-right (+x) to beyond bottom-left (-x)
-    const base = L + pad + amp - e * (L + 2 * (pad + amp));
+    // edge retreats from the top-right corner (env is 0 at t=0, no overshoot)
+    // to beyond bottom-left — no invisible lead-in after the click
+    const base = L - e * (L + pad + amp);
     const env = Math.sin(Math.PI * t) * amp; // straight edge at both ends
     const phase = t * Math.PI * 3; // wave flows while sweeping
     let d = `M ${-pad} ${-pad} L ${-pad} ${L + pad}`;
@@ -149,24 +158,32 @@ function curtainWipe(nextDark: boolean, applyTheme: () => void, onDone: () => vo
       requestAnimationFrame(frame);
     } else {
       svg.remove();
-      onDone();
     }
   };
   requestAnimationFrame(frame);
+
+  // interrupt hook: dropping the curtain reveals the already-applied new
+  // theme everywhere — the instant-complete a restarted toggle needs
+  return () => {
+    cancelled = true;
+    svg.remove();
+  };
 }
 
-let animating = false;
+// instant-completes a running curtain wipe when the user re-toggles mid-sweep
+let cancelCurtain: (() => void) | null = null;
 
 /**
- * Flip the theme with the wavy sweep. No-op while a sweep is running.
- * `onApply` fires the moment the new theme hits the DOM (icon swap point).
+ * Flip the theme with the wavy sweep. Re-toggling mid-sweep restarts: the
+ * running sweep instant-completes and a fresh wave launches from the corner.
+ * `onApply` fires synchronously on every toggle so the control gives
+ * instant feedback — the page theme itself flips inside the transition.
  */
 export function toggleTheme(onApply: (dark: boolean) => void): void {
-  if (animating) return;
   const next = !isDark();
+  onApply(next);
   const applyNext = () => {
     apply(next, true);
-    onApply(next);
   };
 
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -175,18 +192,18 @@ export function toggleTheme(onApply: (dark: boolean) => void): void {
   }
 
   if (typeof document.startViewTransition !== "function") {
-    animating = true;
-    curtainWipe(next, applyNext, () => {
-      animating = false;
-    });
+    cancelCurtain?.();
+    cancelCurtain = curtainWipe(next, applyNext);
     return;
   }
 
-  animating = true;
+  // a still-running transition is skipped by the browser here: its callback
+  // has already applied that theme, so the page pops to it and the new wave
+  // sweeps from there — the skipped ready/finished rejections land in catch
   const vt = document.startViewTransition(applyNext);
   vt.ready
     .then(() => {
-      const anim = document.documentElement.animate(
+      document.documentElement.animate(
         { clipPath: waveFrames() },
         {
           duration: 1100,
@@ -194,10 +211,6 @@ export function toggleTheme(onApply: (dark: boolean) => void): void {
           pseudoElement: "::view-transition-new(root)",
         },
       );
-      return anim.finished;
     })
-    .catch(() => {})
-    .then(() => {
-      animating = false;
-    });
+    .catch(() => {});
 }
