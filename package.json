@@ -1,25 +1,29 @@
 {
   "name": "my-portfolio",
   "version": "1.0.0",
+  "private": true,
   "type": "module",
+  "description": "Personal portfolio site for Wictor Stenseke",
+  "author": "Wictor Stenseke",
+  "license": "ISC",
+  "engines": {
+    "node": ">=20.19"
+  },
   "scripts": {
     "dev": "vite --host",
-    "build": "vite build",
-    "preview": "vite preview"
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "lint": "biome check .",
+    "format": "biome format --write ."
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "dependencies": {
-    "gsap": "^3.15.0",
-    "preact": "^10.29.0",
-    "preact-render-to-string": "^6.6.7",
-    "three": "^0.184.0"
+    "@fontsource-variable/instrument-sans": "^5.2.8",
+    "preact": "^10.29.0"
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.4.16",
     "@preact/preset-vite": "^2.10.5",
-    "@types/three": "^0.184.1",
     "typescript": "^6.0.2",
     "vite": "^8.0.3"
   }

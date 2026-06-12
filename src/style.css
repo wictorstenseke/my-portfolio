@@ -63,12 +63,15 @@ body {
   padding: 0;
   background-color: var(--bg);
   color: var(--text);
-  font-family: "Instrument Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, Helvetica, Arial, sans-serif;
+  font-family:
+    "Instrument Sans Variable", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
   font-size: 1rem;
   line-height: 1.5rem;
   -webkit-font-smoothing: antialiased;
-  transition: background-color 0.25s ease, color 0.25s ease;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
 }
 
 ::selection {
@@ -198,7 +201,6 @@ a {
   max-width: 100%;
 }
 
-
 /* figma-style frame title above the box */
 .statement-label {
   position: absolute;
@@ -297,7 +299,6 @@ a {
   outline: 1px solid var(--bg);
 }
 
-
 .cta-text {
   max-width: 26rem;
   margin: 0 auto;
@@ -323,15 +324,12 @@ a {
   padding: 4px;
   border-radius: 44px;
   corner-shape: squircle;
-  background: linear-gradient(
-    145deg,
-    #ffe3d6 0%,
-    var(--accent) 45%,
-    #f0a988 100%
-  );
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06),
+  background: linear-gradient(145deg, #ffe3d6 0%, var(--accent) 45%, #f0a988 100%);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.06),
     0 16px 40px -12px rgba(240, 169, 136, 0.55);
-  transition: transform 0.25s cubic-bezier(0.31, 0.026, 0, 0.997),
+  transition:
+    transform 0.25s cubic-bezier(0.31, 0.026, 0, 0.997),
     box-shadow 0.25s cubic-bezier(0.31, 0.026, 0, 0.997);
 }
 
@@ -351,7 +349,8 @@ a {
   inset: 4px;
   border-radius: 40px;
   corner-shape: squircle;
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.06),
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, 0.06),
     inset 0 1px 0 rgba(255, 255, 255, 0.3);
   pointer-events: none;
 }
@@ -362,23 +361,27 @@ a {
 
 .portrait:hover {
   transform: rotate(0deg) scale(1.03);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06),
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.06),
     0 22px 48px -12px rgba(240, 169, 136, 0.7);
 }
 
 [data-theme="dark"] .portrait {
   background: linear-gradient(145deg, #8a5a45 0%, #b07457 45%, #5c3a2c 100%);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4),
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.4),
     0 16px 40px -12px rgba(176, 116, 87, 0.4);
 }
 
 [data-theme="dark"] .portrait:hover {
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4),
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.4),
     0 22px 48px -12px rgba(176, 116, 87, 0.55);
 }
 
 [data-theme="dark"] .portrait::after {
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1),
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.12);
 }
 
@@ -447,14 +450,29 @@ a {
   flex-grow: 1;
   width: calc(50% - 1rem);
   user-select: none;
+  /* a tap should act immediately — never wait on double-tap-zoom detection */
+  touch-action: manipulation;
+  /* it's a <button> — neutralize UA styles so the card look is unchanged */
+  margin: 0;
+  font: inherit;
+  color: inherit;
   background-color: var(--card-bg);
   border: 1px solid var(--card-border);
   border-radius: 1.25rem;
   box-shadow: var(--card-shadow);
   padding: 0.875rem 1rem;
-  transition: transform 0.2s cubic-bezier(0.31, 0.026, 0, 0.997),
+  transition:
+    transform 0.2s cubic-bezier(0.31, 0.026, 0, 0.997),
     box-shadow 0.2s cubic-bezier(0.31, 0.026, 0, 0.997),
-    background-color 0.2s ease, border-color 0.2s ease;
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+/* press feedback at every width — on mobile this is the only visual
+   acknowledgment between the tap and the action sheet appearing */
+.logo:active {
+  transform: perspective(500px) translateZ(-20px) rotate(0deg);
+  box-shadow: none;
 }
 
 @media (min-width: 36.25rem) {
@@ -466,11 +484,6 @@ a {
   .logo:focus-visible {
     z-index: 100;
     transform: rotate(-1.5deg);
-  }
-
-  .logo:active {
-    transform: perspective(500px) translateZ(-20px) rotate(0deg);
-    box-shadow: none;
   }
 }
 
@@ -578,8 +591,11 @@ a {
   font-weight: 600;
   border-radius: 22px;
   corner-shape: squircle;
-  transition: transform 0.15s ease, box-shadow 0.15s ease,
-    background-color 0.15s ease, color 0.15s ease;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    background-color 0.15s ease,
+    color 0.15s ease;
 }
 
 .btn:hover {
@@ -599,7 +615,8 @@ a {
 
 .btn--secondary:hover {
   background: var(--card-bg);
-  box-shadow: inset 0 0 0 1px var(--card-border),
+  box-shadow:
+    inset 0 0 0 1px var(--card-border),
     0 6px 20px rgba(0, 0, 0, 0.1);
 }
 
@@ -622,7 +639,9 @@ a {
   background: transparent;
   color: var(--text-soft);
   cursor: pointer;
-  transition: background 0.15s ease, color 0.15s ease;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
 }
 
 .theme-toggle:hover {
@@ -760,7 +779,6 @@ a {
 .footer-line {
   margin-bottom: 6px;
 }
-
 
 /* ---------- background canvas ---------- */
 
