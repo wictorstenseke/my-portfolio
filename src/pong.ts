@@ -8,6 +8,8 @@ const STEP = 1 / 120;
 const MAX_FRAME = 1 / 20; // clamp post-jank deltas so physics never explode
 const WIN_SCORE = 11;
 const FIGMA_BLUE = "#0c8ce9";
+const SPEEDUP = 1.09; // per paddle hit — a rally should heat up within a few bounces
+const GRAB = 32; // px of forgiveness around a paddle column for direct grabs
 
 type Side = {
   /** paddle center y */
@@ -17,6 +19,8 @@ type Side = {
   mode: "ai" | "drag" | "keys" | "grace";
   /** seconds left until a quiet human side falls back to the CPU */
   graceT: number;
+  /** pointer-to-paddle-center offset while dragging, so the grab doesn't jump */
+  grabOffset: number;
   /** held arrow keys, polled in the fixed update for smooth movement */
   keyUp: boolean;
   keyDown: boolean;
@@ -55,6 +59,7 @@ export function initPong(opts: {
   let ballR = 0;
   let serveSpeed = 0;
   let maxSpeed = 0;
+  let handleHalf = 14; // half the handle's box, for centering it on the paddle
 
   const left: Side = side(opts.leftHandle);
   const right: Side = side(opts.rightHandle);
@@ -64,6 +69,7 @@ export function initPong(opts: {
       prevY: 0,
       mode: "ai",
       graceT: 0,
+      grabOffset: 0,
       keyUp: false,
       keyDown: false,
       aiTarget: 0,
@@ -105,7 +111,8 @@ export function initPong(opts: {
     padX = Math.round(W * 0.05);
     ballR = Math.max(4, H * 0.018);
     serveSpeed = W * 0.45;
-    maxSpeed = W * 0.95;
+    maxSpeed = W * 1.1;
+    handleHalf = opts.leftHandle.offsetHeight / 2 || 14;
     if (kx > 0) {
       // carry relative positions and velocity across the resize
       ball.x *= kx;
@@ -221,7 +228,7 @@ export function initPong(opts: {
     // hit offset steers the ball, classic Pong: edge of the paddle = 60°
     const rel = Math.min(1, Math.max(-1, (ball.y - s.y) / (padH / 2)));
     const angle = rel * ((60 * Math.PI) / 180);
-    const v = Math.min(maxSpeed, speed() * 1.045);
+    const v = Math.min(maxSpeed, speed() * SPEEDUP);
     ball.vx = Math.cos(angle) * v * dir;
     ball.vy = Math.sin(angle) * v;
     ball.x = faceX + ballR * dir;
@@ -321,28 +328,34 @@ export function initPong(opts: {
 
   const canvasY = (clientY: number) => clientY - canvas.getBoundingClientRect().top;
 
+  // shared drag core — entered from a handle grab or a direct paddle grab
+  const startDrag = (s: Side, clientY: number) => {
+    s.grabOffset = canvasY(clientY) - s.y;
+    // ±half a paddle of slack, else snap to the grab point
+    if (Math.abs(s.grabOffset) > padH / 2) s.grabOffset = 0;
+    setMode(s, "drag");
+  };
+  const moveDrag = (s: Side, clientY: number) => {
+    if (s.mode !== "drag") return;
+    s.y = canvasY(clientY) - s.grabOffset;
+    clampPaddle(s);
+    s.prevY = s.y; // 1:1 under the finger — never interpolate against the drag
+  };
+  const endDrag = (s: Side) => {
+    if (s.mode !== "drag") return;
+    s.graceT = 2.5;
+    setMode(s, "grace");
+  };
+
   const attachInput = (s: Side) => {
     const h = s.handle;
-    let grabOffset = 0;
     const onDown = (e: PointerEvent) => {
       e.preventDefault();
       h.setPointerCapture(e.pointerId);
-      grabOffset = canvasY(e.clientY) - s.y;
-      // ±half a paddle of slack, else snap to the grab point
-      if (Math.abs(grabOffset) > padH / 2) grabOffset = 0;
-      setMode(s, "drag");
+      startDrag(s, e.clientY);
     };
-    const onMove = (e: PointerEvent) => {
-      if (s.mode !== "drag") return;
-      s.y = canvasY(e.clientY) - grabOffset;
-      clampPaddle(s);
-      s.prevY = s.y; // 1:1 under the finger — never interpolate against the drag
-    };
-    const onUp = () => {
-      if (s.mode !== "drag") return;
-      s.graceT = 2.5;
-      setMode(s, "grace");
-    };
+    const onMove = (e: PointerEvent) => moveDrag(s, e.clientY);
+    const onUp = () => endDrag(s);
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key !== "ArrowUp" && e.key !== "ArrowDown") return;
       e.preventDefault(); // the page must not scroll while steering
@@ -375,6 +388,60 @@ export function initPong(opts: {
       h.removeEventListener("keydown", onKeyDown);
       h.removeEventListener("keyup", onKeyUp);
       h.removeEventListener("blur", onBlur);
+    };
+  };
+
+  // the paddle itself is grabbable: a full-height strip around each paddle
+  // column, mouse/pen only — a touch there must stay a page scroll, and
+  // touch players have the (enlarged) edge handles with touch-action:none
+  const sideAt = (x: number): Side | null => {
+    if (x <= padX + padW + GRAB) return left;
+    if (x >= W - padX - padW - GRAB) return right;
+    return null;
+  };
+
+  const attachCanvasInput = () => {
+    const byPointer = new Map<number, Side>();
+    const onDown = (e: PointerEvent) => {
+      if (e.pointerType === "touch") return;
+      const s = sideAt(e.clientX - canvas.getBoundingClientRect().left);
+      if (!s) return;
+      e.preventDefault();
+      canvas.setPointerCapture(e.pointerId);
+      byPointer.set(e.pointerId, s);
+      startDrag(s, e.clientY);
+    };
+    const onMove = (e: PointerEvent) => {
+      const dragging = byPointer.get(e.pointerId);
+      if (dragging) {
+        moveDrag(dragging, e.clientY);
+        return;
+      }
+      if (e.pointerType === "touch") return;
+      // hover affordance over the grab strips
+      const s = sideAt(e.clientX - canvas.getBoundingClientRect().left);
+      canvas.style.cursor = s ? "ns-resize" : "";
+    };
+    const onUp = (e: PointerEvent) => {
+      const s = byPointer.get(e.pointerId);
+      if (!s) return;
+      byPointer.delete(e.pointerId);
+      endDrag(s);
+    };
+    const onLeave = () => {
+      canvas.style.cursor = "";
+    };
+    canvas.addEventListener("pointerdown", onDown);
+    canvas.addEventListener("pointermove", onMove);
+    canvas.addEventListener("pointerup", onUp);
+    canvas.addEventListener("pointercancel", onUp);
+    canvas.addEventListener("pointerleave", onLeave);
+    return () => {
+      canvas.removeEventListener("pointerdown", onDown);
+      canvas.removeEventListener("pointermove", onMove);
+      canvas.removeEventListener("pointerup", onUp);
+      canvas.removeEventListener("pointercancel", onUp);
+      canvas.removeEventListener("pointerleave", onLeave);
     };
   };
 
@@ -468,20 +535,19 @@ export function initPong(opts: {
     }
 
     // edge handles ride their paddles
-    left.handle.style.transform = `translate3d(0, ${ly - 14}px, 0)`;
-    right.handle.style.transform = `translate3d(0, ${ry - 14}px, 0)`;
+    left.handle.style.transform = `translate3d(0, ${ly - handleHalf}px, 0)`;
+    right.handle.style.transform = `translate3d(0, ${ry - handleHalf}px, 0)`;
   };
 
   // ---- loop ----
   let raf = 0;
   let running = false;
-  let visible = false;
   let lastTs = 0;
   let acc = 0;
 
   // reduced motion: no self-playing animation — the sim only runs while a
   // human side is active, otherwise the arena holds a still frame
-  const mayRun = () => visible && !document.hidden && (!reducedMq.matches || humanPlaying());
+  const mayRun = () => !document.hidden && (!reducedMq.matches || humanPlaying());
 
   const loop = (ts: number) => {
     if (!running) return;
@@ -529,16 +595,6 @@ export function initPong(opts: {
     ro.observe(canvas);
   }
 
-  const io = new IntersectionObserver(
-    (entries) => {
-      visible = entries.some((e) => e.isIntersecting);
-      if (visible) kick();
-      else stop();
-    },
-    { threshold: 0.15 },
-  );
-  io.observe(canvas);
-
   const onVisibility = () => {
     if (document.hidden) stop();
     else kick();
@@ -565,15 +621,18 @@ export function initPong(opts: {
 
   const detachL = attachInput(left);
   const detachR = attachInput(right);
+  const detachCanvas = attachCanvasInput();
+
+  kick(); // playing from page load — the rally is live before anyone scrolls
 
   return () => {
     stop();
     ro.disconnect();
-    io.disconnect();
     themeObserver.disconnect();
     document.removeEventListener("visibilitychange", onVisibility);
     reducedMq.removeEventListener("change", onReduced);
     detachL();
     detachR();
+    detachCanvas();
   };
 }

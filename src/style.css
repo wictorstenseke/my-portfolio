@@ -869,8 +869,21 @@ a {
   transform: scale(1.7);
 }
 
-.pong-hint {
-  user-select: none;
+/* touch plays through the handles (the canvas keeps scrolling free), so
+   give fingers a 44px target */
+@media (pointer: coarse) {
+  .pong-handle {
+    width: 44px;
+    height: 44px;
+  }
+
+  .pong-handle--left {
+    left: -22px;
+  }
+
+  .pong-handle--right {
+    right: -22px;
+  }
 }
 
 /* ---------- utilities ---------- */

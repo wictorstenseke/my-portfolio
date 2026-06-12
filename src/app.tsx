@@ -95,7 +95,6 @@ const noteId = (c: Client) => `logo-note-${c.name.toLowerCase().replace(/[^a-z0-
 
 export function App() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const pongWrapRef = useRef<HTMLDivElement>(null);
   const pongCanvasRef = useRef<HTMLCanvasElement>(null);
   const pongLeftRef = useRef<HTMLButtonElement>(null);
   const pongRightRef = useRef<HTMLButtonElement>(null);
@@ -266,36 +265,32 @@ export function App() {
     };
   }, []);
 
-  // pong loads only when its section approaches the viewport — the chunk is
-  // pure dead weight for visitors who never scroll to the bottom
+  // pong starts with the page — the rally is already in progress when the
+  // visitor scrolls down to it. Deferred past first paint like the scene.
   useEffect(() => {
-    const wrap = pongWrapRef.current;
-    if (!wrap) return;
     let disposed = false;
     let cleanup: (() => void) | undefined;
-    const io = new IntersectionObserver(
-      (entries) => {
-        if (!entries.some((e) => e.isIntersecting)) return;
-        io.disconnect();
-        import("./pong")
-          .then((m) => {
-            if (disposed || !pongCanvasRef.current || !pongLeftRef.current || !pongRightRef.current)
-              return;
-            cleanup = m.initPong({
-              canvas: pongCanvasRef.current,
-              leftHandle: pongLeftRef.current,
-              rightHandle: pongRightRef.current,
-              status: pongStatusRef.current,
-            });
-          })
-          .catch(() => {}); // decorative chunk — a failed load must never break the page
-      },
-      { rootMargin: "400px" },
-    );
-    io.observe(wrap);
+    const idle =
+      "requestIdleCallback" in window
+        ? (cb: () => void) => requestIdleCallback(cb)
+        : (cb: () => void) => setTimeout(cb, 300);
+    idle(() => {
+      if (disposed) return;
+      import("./pong")
+        .then((m) => {
+          if (disposed || !pongCanvasRef.current || !pongLeftRef.current || !pongRightRef.current)
+            return;
+          cleanup = m.initPong({
+            canvas: pongCanvasRef.current,
+            leftHandle: pongLeftRef.current,
+            rightHandle: pongRightRef.current,
+            status: pongStatusRef.current,
+          });
+        })
+        .catch(() => {}); // decorative chunk — a failed load must never break the page
+    });
     return () => {
       disposed = true;
-      io.disconnect();
       cleanup?.();
     };
   }, []);
@@ -401,7 +396,7 @@ export function App() {
         </section>
 
         <section class="container" data-scroll-reveal aria-label="Pong mini-game">
-          <div class="pong-wrap" ref={pongWrapRef}>
+          <div class="pong-wrap">
             <span class="statement-label" aria-hidden="true">
               pong.fig
             </span>
@@ -421,7 +416,6 @@ export function App() {
             />
             <p class="visually-hidden" aria-live="polite" ref={pongStatusRef} />
           </div>
-          <p class="pong-hint txt-sm">grab a handle to challenge the computer</p>
         </section>
       </main>
 
