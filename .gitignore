@@ -39,6 +39,10 @@ dist/
 .env
 .env.local
 
+### Playwright ###
+test-results/
+playwright-report/
+
 ### Docs ###
 docs/
 
