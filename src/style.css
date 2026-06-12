@@ -537,6 +537,24 @@ a {
   filter: invert(1) hue-rotate(180deg);
 }
 
+/* sheet closed by tap: focus returns to the card for keyboard/AT continuity,
+   but the scripted .focus() reads as :focus-visible on mobile — mute every
+   focus style until the card blurs (attribute set in closeSheet) */
+.logo[data-quiet-focus]:focus-visible {
+  outline: none;
+}
+
+.logo[data-quiet-focus]:focus-visible .logo-img img,
+[data-theme="dark"] .logo[data-quiet-focus]:focus-visible .logo-img img,
+[data-theme="dark"] .logo--dark[data-quiet-focus]:focus-visible .logo-img img {
+  filter: var(--logo-filter);
+}
+
+[data-theme="dark"] .logo[data-quiet-focus]:focus-visible {
+  background-color: var(--card-bg);
+  border-color: var(--card-border);
+}
+
 /* speech bubble — 16/16/16/4 radius + 1deg tilt, like the original.
    display:none below the breakpoint: even at opacity 0 it occupies layout
    and pushes the page wider than the viewport on mobile */

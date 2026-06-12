@@ -86,7 +86,7 @@ export function App() {
     }
   };
 
-  const closeSheet = () => {
+  const closeSheet = (viaKeyboard = false) => {
     if (sheetTimer.current !== undefined) return; // already closing
     setSheetClosing(true);
     sheetTimer.current = window.setTimeout(() => {
@@ -94,7 +94,18 @@ export function App() {
       setSheet(null);
       setSheetClosing(false);
       // hand focus back to the card that opened the sheet
-      openerRef.current?.focus();
+      const opener = openerRef.current;
+      if (opener) {
+        if (!viaKeyboard) {
+          // mobile browsers treat this scripted .focus() as :focus-visible and
+          // paint a ring after a plain tap — mark the card so CSS can mute it
+          opener.setAttribute("data-quiet-focus", "");
+          opener.addEventListener("blur", () => opener.removeAttribute("data-quiet-focus"), {
+            once: true,
+          });
+        }
+        opener.focus();
+      }
       openerRef.current = null;
     }, 240);
   };
@@ -108,7 +119,7 @@ export function App() {
     sheetRef.current?.querySelector<HTMLElement>(".sheet-close")?.focus();
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        closeSheet();
+        closeSheet(true);
         return;
       }
       // keep Tab inside the dialog while it is open
@@ -344,7 +355,13 @@ export function App() {
           }}
         >
           <div class="sheet" role="dialog" aria-modal="true" aria-label={sheet.name} ref={sheetRef}>
-            <button type="button" class="sheet-close" onClick={closeSheet} aria-label="Close">
+            {/* detail === 0 means the click came from Enter/Space, not a pointer */}
+            <button
+              type="button"
+              class="sheet-close"
+              onClick={(e) => closeSheet(e.detail === 0)}
+              aria-label="Close"
+            >
               <svg
                 aria-hidden="true"
                 width="16"
