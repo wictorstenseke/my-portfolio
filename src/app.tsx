@@ -95,6 +95,11 @@ const noteId = (c: Client) => `logo-note-${c.name.toLowerCase().replace(/[^a-z0-
 
 export function App() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const pongWrapRef = useRef<HTMLDivElement>(null);
+  const pongCanvasRef = useRef<HTMLCanvasElement>(null);
+  const pongLeftRef = useRef<HTMLButtonElement>(null);
+  const pongRightRef = useRef<HTMLButtonElement>(null);
+  const pongStatusRef = useRef<HTMLParagraphElement>(null);
   const boxRef = useRef<HTMLQuoteElement>(null);
   const sheetRef = useRef<HTMLDivElement>(null);
   const openerRef = useRef<HTMLElement | null>(null);
@@ -261,6 +266,40 @@ export function App() {
     };
   }, []);
 
+  // pong loads only when its section approaches the viewport — the chunk is
+  // pure dead weight for visitors who never scroll to the bottom
+  useEffect(() => {
+    const wrap = pongWrapRef.current;
+    if (!wrap) return;
+    let disposed = false;
+    let cleanup: (() => void) | undefined;
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((e) => e.isIntersecting)) return;
+        io.disconnect();
+        import("./pong")
+          .then((m) => {
+            if (disposed || !pongCanvasRef.current || !pongLeftRef.current || !pongRightRef.current)
+              return;
+            cleanup = m.initPong({
+              canvas: pongCanvasRef.current,
+              leftHandle: pongLeftRef.current,
+              rightHandle: pongRightRef.current,
+              status: pongStatusRef.current,
+            });
+          })
+          .catch(() => {}); // decorative chunk — a failed load must never break the page
+      },
+      { rootMargin: "400px" },
+    );
+    io.observe(wrap);
+    return () => {
+      disposed = true;
+      io.disconnect();
+      cleanup?.();
+    };
+  }, []);
+
   return (
     <div class="page">
       {/* biome-ignore lint/a11y/noAriaHiddenOnFocusable: a canvas without tabindex is not focusable — purely decorative background */}
@@ -359,6 +398,30 @@ export function App() {
               Email me
             </a>
           </div>
+        </section>
+
+        <section class="container" data-scroll-reveal aria-label="Pong mini-game">
+          <div class="pong-wrap" ref={pongWrapRef}>
+            <span class="statement-label" aria-hidden="true">
+              pong.fig
+            </span>
+            {/* biome-ignore lint/a11y/noAriaHiddenOnFocusable: a canvas without tabindex is not focusable — the handles and live region carry the AT experience */}
+            <canvas class="pong-canvas" ref={pongCanvasRef} aria-hidden="true" />
+            <button
+              type="button"
+              class="pong-handle pong-handle--left"
+              ref={pongLeftRef}
+              aria-label="Play the left paddle — drag, or use arrow keys"
+            />
+            <button
+              type="button"
+              class="pong-handle pong-handle--right"
+              ref={pongRightRef}
+              aria-label="Play the right paddle — drag, or use arrow keys"
+            />
+            <p class="visually-hidden" aria-live="polite" ref={pongStatusRef} />
+          </div>
+          <p class="pong-hint txt-sm">grab a handle to challenge the computer</p>
         </section>
       </main>
 
