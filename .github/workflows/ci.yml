@@ -21,6 +21,13 @@ jobs:
       - run: npm run lint
       # build includes tsc --noEmit
       - run: npm run build
+      # cache browser binaries; `install` skips downloads on a warm cache and
+      # only installs the apt deps webkit needs on the runner
+      - run: echo "PLAYWRIGHT_VERSION=$(node -p "require('@playwright/test/package.json').version")" >> "$GITHUB_ENV"
+      - uses: actions/cache@v5
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ env.PLAYWRIGHT_VERSION }}
       - run: npx playwright install --with-deps chromium webkit
       - run: npm test
       - uses: actions/upload-artifact@v7

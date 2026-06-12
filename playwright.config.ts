@@ -5,6 +5,8 @@ export default defineConfig({
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
+  // runner has 4 cores; tests are short and independent
+  workers: process.env.CI ? 4 : undefined,
   reporter: process.env.CI ? [["list"], ["html", { open: "never" }]] : "list",
   use: {
     baseURL: "http://localhost:4173",
@@ -17,8 +19,11 @@ export default defineConfig({
     { name: "webkit", use: { ...devices["Desktop Safari"] } },
   ],
   webServer: {
-    // test against the production build, not the dev server
-    command: "npm run build && npm run preview -- --port 4173 --strictPort",
+    // test against the production build, not the dev server. CI has already
+    // built (and deploys that same dist), so don't rebuild there
+    command: process.env.CI
+      ? "npm run preview -- --port 4173 --strictPort"
+      : "npm run build && npm run preview -- --port 4173 --strictPort",
     url: "http://localhost:4173",
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,
