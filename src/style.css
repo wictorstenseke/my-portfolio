@@ -839,12 +839,17 @@ a {
   transition: none;
 }
 
+/* the grip rides in the gutter OUTSIDE the frame; the paddle (the bouncer)
+   stays inside it. --grip-shift nudges only the visual dot outward — the hit
+   box stays centred on the edge so the touch target never nears the screen */
 .pong-handle--left {
   left: -14px;
+  --grip-shift: -10px;
 }
 
 .pong-handle--right {
   right: -14px;
+  --grip-shift: 10px;
 }
 
 .pong-handle::after {
@@ -853,6 +858,7 @@ a {
   height: 7px;
   background-color: var(--text);
   outline: 1px solid var(--bg);
+  transform: translateX(var(--grip-shift, 0));
   transition:
     transform 0.15s ease,
     background-color 0.15s ease;
@@ -860,13 +866,13 @@ a {
 
 .pong-handle:hover::after,
 .pong-handle:focus-visible::after {
-  transform: scale(1.7);
+  transform: translateX(var(--grip-shift, 0)) scale(1.7);
 }
 
 /* a grabbed side is a selected layer: figma blue */
 .pong-handle[data-live]::after {
   background-color: #0c8ce9;
-  transform: scale(1.7);
+  transform: translateX(var(--grip-shift, 0)) scale(1.7);
 }
 
 /* best-rallies list — filled by JS after the first registered run,
@@ -893,27 +899,38 @@ a {
 .pong-scores ol {
   list-style: none;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   gap: 0.5rem;
   margin: 0;
   padding: 0;
 }
 
+/* each run is a stacked badge: the return count over its date as subtext */
 .pong-scores li {
   display: flex;
-  align-items: baseline;
-  gap: 0.375rem;
-  padding: 0.25rem 0.75rem;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.0625rem;
+  min-width: 3.5rem;
+  padding: 0.375rem 0.875rem;
   background-color: var(--card-bg);
   border: 1px solid var(--card-border);
-  border-radius: 999px;
+  border-radius: 0.75rem;
   color: var(--text-soft);
 }
 
 .pong-scores li b {
   font-weight: 600;
+  font-size: 1.0625rem;
+  line-height: 1.15;
   color: var(--text);
+}
+
+.pong-scores li span {
+  font-size: 0.625rem;
+  line-height: 1;
+  letter-spacing: 0.01em;
 }
 
 /* the reigning best wears the accent, like the section labels */
@@ -941,6 +958,16 @@ a {
 
   .pong-handle--right {
     right: -22px;
+  }
+}
+
+/* on a phone the enlarged handles sit on the canvas edges, a hair from the
+   screen edge (and its swipe-back zone). pull the whole arena in so fingers
+   have room — width:auto lets the flex stretch honour the margin, not overflow */
+@media (pointer: coarse) and (max-width: 36.25rem) {
+  .pong-wrap {
+    width: auto;
+    margin-inline: 1.5rem;
   }
 }
 
