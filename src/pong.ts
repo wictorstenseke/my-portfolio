@@ -10,6 +10,17 @@ const STEP = 1 / 120;
 const MAX_FRAME = 1 / 20; // clamp post-jank deltas so physics never explode
 const FIGMA_BLUE = "#0c8ce9";
 const SPEEDUP = 1.13; // per paddle hit — the rally turns hot within a handful of bounces
+// CPU difficulty. The old AI solved the ball's landing spot the instant it
+// turned and could cross the whole arena twice over before it arrived, so its
+// read error never exceeded the paddle it was steering — unbeatable by
+// construction. It now reads the ball late, moves at a speed that actually
+// binds, and rolls a near-miss whose odds climb with the rally.
+const AI_SPEED = 1.05; // arena heights per second — a real ceiling, not decoration
+const AI_COMMIT = 0.62; // only reads the ball inside this fraction of the court
+const AI_REACT = 0.09; // seconds of stillness after the ball crosses that line
+const AI_REACT_JITTER = 0.1;
+const AI_MISS_CAP = 0.38; // ceiling on the per-approach near-miss roll
+const BEAT = 0.6; // seconds the frame stays lit after the player scores
 const GRAB = 32; // px of forgiveness around a paddle column for direct grabs
 const SCORES_KEY = "pong-scores";
 const SCORES_MAX = 5;
@@ -31,6 +42,8 @@ type Side = {
   aiTarget: number;
   /** error refreshes once per approach, not per step — looks like commitment */
   aiArmed: boolean;
+  /** counts down from the commit line to the read; < 0 = nothing to react to */
+  aiReactT: number;
   handle: HTMLElement;
 };
 
@@ -76,6 +89,7 @@ export function initPong(opts: {
       keyDown: false,
       aiTarget: 0,
       aiArmed: false,
+      aiReactT: -1,
       handle,
     };
   }
@@ -84,6 +98,8 @@ export function initPong(opts: {
   let phase: Phase = { kind: "serve", t: 0.9 };
   let serveDir = Math.random() < 0.5 ? -1 : 1;
   const trail: Array<{ x: number; y: number }> = [];
+  let rallyHits = 0; // paddle touches this rally — the CPU's read decays with it
+  let beatT = 0; // seconds left of the frame flash that marks a CPU miss
 
   // ---- theme ----
   const colors = { text: "#222", soft: "#636363", border: "#eae6e8", accent: "#ffcebd" };
@@ -151,8 +167,11 @@ export function initPong(opts: {
     ball.vx = Math.cos(angle) * serveSpeed * serveDir;
     ball.vy = Math.sin(angle) * serveSpeed;
     trail.length = 0;
+    rallyHits = 0;
     left.aiArmed = false;
     right.aiArmed = false;
+    left.aiReactT = -1;
+    right.aiReactT = -1;
     phase = { kind: "serve", t: 0.9 };
   };
 
@@ -229,30 +248,63 @@ export function initPong(opts: {
   // gauss-ish in [-1, 1], biased to small misses
   const err = () => (Math.random() + Math.random() + Math.random()) / 1.5 - 1;
 
-  const predictY = (faceX: number): number => {
+  const courtW = () => W - 2 * (padX + padW);
+
+  // where the ball meets faceX, folding wall bounces. The bounce count comes
+  // back too: a ball that banked on its way over is harder to call.
+  const predictY = (faceX: number): { y: number; bounces: number } => {
     const t = (faceX - ball.x) / ball.vx;
-    if (t <= 0) return H / 2;
+    if (t <= 0) return { y: H / 2, bounces: 0 };
     const span = H - 2 * ballR;
-    let y = ball.y - ballR + ball.vy * t;
-    y = ((y % (2 * span)) + 2 * span) % (2 * span);
-    return (y <= span ? y : 2 * span - y) + ballR;
+    const raw = ball.y - ballR + ball.vy * t;
+    const folded = ((raw % (2 * span)) + 2 * span) % (2 * span);
+    const bounces = raw > span ? Math.floor(raw / span) : raw < 0 ? Math.floor(-raw / span) + 1 : 0;
+    return { y: (folded <= span ? folded : 2 * span - folded) + ballR, bounces };
+  };
+
+  // one read per approach — the CPU commits to it, right or wrong
+  const aimAt = (faceX: number): number => {
+    const { y, bounces } = predictY(faceX);
+    const hot = speed() / maxSpeed;
+    // odds of blowing the read climb with the rally and the ball's pace, so the
+    // opening exchanges are safe and a long rally is genuinely winnable
+    const missP = Math.min(AI_MISS_CAP, Math.max(0, 0.01 + 0.022 * rallyHits + 0.11 * (hot - 0.4)));
+    if (Math.random() < missP) {
+      // a near-miss, not a whiff: sit just past the paddle's reach, and step
+      // toward the open half so the wall clamp can't hand back an accidental save
+      const off = padH / 2 + ballR + Math.random() * 0.3 * padH;
+      let dir = Math.random() < 0.5 ? -1 : 1;
+      if (y + dir * off < padH / 2 || y + dir * off > H - padH / 2) dir = -dir;
+      return y + dir * off;
+    }
+    return y + padH * (0.22 + 0.5 * hot + 0.18 * bounces) * err();
   };
 
   const stepAI = (s: Side, isLeft: boolean) => {
-    const incoming = isLeft ? ball.vx < 0 : ball.vx > 0;
-    if (phase.kind === "play" && incoming) {
-      if (!s.aiArmed) {
-        s.aiArmed = true;
-        const faceX = isLeft ? padX + padW : W - padX - padW;
-        // misjudge more when the rally is fast — that's where points come from
-        const wobble = padH * (0.22 + 0.5 * (speed() / maxSpeed)) * err();
-        s.aiTarget = predictY(faceX) + wobble;
-      }
-    } else {
+    const faceX = isLeft ? padX + padW : W - padX - padW;
+    const incoming = phase.kind === "play" && (isLeft ? ball.vx < 0 : ball.vx > 0);
+
+    if (!incoming) {
+      // someone else's ball — stroll home rather than park on the answer
       s.aiArmed = false;
+      s.aiReactT = -1;
       s.aiTarget = H / 2;
+    } else if (!s.aiArmed) {
+      // hold station until the ball is close enough to read, then take a beat
+      // before reading it: no knowing the answer the moment the ball turns
+      if (s.aiReactT < 0 && Math.abs(ball.x - faceX) <= courtW() * AI_COMMIT) {
+        s.aiReactT = AI_REACT + Math.random() * AI_REACT_JITTER;
+      }
+      if (s.aiReactT >= 0) {
+        s.aiReactT -= STEP;
+        if (s.aiReactT <= 0) {
+          s.aiArmed = true;
+          s.aiTarget = aimAt(faceX);
+        }
+      }
     }
-    const maxV = H * 1.35 * STEP; // beatable: the paddle has a speed limit
+
+    const maxV = H * AI_SPEED * STEP; // beatable: the paddle has a speed limit
     const d = s.aiTarget - s.y;
     if (Math.abs(d) > maxV) s.y += Math.sign(d) * maxV;
     else s.y = s.aiTarget;
@@ -274,6 +326,7 @@ export function initPong(opts: {
     ball.vx = Math.cos(angle) * v * dir;
     ball.vy = Math.sin(angle) * v;
     ball.x = faceX + ballR * dir;
+    rallyHits += 1;
     // a human return extends the current run
     if (s.mode !== "ai" && runCount >= 0) runCount += 1;
   };
@@ -314,6 +367,8 @@ export function initPong(opts: {
     if (conceder.mode !== "ai" && runCount > 0) {
       registerRun();
       runCount = 0;
+    } else if (conceder.mode === "ai" && humanPlaying()) {
+      beatT = BEAT; // the player got one past the CPU — say so on screen
     }
     serveDir = conceder === left ? -1 : 1; // the side that missed receives
     serve();
@@ -347,6 +402,8 @@ export function initPong(opts: {
         if (s.graceT <= 0) setMode(s, "ai");
       }
     }
+
+    if (beatT > 0) beatT = Math.max(0, beatT - STEP);
 
     if (phase.kind === "serve") {
       phase.t -= STEP;
@@ -520,12 +577,16 @@ export function initPong(opts: {
     ctx.stroke();
     ctx.setLineDash([]);
 
+    // a CPU miss lights the arena like a selected figma layer, then fades
+    const beat = beatT / BEAT;
+
     // ghost run counter — only once a human is in the rally; the demo is scoreless
     if (runCount >= 0) {
-      ctx.font = `600 ${Math.round(H * 0.2)}px "Instrument Sans Variable", sans-serif`;
+      const grow = reducedMq.matches ? 0 : 0.16 * beat;
+      ctx.font = `600 ${Math.round(H * 0.2 * (1 + grow))}px "Instrument Sans Variable", sans-serif`;
       ctx.textAlign = "center";
       ctx.textBaseline = "top";
-      ctx.globalAlpha = 0.14;
+      ctx.globalAlpha = 0.14 + 0.46 * beat;
       ctx.fillStyle = colors.soft;
       ctx.fillText(String(runCount), W / 2, H * 0.07);
       ctx.globalAlpha = 1;
@@ -575,6 +636,17 @@ export function initPong(opts: {
     ctx.lineWidth = 1;
     ctx.strokeRect(bx - r + 0.5, by - r + 0.5, r * 2 - 1, r * 2 - 1);
     ctx.globalAlpha = 1;
+
+    // scored-on frame, inset just inside the card's 1.25rem border
+    if (beat > 0) {
+      ctx.strokeStyle = FIGMA_BLUE;
+      ctx.globalAlpha = 0.9 * beat;
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.roundRect(1, 1, W - 2, H - 2, 19);
+      ctx.stroke();
+      ctx.globalAlpha = 1;
+    }
 
     // edge handles ride their paddles
     left.handle.style.transform = `translate3d(0, ${ly - handleHalf}px, 0)`;
