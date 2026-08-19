@@ -173,6 +173,13 @@ function curtainWipe(nextDark: boolean, applyTheme: () => void): () => void {
 // instant-completes a running curtain wipe when the user re-toggles mid-sweep
 let cancelCurtain: (() => void) | null = null;
 
+// the wave riding the current view transition. A re-toggle has to end it: the
+// browser skips the old transition but not the animation we started on its
+// pseudo-element, so without this, spamming the toggle piles up 1100ms
+// full-viewport clip-path animations — dozens at once, none of them
+// compositable, which is enough to take the renderer process down.
+let waveAnim: Animation | null = null;
+
 /**
  * Flip the theme with the wavy sweep. Re-toggling mid-sweep restarts: the
  * running sweep instant-completes and a fresh wave launches from the corner.
@@ -200,10 +207,13 @@ export function toggleTheme(onApply: (dark: boolean) => void): void {
   // a still-running transition is skipped by the browser here: its callback
   // has already applied that theme, so the page pops to it and the new wave
   // sweeps from there — the skipped ready/finished rejections land in catch
+  waveAnim?.cancel();
+  waveAnim = null;
+
   const vt = document.startViewTransition(applyNext);
   vt.ready
     .then(() => {
-      document.documentElement.animate(
+      waveAnim = document.documentElement.animate(
         { clipPath: waveFrames() },
         {
           duration: 1100,
